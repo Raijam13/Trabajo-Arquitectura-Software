@@ -1,0 +1,29 @@
+Si es la primera vez que lo ejecutas:
+    npm install
+    #instala las dependencias necesarias
+Resumen de Herramientas:
+    Node.js + Express.js para el backend.
+        Node.js es la plataforma más común para construir backends con JavaScript, 
+        mientras que Express.js es un framework minimalista que te permite manejar rutas, middleware y peticiones HTTP fácilmente.
+    MongoDB + Mongoose para la base de datos.
+    JWT para autenticación.
+    bcryptjs para cifrado de contraseñas.
+Rutas principales (routes/users.js):
+    Usuarios (compradores y vendedores): Crear, actualizar, borrar y obtener datos de los usuarios.
+    Servicios: Crear, actualizar, borrar y listar servicios (electricista, plomero, etc.).
+Modelos para Usuarios y Servicios (models/service.js):
+    Define los esquemas en Mongoose para estructurar tus colecciones:
+    // Esquema de Servicio
+    const serviceSchema = new mongoose.Schema({
+        title: { type: String, required: true },
+        description: { type: String, required: true },
+        price: { type: Number, required: true },
+        provider: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }, // Referencia al usuario vendedor
+        createdAt: { type: Date, default: Date.now }
+    });
+Funcionalidades específicas:
+    Búsqueda de servicios: Implementar filtros por tipo de trabajo, precio y ubicación.
+    router.get('/services', async (req, res) => {
+        const services = await Service.find(req.query); // Filtros basados en query
+        res.json(services);
+    });
