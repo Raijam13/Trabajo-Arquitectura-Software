@@ -3,6 +3,8 @@ import Styles from './page.module.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Image from 'next/image';
+import ima from './foto.png'
 
 
 const login = () =>{
@@ -21,15 +23,16 @@ const login = () =>{
                                     <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Correo</Form.Label>
-                        <Form.Control type="email" placeholder="Ingrese su correo" />
+                        <Form.Control type="email"  />
                         <Form.Text className="text-muted">
-                        We'll never share your email with anyone else.
+                       
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Password" />
+                        
+                        <Form.Control type="password"  />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
@@ -50,7 +53,16 @@ const login = () =>{
             </div>
 
             <div className={Styles.containerr}>
-                    d
+                    <Image
+                    src={ima}
+                    style={{
+                        maxWidth: '100%',
+                        height: 'auto',
+
+                    }}
+                    >
+                        
+                    </Image>
             </div>
         
 
