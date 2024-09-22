@@ -7,7 +7,7 @@ import Image from 'next/image';
 import ima from './foto.png'
 
 
-const login = () =>{
+const registro = () =>{
     return (
         <div className={Styles.render}>
             <link rel="preconnect" href="https://fonts.googleapis.com"></link>
@@ -17,10 +17,18 @@ const login = () =>{
             <div className={Styles.containerl}>
             
                 <div className={Styles.formulario}>
-                    <h2>Bienvenido!</h2>
-                    <p>Ingresa tus credenciales para iniciar sesión</p>
+                    <h2>Unete a nuestra plataforma</h2>
+                    
                   
-                                    <Form>
+                    <Form>
+                    <Form.Group className="mb-3" controlId="formBasicEmail">
+                        <Form.Label>Correo</Form.Label>
+                        <Form.Control type="email"  />
+                        <Form.Text className="text-muted">
+                       
+                        </Form.Text>
+                    </Form.Group>
+
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Correo</Form.Label>
                         <Form.Control type="email"  />
@@ -71,6 +79,6 @@ const login = () =>{
     
 }
 
-export default login;
+export default registro;
    
   
