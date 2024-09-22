@@ -15,8 +15,8 @@ router.post('/signup', async (req, res) => {
     
     // Crear un nuevo usuario
     const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
+      usuario: req.body.usuario,
+      gmail: req.body.gmail,
       password: hashedPassword
     });
     
@@ -31,8 +31,8 @@ router.post('/signup', async (req, res) => {
 // Iniciar sesión y generar JWT (POST /users/login)
 router.post('/login', async (req, res) => {
   try {
-    // Buscar al usuario por email
-    const user = await User.findOne({ email: req.body.email });
+    // Buscar al usuario por gmail
+    const user = await User.findOne({ gmail: req.body.gmail });
     if (!user) return res.status(400).send('Usuario no encontrado');
 
     // Verificar la contraseña
