@@ -20,8 +20,7 @@ const comentarioSchema = new mongoose.Schema({
 });
 const Comentario = mongoose.model('Comentario', comentarioSchema);
 // Definir el esquema del servicio
-const serviceSchema = new mongoose.Schema({
-  ruc: { type: Number, required: true },
+const serviceSchema = new mongoose.Schema({  
   tipo: {
     type: String,
     enum: ['Electricista', 'Cocinero', 'Aseo', 'Gastifero', 'Jardinero', 'Cerrajero'],
