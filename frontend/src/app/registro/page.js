@@ -30,7 +30,7 @@ const registro = () =>{
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicPassword">
-                        <Form.Label>Password</Form.Label>
+                        <Form.Label>Contraseña</Form.Label>
                         
                         <Form.Control type="password"  />
                     </Form.Group>
@@ -38,7 +38,14 @@ const registro = () =>{
                         
                     </Form.Group>
 
-                    <Form.Group className="mb-3" controlId="formnombres">
+                   
+                   
+
+
+                    <div className={Styles.form2}>
+                        <div className={Styles.col}>
+                            <div className={Styles.row}>
+                            <Form.Group className="mb-3" controlId="formnombres">
                         <Form.Label>Nombres</Form.Label>
                         <Form.Control type="email"  />
                         <Form.Text className="text-muted">
@@ -46,10 +53,47 @@ const registro = () =>{
                         </Form.Text>
                     </Form.Group>
 
-                    <div className="d-grid gap-2">
+                    <Form.Group className="mb-3" controlId="formtelef">
+                        <Form.Label>Telefono</Form.Label>
+                        <Form.Control type="email"  />
+                        <Form.Text className="text-muted">
+                       
+                        </Form.Text>
+                    </Form.Group>
+                            </div>
+
+                        </div>
+                        <div className={Styles.col}>
+                            <div className={Styles.row}>
+                            <Form.Group className="mb-3" controlId="formapellidos">
+                        <Form.Label>Apellidos</Form.Label>
+                        <Form.Control type="name"  />  
+                        <Form.Text className="text-muted">
+                       
+                        </Form.Text>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formdni">
+                        <Form.Label>DNI</Form.Label>
+                        <Form.Control type="email"  />
+                        <Form.Text className="text-muted">
+                       
+                        </Form.Text>
+                    </Form.Group>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <div className={Styles.boton}>
+                        <div className="d-grid gap-2">
                         <Button variant="primary" size="lg">
-                            Iniciar sesión
+                            Registrarse
                         </Button>
+                        </div>
                     </div>
                     </Form>
 
