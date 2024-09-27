@@ -5,9 +5,17 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import ima from './foto.png'
-
+import { useState } from 'react';
 
 const registro = () =>{
+
+    const [isChecked, setIsChecked] = useState(true);
+
+    const handleCheckboxChange = (event) => {
+      setIsChecked(false);
+    };
+  
+
     return (
         <div className={Styles.render}>
             <link rel="preconnect" href="https://fonts.googleapis.com"></link>
@@ -60,6 +68,14 @@ const registro = () =>{
                        
                         </Form.Text>
                     </Form.Group>
+
+                    <Form.Group className="mb-3" controlId="formruc">
+                        <Form.Label>RUC</Form.Label>
+                        <Form.Control type="email" disabled={isChecked}  />
+                        <Form.Text className="text-muted">
+                       
+                        </Form.Text>
+                    </Form.Group>
                             </div>
 
                         </div>
@@ -80,6 +96,19 @@ const registro = () =>{
                        
                         </Form.Text>
                     </Form.Group>
+
+                    <div className="container mt-4">
+                    
+                        <Form.Check 
+                        type="checkbox" 
+                        label="Quiero ser Proveedor"
+                        onChange={handleCheckboxChange} 
+                        />
+
+                        
+                    
+                    </div>
+
 
                             </div>
                         </div>
