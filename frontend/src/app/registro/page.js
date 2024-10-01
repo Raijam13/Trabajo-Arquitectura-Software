@@ -15,6 +15,13 @@ const registro = () =>{
       setIsChecked(false);
     };
   
+    const [full, setIsfull] = useState(false);
+
+
+    const handleform = (event) => {
+        
+    }
+
 
     return (
         <div className={Styles.render}>
@@ -119,7 +126,7 @@ const registro = () =>{
 
                     <div className={Styles.boton}>
                         <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg">
+                        <Button variant="primary" size="lg" onChange>
                             Registrarse
                         </Button>
                         </div>
