@@ -10,14 +10,17 @@ import React,{ useState} from 'react';
 const login = () =>{
 
 
-    const [email, setEmail] = useState('');
+    const [correo, setCorreo] = useState('');
     const [contra, setContra] = useState('');
+
+    let email = "";
+    let password = 0 ;
  
   
     // Función que maneja el envío del formulario
     const handleButtonClick = (e) => {
       const formData = {
-        email: email,
+        email: correo,
         password: contra,   
         
       };
@@ -45,7 +48,7 @@ const login = () =>{
                     <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Correo</Form.Label>
-                        <Form.Control type="email" onChange={e => setEmail(e.target.value)} />
+                        <Form.Control type="email" onChange={e => setCorreo(e.target.value)} />
                         <Form.Text className="text-muted">
                        
                         </Form.Text>
