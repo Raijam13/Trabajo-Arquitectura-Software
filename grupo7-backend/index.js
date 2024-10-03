@@ -22,6 +22,22 @@ app.get('/', (req, res) => {
 const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
 
+// Rutas de servicios
+const serviceRoutes = require('./routes/services');
+app.use('/services', serviceRoutes);
+
+// Rutas de comentarios
+const comentarioRoutes = require('./routes/comentarios');
+app.use('/comentarios', comentarioRoutes);
+
+// Rutas de fotos
+const fotoRoutes = require('./routes/fotos');
+app.use('/fotos', fotoRoutes);
+
+// Rutas de compras
+const compraRoutes = require('./routes/compras');
+app.use('/compras', compraRoutes);
+
 // Iniciar servidor en IPv4 (127.0.0.1)
 app.listen(PORT, '127.0.0.1', () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
