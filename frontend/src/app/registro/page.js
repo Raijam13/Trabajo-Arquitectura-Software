@@ -6,21 +6,26 @@ import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import ima from './foto.png'
 import { useState } from 'react';
+import regis from '../../api/registro'
 
 const registro = () =>{
 
     const [isChecked, setIsChecked] = useState(true);
 
-    const handleCheckboxChange = (event) => {
-      setIsChecked(false);
-    };
+    const [email, setCorreo] = useState('');
+    const [name, setName] = useState('');
+    const [contra, setContra] = useState('');
+    const [telf, setTelf] = useState('');
+    const [ruc,setRuc] = useState('');
+    const [apell,setApell] = useState('');
+
   
     const [full, setIsfull] = useState(false);
 
-
-    const handleform = (event) => {
-        
-    }
+    const handleCheckboxChange = (event) => {
+        setIsChecked(false);
+      };
+  
 
 
     return (
@@ -38,7 +43,7 @@ const registro = () =>{
                     <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Correo</Form.Label>
-                        <Form.Control type="email"  />
+                        <Form.Control type="email" onChange={e => setCorreo(e.target.value)} />
                         <Form.Text className="text-muted">
                        
                         </Form.Text>
@@ -47,7 +52,7 @@ const registro = () =>{
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Contraseña</Form.Label>
                         
-                        <Form.Control type="password"  />
+                        <Form.Control type="password" onChange={e => setContra(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         
@@ -62,15 +67,15 @@ const registro = () =>{
                             <div className={Styles.row}>
                             <Form.Group className="mb-3" controlId="formnombres">
                         <Form.Label>Nombres</Form.Label>
-                        <Form.Control type="email"  />
+                        <Form.Control type="email"  onChange={e => setName(e.target.value)}/>
                         <Form.Text className="text-muted">
                        
                         </Form.Text>
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formtelef">
-                        <Form.Label>Telefono</Form.Label>
-                        <Form.Control type="email"  />
+                        <Form.Label>Telefono</Form.Label >
+                        <Form.Control type="email" onChange={e => setTelf(e.target.value)}  />
                         <Form.Text className="text-muted">
                        
                         </Form.Text>
@@ -78,7 +83,7 @@ const registro = () =>{
 
                     <Form.Group className="mb-3" controlId="formruc">
                         <Form.Label>RUC</Form.Label>
-                        <Form.Control type="email" disabled={isChecked}  />
+                        <Form.Control type="email" disabled={isChecked} onChange={e => setRuc(e.target.value)}   />
                         <Form.Text className="text-muted">
                        
                         </Form.Text>
@@ -89,8 +94,8 @@ const registro = () =>{
                         <div className={Styles.col}>
                             <div className={Styles.row}>
                             <Form.Group className="mb-3" controlId="formapellidos">
-                        <Form.Label>Apellidos</Form.Label>
-                        <Form.Control type="name"  />  
+                        <Form.Label>Apellidos</Form.Label >
+                        <Form.Control type="name" onChange={e => setApell(e.target.value)}  />  
                         <Form.Text className="text-muted">
                        
                         </Form.Text>
@@ -110,10 +115,7 @@ const registro = () =>{
                         type="checkbox" 
                         label="Quiero ser Proveedor"
                         onChange={handleCheckboxChange} 
-                        />
-
-                        
-                    
+                        />              
                     </div>
 
 
@@ -126,7 +128,7 @@ const registro = () =>{
 
                     <div className={Styles.boton}>
                         <div className="d-grid gap-2">
-                        <Button variant="primary" size="lg" onChange>
+                        <Button variant="primary" size="lg"   onClick={function(){regis( )}}  >
                             Registrarse
                         </Button>
                         </div>

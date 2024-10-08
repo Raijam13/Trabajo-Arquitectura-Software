@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 
 // Clave secreta para firmar el token (guárdala en un archivo de variables de entorno para mayor seguridad)
-const JWT_SECRET = process.env.JWT_SECRET;// || 'default_secret';
+const JWT_SECRET = process.env.JWT_SECRET;
 
 // Registrar un nuevo usuario (POST /users/signup)
 router.post('/signup', async (req, res) => {
@@ -15,9 +15,16 @@ router.post('/signup', async (req, res) => {
     
     // Crear un nuevo usuario
     const newUser = new User({
-      name: req.body.name,
-      email: req.body.email,
-      password: hashedPassword
+      usuario: req.body.usuario,
+      gmail: req.body.gmail,
+      password: hashedPassword,
+      nombre_completo: req.body.nombre_completo,
+      dni: req.body.dni,
+      edad: req.body.edad,
+      telefono: req.body.telefono,
+      imagen_perfil: req.body.imagen_perfil,
+      id_compra: [],  // Inicialmente vacío
+      id_comentario: []  // Inicialmente vacío
     });
     
     // Guardar en la base de datos
@@ -27,12 +34,11 @@ router.post('/signup', async (req, res) => {
     res.status(400).send('Error al registrar usuario: ' + err.message);
   }
 });
-
 // Iniciar sesión y generar JWT (POST /users/login)
 router.post('/login', async (req, res) => {
   try {
-    // Buscar al usuario por email
-    const user = await User.findOne({ email: req.body.email });
+    // Buscar al usuario por correo electrónico (gmail)
+    const user = await User.findOne({ gmail: req.body.gmail });
     if (!user) return res.status(400).send('Usuario no encontrado');
 
     // Verificar la contraseña
@@ -40,18 +46,46 @@ router.post('/login', async (req, res) => {
     if (!isMatch) return res.status(400).send('Contraseña incorrecta');
 
     // Generar token JWT
-    const token = jwt.sign({ id: user._id}, JWT_SECRET, { expiresIn: '1h' }); // El token expira en 1 hora
+    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '1h' });
 
     res.json({ token });
   } catch (err) {
     res.status(400).send('Error al iniciar sesión: ' + err.message);
   }
 });
+// Obtener la información del usuario autenticado (GET /users/me)
+router.get('/me', authenticateToken, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id)
+      .populate('id_compra')  // Popula la referencia de compras
+      .populate('id_comentario');  // Popula la referencia de comentarios
 
-// Ruta protegida de ejemplo (GET /users/protected)
-router.get('/protected', authenticateToken, (req, res) => {
-  res.send('Acceso a la ruta protegida concedido');
+    if (!user) return res.status(404).send('Usuario no encontrado');
+
+    res.json(user);
+  } catch (err) {
+    res.status(400).send('Error al obtener la información del usuario: ' + err.message);
+  }
 });
+// Actualizar información del usuario (PUT /users/me)
+router.put('/me', authenticateToken, async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, req.body, { new: true });
+    res.json(updatedUser);
+  } catch (err) {
+    res.status(400).send('Error al actualizar la información del usuario: ' + err.message);
+  }
+});
+// Eliminar la cuenta del usuario autenticado (DELETE /users/me)
+router.delete('/me', authenticateToken, async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.user.id);
+    res.send('Cuenta eliminada correctamente');
+  } catch (err) {
+    res.status(400).send('Error al eliminar la cuenta: ' + err.message);
+  }
+});
+
 
 // Middleware para autenticar token JWT
 function authenticateToken(req, res, next) {
@@ -63,9 +97,10 @@ function authenticateToken(req, res, next) {
   // Verificar token
   jwt.verify(token, JWT_SECRET, (err, user) => {
     if (err) return res.status(403).send('Token inválido');
-    req.user = user;
+    req.user = user;  // Añadir la información del usuario a la solicitud
     next();
   });
 }
+
 
 module.exports = router;

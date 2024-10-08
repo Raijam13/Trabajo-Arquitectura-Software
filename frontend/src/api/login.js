@@ -27,8 +27,7 @@ const login = async function( mail, passw){
         // Guardar el token en el localStorage
         localStorage.setItem('token', token);
         
-        // Llamar a una función adicional si es necesario
-        press(); 
+      
         
         return token; // Devuelve el token
     } catch (error) {
@@ -39,13 +38,3 @@ const login = async function( mail, passw){
 
 
 
-const press = () => {
-
-
-    const storedUserData = localStorage.getItem('userData');
-    const datos = storedUserData ? JSON.parse(storedUserData) : null;
-    console.log(datos.resp)
-    console.log(datos.user)
-};
-
-export default login;
