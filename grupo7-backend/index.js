@@ -2,7 +2,7 @@ const express = require('express');
 require('dotenv').config(); // Carga el archivo .env (donde no se sube a GitHub)
 const mongoose = require('mongoose'); // Conexión a MongoDB
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3009;
 
 // Conexión a MongoDB
 const mongoURI = process.env.MONGODB_URI; // Toma la URI de MongoDB desde el archivo .env
