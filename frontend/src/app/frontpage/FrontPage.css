@@ -1,0 +1,216 @@
+.App {
+  text-align: center;
+}
+
+.content {
+  margin-top: 80px;
+  padding: 20px;
+}
+
+.sections {
+  display: flex;
+  margin-top: 20px;
+}
+
+.sector-1 {
+  width: 15%;
+  padding-right: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.sector-2 {
+  width: 85%;
+}
+
+h2 {
+  text-align: left;
+  margin-left: 20px;
+}
+
+.small-image {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+  margin-bottom: 20px;
+}
+
+/* Categorías */
+.categories {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.category-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  background-color: #a0a0a0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  text-align: center;
+  padding: 0;
+}
+
+.category-button svg {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.category-button:hover {
+  background-color: #888888;
+}
+
+.light-text {
+  color: #888;
+}
+
+/* Tabla de servicios */
+.tabla-servicios {
+  display: flex;
+  justify-content: center; /* Centra la cuadrícula en el sector 2 */
+}
+
+.tabla-servicios table {
+  width: 80%; /* Limita el ancho total de la cuadrícula */
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.tabla-servicios tbody {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
+  grid-template-rows: auto auto; /* 2 filas */
+  gap: 20px; /* Espacio entre los elementos */
+  justify-items: center; /* Centra las celdas dentro de la cuadrícula */
+}
+
+.tabla-servicios td {
+  width: 200px; /* Ajusta el ancho de cada celda */
+  padding: 15px;
+  vertical-align: top;
+}
+
+.servicio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.servicio img {
+  width: 150px;
+  height: 150px;
+}
+
+.servicio h3 {
+  margin: 10px 0;
+}
+
+.servicio .descripcion {
+  font-size: 12px;
+  color: #666;
+}
+
+.servicio .costo {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.servicio .botones {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.mas-detalles, .carrito {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.carrito {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.carrito svg {
+  font-size: 16px;
+}
+
+
+/* Paginación */
+.paginacion {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.paginacion button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.paginacion button:disabled {
+  background-color: #888;
+}
+
+/* Lower Banner */
+.lower-banner {
+  background-color: #1976d2; /* Fondo del footer */
+  padding: 20px;
+  text-align: center;
+  font-size: 12px;
+  color: white; /* Letras en blanco */
+}
+
+.lower-banner .links {
+  margin-bottom: 10px;
+}
+
+.lower-banner .links a {
+  margin: 0 10px;
+  text-decoration: none;
+  color: white; /* Color blanco para los enlaces */
+  font-weight: bold; /* Enlaces en negrita */
+}
+
+.lower-banner .links a:hover {
+  text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+.lower-banner p {
+  margin-top: 10px;
+  color: white; /* Color blanco para el copyright */
+}
+
