@@ -5,7 +5,6 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import { FaWrench, FaUtensils, FaBroom, FaShower, FaTree, FaLock, FaEllipsisH, FaShoppingCart } from 'react-icons/fa';
 
-
 function App() {
 
   // Estado para almacenar las imágenes del carrusel
@@ -15,7 +14,11 @@ function App() {
     "https://via.placeholder.com/1200x300"
   ]);
 
-  // Estado para almacenar los servicios (se simula que se actualizarán desde la base de datos)
+  // Estado para la geolocalización del usuario
+  const [location, setLocation] = useState({ lat: null, lng: null });
+  const [errorLocation, setErrorLocation] = useState(null);
+
+  // Estado para almacenar los servicios
   const [servicios, setServicios] = useState([
     { id: 1, img: "https://via.placeholder.com/150", titulo: "Servicio 1", descripcion: "Descripción del servicio 1", costo: "S/ 100" },
     { id: 2, img: "https://via.placeholder.com/150", titulo: "Servicio 2", descripcion: "Descripción del servicio 2", costo: "S/ 150" },
@@ -29,9 +32,8 @@ function App() {
   ]);
   const totalServicios = servicios.length;
 
-  // Estado para la paginación (página actual)
+  // Estado para la paginación
   const [paginaActual, setPaginaActual] = useState(1);
-  // Servicios por página (en este caso mostramos 8 servicios por página, 2x4)
   const serviciosPorPagina = 8;
   const indiceUltimoServicio = paginaActual * serviciosPorPagina;
   const indicePrimerServicio = indiceUltimoServicio - serviciosPorPagina;
@@ -53,27 +55,37 @@ function App() {
   ]);
   const trabajadoresOrdenados = [...trabajadores].sort((a, b) => b.calificacion - a.calificacion).slice(0, 10);
 
-  
-
   useEffect(() => {
-    // Aquí harías la llamada a la base de datos para obtener las imágenes
-    // Por ejemplo, podrías usar fetch para traer los datos y luego actualizar el estado
-    // fetch('api/imagenes')
-    //   .then(response => response.json())
-    //   .then(data => setImagenes(data));
-    // fetch('api/servicios')
-    //   .then(response => response.json())
-    //   .then(data => setServicios(data));
-    // fetch('api/trabajadores')
-    //   .then(response => response.json())
-    //   .then(data => setTrabajadores(data));
+    // Detectar la geolocalización del usuario
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+          });
+        },
+        (error) => {
+          setErrorLocation("Error obteniendo la ubicación: " + error.message);
+        }
+      );
+    } else {
+      setErrorLocation("Geolocalización no soportada por este navegador.");
+    }
   }, []);
 
   return (
     <div className="App">
       <Header />
       <div className="content">
-        {/* Carrusel de imágenes (COMPLETADO)*/}
+        {/* Mostrar la ubicación del usuario */}
+        {location.lat && location.lng ? (
+          <p>Tu ubicación: Latitud {location.lat}, Longitud {location.lng}</p>
+        ) : (
+          <p>{errorLocation ? errorLocation : "Obteniendo ubicación..."}</p>
+        )}
+
+        {/* Carrusel de imágenes */}
         <Carousel autoPlay interval={5000} infiniteLoop showThumbs={false} showStatus={false} >
           {imagenes.map((imagen, index) => (
             <div key={index}>
@@ -82,9 +94,9 @@ function App() {
           ))}
         </Carousel>
 
-        {/* Sección dividida en dos partes */}
+        {/* Resto del contenido */}
         <div className="sections">
-          {/* Primer sector: Tabla Top Trabajadores (COMPLETADO)*/}
+          {/* Top Trabajadores */}
           <div className="sector sector-1">
             <h2>Top 10 Trabajadores</h2>
             <table>
@@ -96,19 +108,16 @@ function App() {
               <tbody>
                 {trabajadoresOrdenados.map((trabajador, index) => (
                   <tr key={index}>
-                    <td>{index+1}. {trabajador.nombre} ({trabajador.calificacion}/5)</td>
+                    <td>{index + 1}. {trabajador.nombre} ({trabajador.calificacion}/5)</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>  
 
-          {/* Segundo sector: Categorías y productos */}
+          {/* Servicios */}
           <div className="sector sector-2">
-            {/* ANUNCIO */}
             <img src="https://via.placeholder.com/1000x200/" alt="Imagen categoría" className="small-image" />
-
-            {/* Subtítulo Categorías */}
             <h2>Categorías</h2>
             <div className="categories">
               <button className="category-button"><FaWrench /> Electricista</button>
@@ -119,11 +128,7 @@ function App() {
               <button className="category-button"><FaLock /> Cerrajeros</button>
               <button className="category-button"><FaEllipsisH /> Más</button>
             </div>
-
-            {/* Subtítulo Todos los servicios (COMPLETADO)*/}
             <h2>Todos los servicios <span className="light-text">({totalServicios})</span></h2>
-
-            {/* Tabla de servicios 2x4 (COMPLETADO)*/}
             <div className="tabla-servicios">
               <table>
                 <tbody>
@@ -135,8 +140,7 @@ function App() {
                         <p className="descripcion">{servicio.descripcion}</p>
                         <p className="costo"><strong>{servicio.costo}</strong></p>
                         <div className="botones">
-                          <button className="mas-detalles">Más Detalles</button>
-                          <button className="carrito"><FaShoppingCart /></button>
+                          <button className="agregar-btn"><FaShoppingCart /> Agregar</button>
                         </div>
                       </div>
                     </td>
@@ -144,26 +148,9 @@ function App() {
                 </tbody>
               </table>
             </div>
-
-            {/* Paginación (simulada) (COMPLETADO)*/}
-            <div className="paginacion">
-              <button disabled={paginaActual === 1} onClick={() => setPaginaActual(paginaActual - 1)}>Anterior</button>
-              <button onClick={() => setPaginaActual(paginaActual + 1)}>Siguiente</button>
-            </div>
           </div>
         </div>
-
       </div>
-      <footer className="lower-banner">
-          <div className="links">
-            <a href="/trabajo">Trabaja con nosotros</a>
-            <a href="/terminos">Términos y condiciones</a>
-            <a href="/privacidad">Cómo cuidamos tu privacidad</a>
-            <a href="/accesibilidad">Accesibilidad</a>
-            <a href="/ayuda">Ayuda</a>
-          </div>
-          <p>Copyright © 2024 Nameless Inc. Todos los derechos reservados.</p>
-        </footer>
     </div>
   );
 }
