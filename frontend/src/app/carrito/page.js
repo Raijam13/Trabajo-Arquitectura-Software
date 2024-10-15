@@ -39,10 +39,17 @@ const Cart = () => {
     cargarDatos();
   }, []);
 
-  // Manejar la eliminación de una propuesta del carrito y en la base de datos
-  const handleEliminarPropuesta = async (id) => {
-    await eliminarPropuesta(id); // Esto eliminará la propuesta de la BD
-    setPropuestas(propuestas.filter((propuesta) => propuesta._id !== id)); // Actualizamos el estado
+    // Manejar la eliminación de una propuesta del carrito y en la base de datos
+    const handleEliminarPropuesta = async (id) => {
+    const success = await eliminarPropuesta(id); // Llamamos a la función de eliminar
+  
+    if (success) {
+      // Si la eliminación fue exitosa, actualizamos el estado para eliminar la propuesta del array
+      setPropuestas(propuestas.filter((propuesta) => propuesta._id !== id));
+    } else {
+      // Manejar el caso de error si es necesario
+      console.error('No se pudo eliminar la propuesta');
+    }
   };
 
   // Función para mostrar un pop-up de confirmación
@@ -54,8 +61,9 @@ const Cart = () => {
     <div className={Styles.container}>
       <nav className={Styles.navbar}>
         <span className={Styles.nombreCliente}>{nombreCliente}</span>
+        <a href="/perfil" className={Styles.link}>Mi perfil</a>
         <a href="/inicio" className={Styles.link}>Inicio</a>
-        <a href="/ofertas" className={Styles.link}>Ofertas</a>
+        <a href="/solicitudes" className={Styles.link}>Mis solicitudes</a>
         <a href="/carrito" className={Styles.link}>Mi Carrito</a>
       </nav>
       

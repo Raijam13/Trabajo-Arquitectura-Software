@@ -56,8 +56,10 @@ export const eliminarPropuesta = async function(id) {
   
     if (response.ok) {
       console.log('Propuesta eliminada con éxito');
+      return true; // Retornamos un valor para confirmar que la eliminación fue exitosa
     } else {
       const errorMessage = await response.text();
       console.error('Error al eliminar propuesta:', errorMessage);
+      return false; // Retornamos un valor para indicar el fallo
     }
   };
