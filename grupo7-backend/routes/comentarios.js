@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Comentario = require('../models/comentario');
-const authenticateToken = require('../middlewares/authenticateToken');
 
 // Crear un nuevo comentario (POST /comentarios)
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newComentario = new Comentario(req.body);
     await newComentario.save();
