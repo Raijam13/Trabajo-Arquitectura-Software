@@ -37,17 +37,15 @@ router.get('/', async (req, res) => {
 // Eliminar un servicio (DELETE /services/:id)
 router.delete('/:id', authenticateToken, async (req, res) => {
   try {
-    // Eliminar el servicio de la colección de servicios
     const deletedService = await Service.findByIdAndDelete(req.params.id);
 
     if (!deletedService) {
       return res.status(404).send('Servicio no encontrado');
     }
 
-    // También eliminamos la referencia en el campo `id_compra` del usuario autenticado, si existe
     await User.updateOne(
       { _id: req.user.id }, 
-      { $pull: { id_compra: req.params.id } } // Eliminamos la referencia de `id_compra`
+      { $pull: { id_compra: req.params.id } }
     );
 
     res.send('Servicio eliminado correctamente');

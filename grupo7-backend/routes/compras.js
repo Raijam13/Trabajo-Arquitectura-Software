@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Compra = require('../models/Compra');
-const authenticateToken = require('../middlewares/authenticateToken');
 
 // Crear una nueva compra (POST /compras)
-router.post('/', authenticateToken, async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newCompra = new Compra(req.body);
     await newCompra.save();
@@ -14,10 +13,10 @@ router.post('/', authenticateToken, async (req, res) => {
   }
 });
 
-// Obtener todas las compras de un usuario (GET /compras)
-router.get('/', authenticateToken, async (req, res) => {
+// Obtener todas las compras (GET /compras)
+router.get('/', async (req, res) => {
   try {
-    const compras = await Compra.find({ comprador: req.user.id });
+    const compras = await Compra.find();
     res.json(compras);
   } catch (err) {
     res.status(400).send('Error al obtener compras: ' + err.message);

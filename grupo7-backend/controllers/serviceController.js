@@ -9,7 +9,6 @@ exports.crearServicio = async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  // Crear un nuevo servicio con los datos del cuerpo de la solicitud
   try {
     const nuevoServicio = new Service({
       tipo: req.body.tipo,
@@ -23,7 +22,7 @@ exports.crearServicio = async (req, res) => {
 
     // Guardar el nuevo servicio en la base de datos
     const servicioGuardado = await nuevoServicio.save();
-    res.status(201).json(servicioGuardado); // Responder con el servicio creado
+    res.status(201).json(servicioGuardado);
   } catch (error) {
     res.status(500).json({ message: 'Error al crear el servicio', error: error.message });
   }
@@ -32,8 +31,8 @@ exports.crearServicio = async (req, res) => {
 // Obtener todos los servicios (GET /api/services)
 exports.obtenerServicios = async (req, res) => {
   try {
-    const servicios = await Service.find(); // Encontrar todos los servicios en la BD
-    res.status(200).json(servicios); // Responder con la lista de servicios
+    const servicios = await Service.find(); 
+    res.status(200).json(servicios); 
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener servicios', error: error.message });
   }
@@ -42,13 +41,13 @@ exports.obtenerServicios = async (req, res) => {
 // Obtener un servicio por ID (GET /api/services/:id)
 exports.obtenerServicioPorId = async (req, res) => {
   try {
-    const servicio = await Service.findById(req.params.id); // Buscar un servicio por su ID
+    const servicio = await Service.findById(req.params.id);
 
     if (!servicio) {
       return res.status(404).json({ message: 'Servicio no encontrado' });
     }
 
-    res.status(200).json(servicio); // Responder con el servicio encontrado
+    res.status(200).json(servicio);
   } catch (error) {
     res.status(500).json({ message: 'Error al obtener el servicio', error: error.message });
   }
@@ -57,13 +56,13 @@ exports.obtenerServicioPorId = async (req, res) => {
 // Eliminar un servicio (DELETE /api/services/:id)
 exports.eliminarServicio = async (req, res) => {
   try {
-    const servicioEliminado = await Service.findByIdAndDelete(req.params.id); // Eliminar un servicio por su ID
+    const servicioEliminado = await Service.findByIdAndDelete(req.params.id); 
 
     if (!servicioEliminado) {
       return res.status(404).json({ message: 'Servicio no encontrado' });
     }
 
-    res.status(200).json({ message: 'Servicio eliminado correctamente' }); // Responder con éxito
+    res.status(200).json({ message: 'Servicio eliminado correctamente' }); 
   } catch (error) {
     res.status(500).json({ message: 'Error al eliminar el servicio', error: error.message });
   }
