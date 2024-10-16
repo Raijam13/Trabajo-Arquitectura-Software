@@ -1,15 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const Service = require('../models/service');
-const authenticateToken = require('../middlewares/authenticateToken');
-
-// Crear un nuevo servicio (POST /services)
 const { check, validationResult } = require('express-validator');
 
+// Crear un nuevo servicio (POST /services)
 router.post('/', [
   check('titulo').not().isEmpty().withMessage('El título es obligatorio'),
   check('costo_promedio').isNumeric().withMessage('El costo promedio debe ser un número'),
-], authenticateToken, async (req, res) => {
+], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -35,7 +33,7 @@ router.get('/', async (req, res) => {
 });
 
 // Eliminar un servicio (DELETE /services/:id)
-router.delete('/:id', authenticateToken, async (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
     const deletedService = await Service.findByIdAndDelete(req.params.id);
 
@@ -43,10 +41,12 @@ router.delete('/:id', authenticateToken, async (req, res) => {
       return res.status(404).send('Servicio no encontrado');
     }
 
-    await User.updateOne(
-      { _id: req.user.id }, 
-      { $pull: { id_compra: req.params.id } }
-    );
+    // Aquí eliminamos la referencia en `id_compra`, pero si no hay autenticación,
+    // no tenemos información del usuario, así que podemos omitir esta parte.
+    // await User.updateOne(
+    //   { _id: req.user.id }, 
+    //   { $pull: { id_compra: req.params.id } }
+    // );
 
     res.send('Servicio eliminado correctamente');
   } catch (err) {
@@ -54,7 +54,7 @@ router.delete('/:id', authenticateToken, async (req, res) => {
   }
 });
 
-
+// Rutas adicionales para listar servicios
 router.get('/', async (req, res) => {
   console.log('Solicitud GET recibida');
   try {
