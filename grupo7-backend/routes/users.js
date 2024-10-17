@@ -10,6 +10,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 // Registrar un nuevo usuario (POST /users/signup)
 router.post('/signup', async (req, res) => {
   try {
+    console.log(req.body); // Para ver los datos que llegan al servidor
+
     // Cifrar la contraseña
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     
@@ -18,9 +20,9 @@ router.post('/signup', async (req, res) => {
       usuario: req.body.usuario,
       gmail: req.body.gmail,
       password: hashedPassword,
+      edad: req.body.edad,
       nombre_completo: req.body.nombre_completo,
       dni: req.body.dni,
-      edad: req.body.edad,
       telefono: req.body.telefono,
       imagen_perfil: req.body.imagen_perfil,
       id_compra: [],  // Inicialmente vacío

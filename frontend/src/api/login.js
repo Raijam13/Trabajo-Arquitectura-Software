@@ -1,23 +1,20 @@
-
-
-const login = async function( mail, passw){
+const login = async function(email, password) {
     try {
-        const response = await fetch('http://localhost:3009/login', 
-        {
+        const response = await fetch('http://localhost:3009/users/login', {
             cache: 'no-store',
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json' // Se necesita para enviar JSON
             },
-            body: JSON.stringify({  
-                email: mail,
-                password: passw
+            body: JSON.stringify({
+                gmail: email,
+                password: password
             })
         });
 
-        // Verificar si la respuesta es correcta
+        // Verificar si la respuesta es correcta (si la respuesta no es 200 OK)
         if (!response.ok) {
-            throw new Error('Error al iniciar sesión: ' + response.statusText);
+            return null; // Retornar null si la respuesta no es exitosa
         }
 
         // Obtener el token del backend
@@ -27,14 +24,11 @@ const login = async function( mail, passw){
         // Guardar el token en el localStorage
         localStorage.setItem('token', token);
         
-      
-        
         return token; // Devuelve el token
     } catch (error) {
-        console.error(error);
+        console.error('Error en la API de inicio de sesión:', error);
         return null; // Manejar errores
     }
 };
 
-
-
+export default login;

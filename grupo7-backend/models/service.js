@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const serviceSchema = new mongoose.Schema({
   tipo: {
     type: String,
-    enum: ['Electricista', 'Cocinero', 'Aseo', 'Gastifero', 'Jardinero', 'Cerrajero'],
+    enum: ['Electricista', 'Cocinero', 'Aseo', 'Gasfitero', 'Jardinero', 'Cerrajero'],
     required: true
   },
   titulo: { type: String, required: true },

@@ -1,27 +1,30 @@
-
-
-const Registro = async function(name,mail,contra){
-    const response = await fetch ('http://localhost:3009/signup', 
-    {
+const regis = async function(name, apell, email, password, edad, dni, telefono, nombreCompleto) {
+    const response = await fetch('http://localhost:3009/users/signup', {
         cache: 'no-store',
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
-            name: name,
-            email : mail,
-            password : contra
+            usuario: name,
+            gmail: email,
+            password: password, // Contraseña
+            edad: Number(edad), // Convertir edad a número
+            nombre_completo: nombreCompleto, // Nombre completo
+            dni: Number(dni), // Convertir DNI a número
+            telefono: Number(telefono) // Convertir teléfono a número
         }),
-    })
-   
+    });
+
     if (response.status === 201) {
-        // Obtener el mensaje enviado por el servidor
-        const message = await response.text(); // El backend está enviando texto plano, no JSON
-        console.log('Success:', message); // Mostrar en consola
+        const message = await response.text();
+        console.log('Success:', message);
+        return message;
     } else {
-        // En caso de que no sea 201, mostrar un mensaje de error
         const errorMessage = await response.text();
-        console.log('Error:', errorMessage); // Mostrar el error en consola
+        console.error('Error:', errorMessage);
+        throw new Error(errorMessage);
     }
+};
 
-}
-
-
+export default regis;
