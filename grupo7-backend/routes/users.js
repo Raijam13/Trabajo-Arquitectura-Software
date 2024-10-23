@@ -3,9 +3,55 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-
+const Vendedor = require('../models/user');
 // Clave secreta para firmar el token (guárdala en un archivo de variables de entorno para mayor seguridad)
 const JWT_SECRET = process.env.JWT_SECRET;
+
+// Registrar a un vendedor (POST /users/signup)
+router.post('/signup_vendedor', async (req, res) => {
+  try {
+    console.log(req.body); // Para ver los datos que llegan al servidor
+
+    // Cifrar la contraseña
+    const hashedPassword = await bcrypt.hash(req.body.password, 10);
+    // Validar el RUC llamando a la API de Sunat
+    const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
+    const rucValidationUrl = `https://api.apis.net.pe/v2/sunat/ruc/full?numero=${ruc}`;
+    
+    const response = await axios.get(rucValidationUrl, {
+        headers: {
+            Authorization: `Bearer Token ${accessToken}` // Incluyendo el accessToken en el header
+        }
+    });
+    // Imprimir la respuesta completa para ver qué se devuelve
+    console.log('Respuesta de la API de Sunat:', response.data);
+    /**/
+
+    if (response.data.message && response.data.message === "ruc no valido") {
+        return res.status(400).json({ error: 'El RUC no es válido' });
+    } else{
+    // Crear un nuevo usuario
+    const newUser = new Vendedor({
+      usuario: req.body.usuario,
+      gmail: req.body.gmail,
+      password: hashedPassword,
+      edad: req.body.edad,
+      nombre_completo: req.body.nombre_completo,
+      ruc: req.body.nombre_completo,
+      dni: req.body.dni,
+      telefono: req.body.telefono,
+      imagen_perfil: req.body.imagen_perfil
+    });
+    }
+    // Guardar en la base de datos
+    await newUser.save();
+    res.status(201).send('Usuario registrado exitosamente');
+  
+  } catch (err) {
+    res.status(400).send('Error al registrar usuario: ' + err.message);
+  }
+
+});
 
 // Registrar un nuevo usuario (POST /users/signup)
 router.post('/signup', async (req, res) => {

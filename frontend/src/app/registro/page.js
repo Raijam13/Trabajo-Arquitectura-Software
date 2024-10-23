@@ -59,7 +59,11 @@ const Registro = () => {
             <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"></link>
             
             <div className={Styles.container}>
+            <br></br>
                 <div className={Styles.formulario}>
+                <br></br>
+                <br></br>
+                <br></br>
                     <h2>Únete a nuestra plataforma</h2>
                     <Form>
                         <Form.Group className="mb-3" controlId="formBasicEmail">
