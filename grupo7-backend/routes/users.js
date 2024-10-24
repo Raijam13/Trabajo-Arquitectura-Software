@@ -2,9 +2,12 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const Vendedor = require('../models/user');
-// Clave secreta para firmar el token (guárdala en un archivo de variables de entorno para mayor seguridad)
+//const User = require('../models/user');
+//const Vendedor = require('../models/user');
+const { User, Vendedor } = require('../models/user');
+
+const axios = require('axios'); // npm install axios
+
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Registrar a un vendedor (POST /users/signup)
@@ -16,17 +19,14 @@ router.post('/signup_vendedor', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     // Validar el RUC llamando a la API de Sunat
     const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
-    const rucValidationUrl = `https://api.apis.net.pe/v2/sunat/ruc/full?numero=${ruc}`;
-    
-    const response = await axios.get(rucValidationUrl, {
+    const apiruc = `https://api.apis.net.pe/v2/sunat/ruc/full?numero=${req.body.ruc}`;
+    const response = await axios.get(apiruc, {
         headers: {
-            Authorization: `Bearer Token ${accessToken}` // Incluyendo el accessToken en el header
+            Authorization: `Bearer ${accessToken}`
         }
     });
     // Imprimir la respuesta completa para ver qué se devuelve
     console.log('Respuesta de la API de Sunat:', response.data);
-    /**/
-
     if (response.data.message && response.data.message === "ruc no valido") {
         return res.status(400).json({ error: 'El RUC no es válido' });
     } else{
@@ -35,16 +35,19 @@ router.post('/signup_vendedor', async (req, res) => {
       usuario: req.body.usuario,
       gmail: req.body.gmail,
       password: hashedPassword,
-      edad: req.body.edad,
       nombre_completo: req.body.nombre_completo,
-      ruc: req.body.nombre_completo,
+      ruc: req.body.ruc,
       dni: req.body.dni,
+      edad: req.body.edad,
       telefono: req.body.telefono,
-      imagen_perfil: req.body.imagen_perfil
+      imagen_perfil: req.body.imagen_perfil,//No es obligatorio llenarlo
+      activdadEconomica: response.data.actividadEconomica,
+      id_servicio: []//No es obligatorio llenarlo
     });
-    }
     // Guardar en la base de datos
     await newUser.save();
+    }
+    
     res.status(201).send('Usuario registrado exitosamente');
   
   } catch (err) {
