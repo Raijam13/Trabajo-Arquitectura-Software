@@ -46,6 +46,11 @@ app.use('/fotos', fotoRoutes);
 // Rutas de compras
 const compraRoutes = require('./routes/compras');
 app.use('/compras', compraRoutes);
+
+// Rutas de resumen
+const resumenRoutes = require('./routes/resumen');
+app.use('/resumen', resumenRoutes);
+
 //===============================
 function runPythonScript() {
   const pythonProcess = spawn('C:/Users/USER/AppData/Local/Microsoft/WindowsApps/python.exe', ['routes/script_resumen.py']); // Cambia 'script.py' por la ruta correcta

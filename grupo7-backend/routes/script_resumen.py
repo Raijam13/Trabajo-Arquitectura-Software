@@ -4,8 +4,9 @@ import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from nltk.corpus import stopwords
-#Aun falta un poco más de funcionalidad, por ahora la ID del vendedor es estática.
-url = "http://localhost:3009/comentarios/671ac23dfdd3b7d8c1d73b9a"
+#Aun falta un poco más de funcionalidad, por ahora la ID del vendedor es estática. 671ac23dfdd3b7d8c1d73b9a
+variable_vendor = "671ac23dfdd3b7d8c1d73b9a"
+url = f"http://localhost:3009/comentarios/{variable_vendor}"
 
 def get_todo_comentarios():
     try:
@@ -75,3 +76,24 @@ def funcion_TextRank(lista):
 resumen_texto = funcion_TextRank(lista_preprocesadas)
 
 print("resumen_texto: ", resumen_texto)
+
+url2 = f"http://localhost:3009/resumen"
+
+def post_todo_resumen():
+    datos = {
+            "vendedor": str(variable_vendor),
+            "resumen":str(resumen_texto)
+    }
+    try:
+        response = requests.post(url2, json=datos)
+        if response.status_code in [200, 201]:
+            # Procesar la respuesta
+            print("El resumen se subio correctamente")
+        else:
+            print("Error en la petición post:", response.status_code)
+            
+    except requests.RequestException as e:
+        print("Error en la petición post:", e)
+        
+
+post_todo_resumen()
