@@ -1,6 +1,4 @@
 const express = require('express');
-const { spawn } = require('child_process');// Agregado
-const path = require('path');// Agregado
 require('dotenv').config(); // Carga el archivo .env (donde no se sube a GitHub)
 const mongoose = require('mongoose'); // Conexión a MongoDB
 const cors = require('cors'); // Habilitar CORS si es necesario
@@ -46,25 +44,6 @@ app.use('/fotos', fotoRoutes);
 // Rutas de compras
 const compraRoutes = require('./routes/compras');
 app.use('/compras', compraRoutes);
-//===============================
-function runPythonScript() {
-  const pythonProcess = spawn('C:/Users/USER/AppData/Local/Microsoft/WindowsApps/python.exe', ['routes/script_resumen.py']); // Cambia 'script.py' por la ruta correcta
-
-  pythonProcess.stdout.on('data', (data) => {
-      console.log(`Output: ${data}`); // Mostrar la salida del script en la consola
-  });
-
-  pythonProcess.stderr.on('data', (data) => {
-      console.error(`Error: ${data}`); // Mostrar cualquier error que ocurra
-  });
-
-  pythonProcess.on('close', (code) => {
-      console.log(`Proceso de Python finalizado con el código: ${code}`); // Mostrar el código de cierre del proceso
-  });
-}
-// Ejecutar script
-runPythonScript();
-//===============================
 
 // Iniciar servidor (usando 0.0.0.0 para permitir conexiones desde cualquier IP local)
 app.listen(PORT, '0.0.0.0', () => {
