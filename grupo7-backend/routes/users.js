@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const axios = require('axios');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+app.use(express.json());
 //const User = require('../models/user');
 //const Vendedor = require('../models/user');
 const { User, Vendedor } = require('../models/user');
@@ -156,49 +158,136 @@ function authenticateToken(req, res, next) {
 
 
 
+// // Consultar DNI
+// router.post('/vdni', async (req, res) => {
 
-// Consultar DNI
-router.post('/vdni', async (req, res) => {
-  try {
-    console.log(req.body); // Para ver los datos que llegan al servidor
+//   const { dni } = req.body;
+//   try {
+//     console.log(req.body); // Para ver los datos que llegan al servidor
 
-    res.status(202).send('Recibido')
+//     res.status(202).send('Recibido')
 
+//     estado = 0;
 
-
-
-    // Validar el DNI llamando a la API de Sunat
-    const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
-    const apidni = `https://api.apis.net.pe/v2/reniec/dni?numero=${req.body.dni}`;
-    const response = await axios.get(apidni, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    });
-    // Imprimir la respuesta completa para ver qué se devuelve
-    console.log('Respuesta de la API de RENIEC:', response.data);
-    if (response.data.message && response.data.message === "dni no valido") {
-        return res.status(400).json({ error: 'El DNI no es válido' });
-    } else{
+//     // Validar el DNI llamando a la API de RENIEC
+//     const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
+//     const apidni = `https://api.apis.net.pe/v2/reniec/dni?numero=${req.body.dni}`;
+//     const response = await axios.get(apidni, {
+//         headers: {
+//             Authorization: `Bearer ${accessToken}`
+//         }
+//     });
+//     // Imprimir la respuesta completa para ver qué se devuelve
+//     console.log('Respuesta de la API de RENIEC:', response.data);
+//     if (response.data.message && response.data.numeroDocumento === "dni no valido") {
+//         return res.status(400).json({ error: 'El DNI no es válido' });
+//     } else{
  
       
-      
-    }
-    
-   
+//     }
   
-  } catch (err) {
-    res.status(400).send('Error al validar DNI: ' + err.message);
-  }
+//   } catch (err) {
+//     res.status(400).send('Error al validar DNI: ' + err.message);
+//   }
 
+// });
+
+// router.post('/dnistatus', async (req, res) => {
+
+//      const es1  = false;
+//      const es2  = true;
+//     res.status(200).send('Solicitud Pendiente')
+
+// })
+
+// module.exports = router;
+
+
+
+
+//////////////////////////////////////
+
+
+const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
+const apidniUrl = 'https://api.apis.net.pe/v2/reniec/dni';
+var estadoS ;
+var docu;
+// API de validación de DNI (API 2)
+app.post('/api/vdni', async (req, res) => {
+  const { dni } = req.body;
+
+  try {
+    // Responder inicialmente con 202 y la URL de consulta de estado
+    res.status(202).json({ 
+      message: 'Solicitud recibida y en proceso'
+    });
+
+    // Notificar a la API de estado que el DNI está "procesando"
+    await axios.post(`http://localhost:3000/api/estado/${dni}`, {
+      estado: false
+    });
+
+    // Llamar a la API de terceros para validar el DNI
+    const response = await axios.get(`${apidniUrl}?numero=${dni}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      }
+    });
+
+    // Extraer solo el campo numeroDocumento de la respuesta
+    const { numeroDocumento } = response.data;
+
+    // Verificar que el número de documento coincida con el DNI proporcionado
+    if (numeroDocumento === dni) {
+      // Notificar a la API de estado que el DNI está "listo"
+      await axios.post(`http://localhost:3000/api/estado/${dni}`, {
+        estado: true,
+        dni: dni 
+        
+      });
+    } else {
+      throw new Error('El DNI no coincide con el número de documento devuelto');
+    }
+
+  } catch (err) {
+    console.error('Error al procesar la solicitud:', err.message);
+    // Notificar a la API de estado que hubo un error
+    await axios.post(`http://localhost:3000/api/estado/${dni}`, {
+      estado: 'error',
+      mensaje: err.message
+    });
+  }
 });
 
+// API de estado (API 4)
+// Endpoint para consultar el estado de un DNI
+app.get('/api/estado/:dni', (req, res) => {
+  const { dni } = req.params;
 
-router.post('/dnistatus', async (req, res) => {
+  if (estadoS == true && docu == dni ) {
+    // Si el estado es 1, devolverlo
+    res.json({ dni, estado: estados[dni] });
+    estadoS =false
+  } else {
+    // Si el DNI no se encuentra, devolver un error 404
+    res.status(404).json({ error: 'Estado no encontrado para el DNI especificado' });
+    
+  }
+});
 
-     status = false;
-    res.status(200).send('Solicitud Pendiente')
+// Endpoint para actualizar el estado de un DNI
+app.post('/api/estado/:dni', (req, res) => {
+  const { estado } = req.body;
+  const { dni } = req.body;
 
-})
 
-module.exports = router;
+   // Actualizar el estado del DNI e
+  if (estado == true){
+    
+    estadoS = true; 
+    docu = dni,
+    res.json({ message: 'dni valido'});
+  }
+ 
+ 
+});
