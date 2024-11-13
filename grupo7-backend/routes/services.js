@@ -14,7 +14,15 @@ router.post('/', [
   }
 
   try {
-    const newService = new Service(req.body);
+    const newService = new Service({
+      tipo: req.body.tipo,
+      titulo: req.body.titulo,
+      servicio_description: req.body.servicio_description,
+      costo_promedio: req.body.costo_promedio,
+      costo_descripción: req.body.costo_descripción,
+      id_foto: [],
+      id_comentario: []
+    });
     await newService.save();
     res.status(201).json(newService);
   } catch (err) {

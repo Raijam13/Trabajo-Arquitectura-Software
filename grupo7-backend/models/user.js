@@ -27,11 +27,17 @@ const vendedorSchema = new mongoose.Schema({
   dni: { type: Number, required: true },
   edad: { type: Number, required: true },
   telefono: { type: Number, required: true },
-  imagen_perfil: { type: String, required: true },
-  id_servicio: { type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: true },
+  imagen_perfil: { type: String, required: false },
+  activdadEconomica: {type: String, required: true},
+  id_servicio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: false }],
 });
 
 // Crear el modelo del usuario a partir del esquema
 const Vendedor = mongoose.model('Vendedor', vendedorSchema);
 
-module.exports = User, Vendedor;
+//module.exports = User, Vendedor;
+module.exports = {
+  User,
+  Vendedor
+};
+
