@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'; // Importar el router para redirección
+import { useRouter } from 'next/navigation';
 import Styles from './page.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
@@ -7,18 +7,17 @@ import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import ima from './foto.png';
 import React, { useState } from 'react';
-import loginApi from '../../api/login'; // Importar la función de login
+import loginApi from '../../api/login';
 
 const Login = () => {
-    const router = useRouter(); // Hook para manejar redirecciones
+    const router = useRouter();
 
     const [email, setEmail] = useState('');
     const [contra, setContra] = useState('');
-    const [error, setError] = useState(''); // Estado para manejar el error
+    const [error, setError] = useState('');
 
-    // Función que maneja el envío del formulario
     const handleButtonClick = async (e) => {
-        e.preventDefault(); // Evitar que la página se recargue
+        e.preventDefault();
 
         const formData = {
             email: email,
@@ -27,14 +26,11 @@ const Login = () => {
 
         console.log('Form Data:', formData);
 
-        // Llamar a la API de inicio de sesión
         const token = await loginApi(email, contra);
         
         if (token) {
-            // Si el inicio de sesión es exitoso, redirigir al usuario
-            router.push('/frontpage'); // Cambia '/usuario' por la página a la que quieres redirigir
+            router.push('/frontpage');
         } else {
-            // Si el inicio de sesión falla, mostrar el mensaje de error
             setError('Correo o contraseña inválidos');
         }
     };

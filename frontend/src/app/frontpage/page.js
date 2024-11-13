@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import './FrontPage.css';
+import Styles from './page.module.css';
 import Header from './components/Header';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
@@ -75,31 +77,34 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className={Styles.App}>
       <Header />
-      <div className="content">
+      <div className={`${Styles.content} ${Styles.render}`}>
         {/* Mostrar la ubicación del usuario */}
         {location.lat && location.lng ? (
           <p>Tu ubicación: Latitud {location.lat}, Longitud {location.lng}</p>
         ) : (
           <p>{errorLocation ? errorLocation : "Obteniendo ubicación..."}</p>
         )}
+        
 
         {/* Carrusel de imágenes */}
-        <Carousel autoPlay interval={5000} infiniteLoop showThumbs={false} showStatus={false} >
-          {imagenes.map((imagen, index) => (
-            <div key={index}>
-              <img src={imagen} alt={`Imagen ${index + 1}`} />
-            </div>
-          ))}
-        </Carousel>
+        <div className={Styles.carouselContainer}>
+          <Carousel autoPlay interval={5000} infiniteLoop showThumbs={false} showStatus={false}>
+            {imagenes.map((imagen, index) => (
+              <div key={index}>
+                <img src={imagen} alt={`Imagen ${index + 1}`} />
+              </div>
+            ))}
+          </Carousel>
+        </div>
 
         {/* Resto del contenido */}
-        <div className="sections">
+        <div className={Styles.sections}>
           {/* Top Trabajadores */}
-          <div className="sector sector-1">
-            <h2>Top 10 Trabajadores</h2>
-            <table>
+          <div className={`${Styles.sector} ${Styles.sector1}`}>
+            <h2 className={Styles.heading}>Top Trabajadores</h2>
+            <table className={Styles.table}>
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -116,41 +121,53 @@ function App() {
           </div>  
 
           {/* Servicios */}
-          <div className="sector sector-2">
-            <img src="https://via.placeholder.com/1000x200/" alt="Imagen categoría" className="small-image" />
-            <h2>Categorías</h2>
-            <div className="categories">
-              <button className="category-button"><FaWrench /> Electricista</button>
-              <button className="category-button"><FaUtensils /> Cocinero</button>
-              <button className="category-button"><FaBroom /> Aseo</button>
-              <button className="category-button"><FaShower /> Gasfitería</button>
-              <button className="category-button"><FaTree /> Jardinería</button>
-              <button className="category-button"><FaLock /> Cerrajeros</button>
-              <button className="category-button"><FaEllipsisH /> Más</button>
+          <div className={`${Styles.sector} ${Styles.sector2}`}>
+            <img src="https://via.placeholder.com/1000x200/" alt="Imagen categoría" className={Styles['small-image']} />
+            <h2 className={Styles.heading}>Categorías</h2>
+            <div className={Styles.categories}>
+              <button className={Styles['category-button']}><FaWrench /> Electricista</button>
+              <button className={Styles['category-button']}><FaUtensils /> Cocinero</button>
+              <button className={Styles['category-button']}><FaBroom /> Aseo</button>
+              <button className={Styles['category-button']}><FaShower /> Gasfitería</button>
+              <button className={Styles['category-button']}><FaTree /> Jardinería</button>
+              <button className={Styles['category-button']}><FaLock /> Cerrajeros</button>
+              <button className={Styles['category-button']}><FaEllipsisH /> Más</button>
             </div>
-            <h2>Todos los servicios <span className="light-text">({totalServicios})</span></h2>
-            <div className="tabla-servicios">
-              <table>
-                <tbody>
-                  {serviciosActuales.map((servicio, index) => (
-                    <td key={servicio.id}>
-                      <div className="servicio">
-                        <img src={servicio.img} alt={servicio.titulo} />
-                        <h3>{servicio.titulo}</h3>
-                        <p className="descripcion">{servicio.descripcion}</p>
-                        <p className="costo"><strong>{servicio.costo}</strong></p>
-                        <div className="botones">
-                          <button className="agregar-btn"><FaShoppingCart /> Agregar</button>
-                        </div>
-                      </div>
-                    </td>
-                  ))}
-                </tbody>
-              </table>
+            <h2 className={Styles.heading}>Todos los servicios <span className={Styles['light-text']}>({totalServicios})</span></h2>
+            <div className={Styles['tabla-servicios']}>
+              <div className={Styles.gridContainer}>
+                {serviciosActuales.map((servicio) => (
+                  <div className={Styles.servicioCard} key={servicio.id}>
+                    <img src={servicio.img} alt={servicio.titulo} />
+                    <h3>{servicio.titulo}</h3>
+                    <p className={Styles.descripcion}>{servicio.descripcion}</p>
+                    <p className={Styles.costo}><strong>{servicio.costo}</strong></p>
+                    <div className={Styles.botones}>
+                      <button className={Styles['mas-detalles']}>Más Detalles</button>
+                      <button className={Styles.carrito}><FaShoppingCart /></button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Paginación */}
+            <div className={Styles.paginacion}>
+              <button disabled={paginaActual === 1} onClick={() => setPaginaActual(paginaActual - 1)}>Anterior</button>
+              <button onClick={() => setPaginaActual(paginaActual + 1)}>Siguiente</button>
             </div>
           </div>
         </div>
       </div>
+      <footer className={`${Styles.render} ${Styles['lower-banner']}`}>
+          <div className={Styles.links}>
+            <a href="">Trabaja con nosotros</a>
+            <a href="">Términos y condiciones</a>
+            <a href="">Cómo cuidamos tu privacidad</a>
+            <a href="">Accesibilidad</a>
+            <a href="">Ayuda</a>
+          </div>
+          <p>Copyright © 2024 A Tu Puerta. Todos los derechos reservados.</p>
+        </footer>
     </div>
   );
 }

@@ -1,3 +1,11 @@
+/* Importar la fuente desde Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+/* Global Styles */
+.render {
+  font-family: "Poppins", sans-serif;
+}
+
 .App {
   text-align: center;
 }
@@ -7,41 +15,75 @@
   padding: 20px;
 }
 
+/* Sections */
 .sections {
   display: flex;
+  gap: 40px;
   margin-top: 20px;
 }
 
-.sector-1 {
+/* Sector 1 */
+.sector1 {
   width: 15%;
-  padding-right: 20px;
+  margin-right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-table {
+/* Table Styles */
+.table {
   width: 100%;
   border-collapse: collapse;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
 }
 
-th, td {
+.table th {
+  background-color: #1976d2;
+  color: white;
   padding: 8px;
-  border: 1px solid #ddd;
+  text-align: center;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.table td {
+  padding: 6px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 13px;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover {
+  background-color: #f0f0f0;
+}
+
+.table th,
+.table td {
+  text-align: center;
+}
+
+/* Sector 2 */
+.sector2 {
+  width: 70%;
+  margin: 0 auto;
+  padding-left: 40px;
+}
+
+.heading {
+  margin-bottom: 10px;
+  font-size: 18px;
   text-align: left;
 }
 
-th {
-  background-color: #f4f4f4;
-  font-weight: bold;
-}
-
-.sector-2 {
-  width: 85%;
-}
-
-h2 {
-  text-align: left;
-  margin-left: 20px;
-}
-
+/* Small Image */
 .small-image {
   width: 100%;
   height: auto;
@@ -49,7 +91,7 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Categorías */
+/* Categories */
 .categories {
   display: flex;
   justify-content: space-around;
@@ -86,67 +128,54 @@ h2 {
   color: #888;
 }
 
-/* Tabla de servicios */
-.tabla-servicios {
-  display: flex;
-  justify-content: center; /* Centra la cuadrícula en el sector 2 */
-}
-
-.tabla-servicios table {
-  width: 80%; /* Limita el ancho total de la cuadrícula */
-  margin-top: 20px;
-  border-collapse: collapse;
-}
-
-.tabla-servicios tbody {
+/* Grid Container */
+.gridContainer {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columnas */
-  grid-template-rows: auto auto; /* 2 filas */
-  gap: 20px; /* Espacio entre los elementos */
-  justify-items: center; /* Centra las celdas dentro de la cuadrícula */
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  justify-items: center;
+  margin-top: 20px;
 }
 
-.tabla-servicios td {
-  width: 200px; /* Ajusta el ancho de cada celda */
-  padding: 15px;
-  vertical-align: top;
-}
-
-.servicio {
+/* Service Cards */
+.servicioCard {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
 }
 
-.servicio img {
+.servicioCard img {
   width: 150px;
   height: 150px;
 }
 
-.servicio h3 {
+.servicioCard h3 {
   margin: 10px 0;
 }
 
-.servicio .descripcion {
+.servicioCard .descripcion {
   font-size: 12px;
   color: #666;
 }
 
-.servicio .costo {
+.servicioCard .costo {
   font-size: 18px;
   font-weight: bold;
   margin: 10px 0;
 }
 
-.servicio .botones {
+.servicioCard .botones {
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-.mas-detalles, .carrito {
+.mas-detalles,
+.carrito {
   background-color: white;
   color: black;
   border: none;
@@ -164,8 +193,7 @@ h2 {
   font-size: 16px;
 }
 
-
-/* Paginación */
+/* Pagination */
 .paginacion {
   margin-top: 20px;
   display: flex;
@@ -187,11 +215,11 @@ h2 {
 
 /* Lower Banner */
 .lower-banner {
-  background-color: #1976d2; /* Fondo del footer */
+  background-color: #1976d2;
   padding: 20px;
   text-align: center;
   font-size: 12px;
-  color: white; /* Letras en blanco */
+  color: white;
 }
 
 .lower-banner .links {
@@ -201,16 +229,27 @@ h2 {
 .lower-banner .links a {
   margin: 0 10px;
   text-decoration: none;
-  color: white; /* Color blanco para los enlaces */
-  font-weight: bold; /* Enlaces en negrita */
+  color: white;
+  font-weight: bold;
 }
 
 .lower-banner .links a:hover {
-  text-decoration: underline; /* Subrayado al pasar el mouse */
+  text-decoration: underline;
 }
 
 .lower-banner p {
   margin-top: 10px;
-  color: white; /* Color blanco para el copyright */
+  color: white;
 }
 
+/* Carousel */
+.carouselContainer {
+  max-width: 1000px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.carouselContainer img {
+  max-height: 300px;
+  object-fit: cover;
+}

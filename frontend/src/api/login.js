@@ -12,22 +12,19 @@ const login = async function(email, password) {
             })
         });
 
-        // Verificar si la respuesta es correcta (si la respuesta no es 200 OK)
         if (!response.ok) {
-            return null; // Retornar null si la respuesta no es exitosa
+            return null;
         }
 
-        // Obtener el token del backend
         const data = await response.json();
         const token = data.token;
 
-        // Guardar el token en el localStorage
         localStorage.setItem('token', token);
         
-        return token; // Devuelve el token
+        return token;
     } catch (error) {
         console.error('Error en la API de inicio de sesión:', error);
-        return null; // Manejar errores
+        return null;
     }
 };
 

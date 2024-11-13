@@ -4,57 +4,49 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useEffect, useState } from 'react';
-import { getPropuestas, eliminarPropuesta } from '../../api/carrito'; // Importamos las funciones de la API
+import { getPropuestas, eliminarPropuesta } from '../../api/carrito'; 
 
 const Cart = () => {
   const [propuestas, setPropuestas] = useState([]);
   const [nombreCliente, setNombreCliente] = useState(''); // Inicializamos el nombre como vacío
   const [subtotal, setSubtotal] = useState(0);
 
-  // Calcular el subtotal de las propuestas
   const calcularSubtotal = (items) => {
     const total = items.reduce((acc, item) => acc + item.costo_promedio, 0);
     setSubtotal(total);
   };
 
-  // Cargar las propuestas y el nombre del cliente desde la API al montar el componente
   useEffect(() => {
     const cargarDatos = async () => {
-      // Obtenemos las propuestas
       const propuestasCargadas = await getPropuestas();
       setPropuestas(propuestasCargadas);
       calcularSubtotal(propuestasCargadas);
 
-      // Aquí hacemos una llamada al backend para obtener el nombre del cliente autenticado
       const response = await fetch('http://localhost:3009/users/me', {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`, // Asegúrate de enviar el token
+          'Authorization': `Bearer ${localStorage.getItem('token')}`, 
         },
       });
       const cliente = await response.json();
-      setNombreCliente(cliente.nombre_completo); // Suponiendo que la API devuelve un objeto con el nombre completo
+      setNombreCliente(cliente.nombre_completo);
     };
 
     cargarDatos();
   }, []);
 
-    // Manejar la eliminación de una propuesta del carrito y en la base de datos
     const handleEliminarPropuesta = async (id) => {
-    const success = await eliminarPropuesta(id); // Llamamos a la función de eliminar
+    const success = await eliminarPropuesta(id);
   
     if (success) {
-      // Si la eliminación fue exitosa, actualizamos el estado para eliminar la propuesta del array
       setPropuestas(propuestas.filter((propuesta) => propuesta._id !== id));
     } else {
-      // Manejar el caso de error si es necesario
       console.error('No se pudo eliminar la propuesta');
     }
   };
 
-  // Función para mostrar un pop-up de confirmación
   const handleConfirmarPedido = () => {
-    alert('¡Pago confirmado!'); // Popup simple para confirmar el pedido
+    alert('¡Pago confirmado!');
   };
 
   return (

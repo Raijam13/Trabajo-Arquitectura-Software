@@ -30,12 +30,12 @@ const agregarPropuesta = async function(tipo, titulo, descripcion, costoPromedio
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                tipo: tipo, // Tipo de servicio
-                titulo: titulo, // Título del servicio
-                servicio_description: descripcion, // Descripción del servicio
-                costo_promedio: Number(costoPromedio), // Costo promedio del servicio (como número)
-                costo_descripción: costoDescripcion, // Descripción del costo
-                id_foto: idFotos // Lista de fotos (si existe)
+                tipo: tipo,
+                titulo: titulo,
+                servicio_description: descripcion,
+                costo_promedio: Number(costoPromedio),
+                costo_descripción: costoDescripcion,
+                id_foto: idFotos 
             }),
             cache: 'no-store',
         });
@@ -65,11 +65,11 @@ const eliminarPropuesta = async function(id) {
 
         if (response.ok) {
             console.log('Propuesta eliminada con éxito');
-            return true; // Retorna verdadero si la eliminación fue exitosa
+            return true;
         } else {
             const errorMessage = await response.text();
             console.error('Error al eliminar propuesta:', errorMessage);
-            return false; // Retorna falso si hubo un error
+            return false;
         }
     } catch (error) {
         console.error('Error:', error);
