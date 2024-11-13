@@ -77,15 +77,16 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className={Styles.App}>
       <Header />
-      <div className="content">
+      <div className={Styles.content}>
         {/* Mostrar la ubicación del usuario */}
         {location.lat && location.lng ? (
           <p>Tu ubicación: Latitud {location.lat}, Longitud {location.lng}</p>
         ) : (
           <p>{errorLocation ? errorLocation : "Obteniendo ubicación..."}</p>
         )}
+        
 
         {/* Carrusel de imágenes */}
         <Carousel autoPlay interval={5000} infiniteLoop showThumbs={false} showStatus={false} >
@@ -97,9 +98,9 @@ function App() {
         </Carousel>
 
         {/* Resto del contenido */}
-        <div className="sections">
+        <div className={Styles.sections}>
           {/* Top Trabajadores */}
-          <div className="sector sector-1">
+          <div className={`${Styles.sector} ${Styles.sector1}`}>
             <h2 className={Styles.heading}>Top 10 Trabajadores</h2>
             <table className={Styles.table}>
               <thead>
@@ -118,38 +119,42 @@ function App() {
           </div>  
 
           {/* Servicios */}
-          <div className="sector sector-2">
+          <div className={`${Styles.sector} ${Styles.sector2}`}>
             <img src="https://via.placeholder.com/1000x200/" alt="Imagen categoría" className="small-image" />
             <h2 className={Styles.heading}>Categorías</h2>
-            <div className="categories">
-              <button className="category-button"><FaWrench /> Electricista</button>
-              <button className="category-button"><FaUtensils /> Cocinero</button>
-              <button className="category-button"><FaBroom /> Aseo</button>
-              <button className="category-button"><FaShower /> Gasfitería</button>
-              <button className="category-button"><FaTree /> Jardinería</button>
-              <button className="category-button"><FaLock /> Cerrajeros</button>
-              <button className="category-button"><FaEllipsisH /> Más</button>
+            <div className={Styles.categories}>
+              <button className={Styles['category-button']}><FaWrench /> Electricista</button>
+              <button className={Styles['category-button']}><FaUtensils /> Cocinero</button>
+              <button className={Styles['category-button']}><FaBroom /> Aseo</button>
+              <button className={Styles['category-button']}><FaShower /> Gasfitería</button>
+              <button className={Styles['category-button']}><FaTree /> Jardinería</button>
+              <button className={Styles['category-button']}><FaLock /> Cerrajeros</button>
+              <button className={Styles['category-button']}><FaEllipsisH /> Más</button>
             </div>
             <h2 className={Styles.heading}>Todos los servicios <span className="light-text">({totalServicios})</span></h2>
-            <div className="tabla-servicios">
-              <table>
-                <tbody>
+            <div className={Styles['tabla-servicios']}>
+              <table className={Styles.table} >
+                <tbody className={Styles.tbody}>
+                  <tr>
                   {serviciosActuales.map((servicio, index) => (
-                    <td key={servicio.id}>
-                      <div className="servicio">
+                    <td className={Styles.td} key={servicio.id}>
+                      <div className={Styles.servicio}>
                         <img src={servicio.img} alt={servicio.titulo} />
                         <h3>{servicio.titulo}</h3>
-                        <p className="descripcion">{servicio.descripcion}</p>
-                        <p className="costo"><strong>{servicio.costo}</strong></p>
-                        <div className="botones">
-                          <button className="agregar-btn"><FaShoppingCart /> Agregar</button>
+                        <p className={Styles.descripcion}>{servicio.descripcion}</p>
+                        <p className={Styles.costo}><strong>{servicio.costo}</strong></p>
+                        <div className={Styles.botones}>
+                          <button className={Styles['agregar-btn']}><FaShoppingCart /> Agregar</button>
                         </div>
                       </div>
                     </td>
                   ))}
+                  </tr>
+                  
                 </tbody>
               </table>
             </div>
+            
           </div>
         </div>
       </div>
