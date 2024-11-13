@@ -1,9 +1,20 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+"use client";
 
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import styles from './page.module.css';
 
 export default function Home() {
+  const router = useRouter();
+
+  useEffect(() => {
+    // Redirigir al usuario a la página "home"
+    router.push('/frontpage');
+  }, [router]);
+
   return (
-  <h1>Título</h1>  
+    <div className={styles.container}>
+      <h1>Redirigiendo... aguarda p caumsa</h1>
+    </div>
   );
 }
