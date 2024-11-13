@@ -1,5 +1,7 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
-import './FrontPage.css';
+import Styles from './page.module.css';
 import Header from './components/Header';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
@@ -98,8 +100,8 @@ function App() {
         <div className="sections">
           {/* Top Trabajadores */}
           <div className="sector sector-1">
-            <h2>Top 10 Trabajadores</h2>
-            <table>
+            <h2 className={Styles.heading}>Top 10 Trabajadores</h2>
+            <table className={Styles.table}>
               <thead>
                 <tr>
                   <th>Nombre</th>
@@ -118,7 +120,7 @@ function App() {
           {/* Servicios */}
           <div className="sector sector-2">
             <img src="https://via.placeholder.com/1000x200/" alt="Imagen categoría" className="small-image" />
-            <h2>Categorías</h2>
+            <h2 className={Styles.heading}>Categorías</h2>
             <div className="categories">
               <button className="category-button"><FaWrench /> Electricista</button>
               <button className="category-button"><FaUtensils /> Cocinero</button>
@@ -128,7 +130,7 @@ function App() {
               <button className="category-button"><FaLock /> Cerrajeros</button>
               <button className="category-button"><FaEllipsisH /> Más</button>
             </div>
-            <h2>Todos los servicios <span className="light-text">({totalServicios})</span></h2>
+            <h2 className={Styles.heading}>Todos los servicios <span className="light-text">({totalServicios})</span></h2>
             <div className="tabla-servicios">
               <table>
                 <tbody>

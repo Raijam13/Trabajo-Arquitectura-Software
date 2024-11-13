@@ -17,30 +17,26 @@
   padding-right: 20px;
 }
 
-table {
+.table {
   width: 100%;
   border-collapse: collapse;
 }
 
-th, td {
-  padding: 8px;
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-  font-weight: bold;
+.table th,
+.table td {
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
 .sector-2 {
   width: 85%;
 }
 
-h2 {
+.heading {
   text-align: left;
   margin-left: 20px;
 }
+
 
 .small-image {
   width: 100%;
