@@ -79,7 +79,7 @@ function App() {
   return (
     <div className={Styles.App}>
       <Header />
-      <div className={Styles.content}>
+      <div className={`${Styles.content} ${Styles.render}`}>
         {/* Mostrar la ubicación del usuario */}
         {location.lat && location.lng ? (
           <p>Tu ubicación: Latitud {location.lat}, Longitud {location.lng}</p>
@@ -89,19 +89,21 @@ function App() {
         
 
         {/* Carrusel de imágenes */}
-        <Carousel autoPlay interval={5000} infiniteLoop showThumbs={false} showStatus={false} >
-          {imagenes.map((imagen, index) => (
-            <div key={index}>
-              <img src={imagen} alt={`Imagen ${index + 1}`} />
-            </div>
-          ))}
-        </Carousel>
+        <div className={Styles.carouselContainer}>
+          <Carousel autoPlay interval={5000} infiniteLoop showThumbs={false} showStatus={false}>
+            {imagenes.map((imagen, index) => (
+              <div key={index}>
+                <img src={imagen} alt={`Imagen ${index + 1}`} />
+              </div>
+            ))}
+          </Carousel>
+        </div>
 
         {/* Resto del contenido */}
         <div className={Styles.sections}>
           {/* Top Trabajadores */}
           <div className={`${Styles.sector} ${Styles.sector1}`}>
-            <h2 className={Styles.heading}>Top 10 Trabajadores</h2>
+            <h2 className={Styles.heading}>Top Trabajadores</h2>
             <table className={Styles.table}>
               <thead>
                 <tr>
@@ -120,7 +122,7 @@ function App() {
 
           {/* Servicios */}
           <div className={`${Styles.sector} ${Styles.sector2}`}>
-            <img src="https://via.placeholder.com/1000x200/" alt="Imagen categoría" className="small-image" />
+            <img src="https://via.placeholder.com/1000x200/" alt="Imagen categoría" className={Styles['small-image']} />
             <h2 className={Styles.heading}>Categorías</h2>
             <div className={Styles.categories}>
               <button className={Styles['category-button']}><FaWrench /> Electricista</button>
@@ -131,33 +133,41 @@ function App() {
               <button className={Styles['category-button']}><FaLock /> Cerrajeros</button>
               <button className={Styles['category-button']}><FaEllipsisH /> Más</button>
             </div>
-            <h2 className={Styles.heading}>Todos los servicios <span className="light-text">({totalServicios})</span></h2>
+            <h2 className={Styles.heading}>Todos los servicios <span className={Styles['light-text']}>({totalServicios})</span></h2>
             <div className={Styles['tabla-servicios']}>
-              <table className={Styles.table} >
-                <tbody className={Styles.tbody}>
-                  <tr>
-                  {serviciosActuales.map((servicio, index) => (
-                    <td className={Styles.td} key={servicio.id}>
-                      <div className={Styles.servicio}>
-                        <img src={servicio.img} alt={servicio.titulo} />
-                        <h3>{servicio.titulo}</h3>
-                        <p className={Styles.descripcion}>{servicio.descripcion}</p>
-                        <p className={Styles.costo}><strong>{servicio.costo}</strong></p>
-                        <div className={Styles.botones}>
-                          <button className={Styles['agregar-btn']}><FaShoppingCart /> Agregar</button>
-                        </div>
-                      </div>
-                    </td>
-                  ))}
-                  </tr>
-                  
-                </tbody>
-              </table>
+              <div className={Styles.gridContainer}>
+                {serviciosActuales.map((servicio) => (
+                  <div className={Styles.servicioCard} key={servicio.id}>
+                    <img src={servicio.img} alt={servicio.titulo} />
+                    <h3>{servicio.titulo}</h3>
+                    <p className={Styles.descripcion}>{servicio.descripcion}</p>
+                    <p className={Styles.costo}><strong>{servicio.costo}</strong></p>
+                    <div className={Styles.botones}>
+                      <button className={Styles['mas-detalles']}>Más Detalles</button>
+                      <button className={Styles.carrito}><FaShoppingCart /></button>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            
+            {/* Paginación */}
+            <div className={Styles.paginacion}>
+              <button disabled={paginaActual === 1} onClick={() => setPaginaActual(paginaActual - 1)}>Anterior</button>
+              <button onClick={() => setPaginaActual(paginaActual + 1)}>Siguiente</button>
+            </div>
           </div>
         </div>
       </div>
+      <footer className={`${Styles.render} ${Styles['lower-banner']}`}>
+          <div className={Styles.links}>
+            <a href="">Trabaja con nosotros</a>
+            <a href="">Términos y condiciones</a>
+            <a href="">Cómo cuidamos tu privacidad</a>
+            <a href="">Accesibilidad</a>
+            <a href="">Ayuda</a>
+          </div>
+          <p>Copyright © 2024 A Tu Puerta. Todos los derechos reservados.</p>
+        </footer>
     </div>
   );
 }
