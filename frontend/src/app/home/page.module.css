@@ -7,7 +7,7 @@
     padding: 0px;
     border: 0px;
     font-family: sans-serif;
-    flex-direction: row;
+    flex-direction: column;
     font-family: "Poppins";
   
 }
@@ -39,4 +39,34 @@
     justify-content: center;
 }   
 
+.page{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    
+}
+
+.fltro{
+    display: flex;
+    height: 100%;
+    width: 15%;
+    background-color:;
+    flex-direction: column;
+    align-items: center;
+    padding-top:30px ;
+}
+
+.resultados{
+    display: flex;
+    height: 100%;
+    width: 55%;
+    background-color: ;
+}
+
+.descrip{
+    display: flex;
+    height: 100%;
+    width: 30%;
+    background-color: ;
+}
 

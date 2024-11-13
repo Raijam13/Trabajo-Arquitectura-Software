@@ -20,7 +20,20 @@ const Home = () => {
 
     return (
         <div className={Styles.render}>
-                <Barra></Barra>
+           
+             <Barra></Barra>
+           
+            <div className={Styles.page}>
+                <div className={Styles.fltro}>
+                    <h4>Filtrar busqueda</h4>
+                </div>
+                <div className={Styles.resultados}>
+
+                </div>
+                <div className={Styles.descrip}>
+
+                </div>
+            </div>
                 
         </div>
     );
