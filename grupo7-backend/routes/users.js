@@ -25,8 +25,8 @@ router.post('/signup', async (req, res) => {
       dni: req.body.dni,
       telefono: req.body.telefono,
       imagen_perfil: req.body.imagen_perfil,
-      id_compra: [],  // Inicialmente vacío
-      id_comentario: []  // Inicialmente vacío
+      id_compra: [], 
+      id_comentario: []
     });
     
     // Guardar en la base de datos

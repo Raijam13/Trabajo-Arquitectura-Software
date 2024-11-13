@@ -41,13 +41,6 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).send('Servicio no encontrado');
     }
 
-    // Aquí eliminamos la referencia en `id_compra`, pero si no hay autenticación,
-    // no tenemos información del usuario, así que podemos omitir esta parte.
-    // await User.updateOne(
-    //   { _id: req.user.id }, 
-    //   { $pull: { id_compra: req.params.id } }
-    // );
-
     res.send('Servicio eliminado correctamente');
   } catch (err) {
     res.status(400).send('Error al eliminar servicio: ' + err.message);
