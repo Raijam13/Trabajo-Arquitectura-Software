@@ -10,34 +10,31 @@ import { Carousel } from 'react-responsive-carousel';
 
 import React, { useState } from 'react';
 
-import Barra from '../../components/barra.jsx'
 
-const Home = () => {
+const Servicio = () => {
     const router = useRouter(); // Hook para manejar redirecciones
 
-
-    const [imagenes, setImagenes] = useState([
-        "https://via.placeholder.com/1200x300", 
-        "https://via.placeholder.com/1200x300", 
-        "https://via.placeholder.com/1200x300"
-      ]);
  
 
     return (
         <div className={Styles.render}>
-             <Header/>
-
-           
-
-           
+             
+             <div className={Styles.barra}>
+                   <Header/>
+             </div>
             <div className={Styles.page}>
-                <div className={Styles.fltro}>
-                    <h4>Filtrar busqueda</h4>
-                </div>  
-                <div className={Styles.resultados}>
+                <div className={Styles.container1}>
 
-                </div>
-                <div className={Styles.descrip}>
+                    <div className={Styles.s1}>
+
+                    </div>
+                    <div className={Styles.s2}>
+
+                    </div>
+
+                </div>  
+                
+                <div className={Styles.container2}>
 
                 </div>
             </div>
@@ -58,4 +55,4 @@ const Home = () => {
     );
 };
 
-export default Home;
+export default Servicio;
