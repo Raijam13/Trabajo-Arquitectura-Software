@@ -1,4 +1,4 @@
-'''
+
 # script.py
 import requests
 import numpy as np
@@ -92,4 +92,3 @@ def post_todo_resumen():
         
 
 post_todo_resumen()
-'''
