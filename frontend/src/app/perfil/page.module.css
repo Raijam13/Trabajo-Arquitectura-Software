@@ -5,7 +5,7 @@
 .barra{
     background-color: #5800A7;
     width: 200px;
-    height: 100vh;
+    height: auto; /* CAMBIAR ESTE VALOR PARA QUE LA BARRA MORADA SE VEA MAS LARGA O CHICA - 250vh*/
     display: flex;
     flex-direction: column;
 }
@@ -103,7 +103,7 @@
 
 .infopersonalcontainer{
     display: flex;
-    gap: 10px;
+    gap: 0px;
     align-items: center;
 }
 
@@ -150,7 +150,9 @@
 }
 
 .descripcion{
-    font-size: 14px;
+    font-size: 14px;/*unico original*/
+    max-width: 400px;
+    text-align: justify;
 }
 
 .fecha{

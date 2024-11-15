@@ -12,8 +12,7 @@ const perfil = () =>{
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-briefcase-fill" viewBox="0 0 16 16">
   <path d="M6.271 1.545c.17-.05.354.025.515.125v2.15c-.07.04-.146.08-.22.121v.38a.5.5 0 0 0 .5.5h1.387c.297-.152.614-.501.883-.917l1.085-2.272A1.25 1.25 0 0 0 9.921 1.545h-3.642zm1.5 0V3.85c.217-.119.433-.208.65-.269v-.848a.5.5 0 0 0-.5-.5h-1.27c-.314.074-.61.246-.864.511V1.545zm1.82.5c-.179.09-.375.217-.58.372v3.888c.083.074.173.14.27.195v.38a.5.5 0 0 0 .5.5h1.645c.314-.074.61-.246.864-.511V2.045zm-2.18 10.224a1.25 1.25 0 0 0 1.25 1.25h3.642c.66 0 1.23-.568 1.23-1.25v-3.643c0-.66-.568-1.23-1.23-1.23h-3.642a1.25 1.25 0 0 0-1.25 1.25v3.643z"/>
 </svg>
-                Freelancers
-                Peru
+A tu puerta
             </div>
             <div className={Styles.container}>
                 <div className={Styles.botonesbr}>
@@ -60,11 +59,14 @@ const perfil = () =>{
         <div className={Styles.perfil}>
             <div className={Styles.perfilcontainer}>
                 <div className={Styles.imagenperfil}>
-                    <img src="https://www.pexels.com/photo/woman-wearing-pink-hoodie-10482066/" alt="mujer"/>
+                <img src="https://st3.depositphotos.com/12985790/15794/i/450/depositphotos_157947226-stock-photo-man-looking-at-camera.jpg"/>
                 </div>
                 <div className={Styles.nombres}>
                     <div className={Styles.nombre}>
-                        Elza Pato
+                    Aquiles Hiban
+                    </div>
+                    <div>
+                        Electricista - Cerrajero
                     </div>
                     <div className={Styles.puntuacion}>
                         4.8
@@ -78,12 +80,10 @@ const perfil = () =>{
                 </div>
                 <div className={Styles.infopersonalcontainer}>
                     <div className={Styles.icono}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-  <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
-</svg>
+                    <svg xmlns="https://cdn-icons-png.flaticon.com/512/74/74472.png" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"></svg>
                     </div>
                     <div className={Styles.info}>
-                        Femenino
+                    Masculino
                     </div>
                 </div>
                 <div className={Styles.infopersonalcontainer}>
@@ -93,7 +93,7 @@ const perfil = () =>{
 </svg>
                     </div>
                     <div className={Styles.info}>
-                        Edad 28
+                    Edad 34
                     </div>
                 </div>
                 <div className={Styles.infopersonalcontainer}>
@@ -110,16 +110,16 @@ const perfil = () =>{
             
             <div className={Styles.solicitudes}>
                 <div className={Styles.titulo}>
-                    Solicitudes de trabajo
+                Comentarios de otros clientes
                 </div>
                 <div className={Styles.solicitudescontainer}>
                     <div className={Styles.solicitud}>
                         <div className={Styles.imagenperfil}>
-                            <img src="https://www.pexels.com/photo/portrait-of-smiling-man-with-arms-crossed-4626539/" alt="hombre"/>
+                        <img src="https://vivolabs.es/wp-content/uploads/2022/03/perfil-mujer-vivo.png"/>
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                                Aquiles Castro
+                            Elza Vilchez
                             </div>
                             <div className={Styles.fecha}>
                                 Hace 3 días
@@ -127,14 +127,128 @@ const perfil = () =>{
                         </div>
                     </div>
                     <div className={Styles.imagensolicitud}>
-                        <img src="https://www.pexels.com/photo/red-wooden-door-9500126/" alt="puerta"/>
-                    </div>
-                    <div className={Styles.descripcion}>
-                        Amable y paciente, cumplió con el pago establecido
+                        <img src="https://plazavea.vteximg.com.br/arquivos/ids/2759266-512-512/null.jpg"/>
                     </div>
                     <div className={Styles.puntuacion}>
-                        5
+                        4.8
                     </div>
+                    <div className={Styles.descripcion}>
+                    Recientemente tuve la oportunidad de contratar a Aquiles Hiban para un problema urgente en mi hogar, 
+                    y la experiencia fue más que satisfactoria. Primero, mi sistema eléctrico comenzó a fallar sin previo aviso, con luces 
+                    parpadeantes y enchufes que no funcionaban. Lo contacté, y aunque ya era tarde, se mostró disponible para atender mi emergencia 
+                    en el mismo día. Su conocimiento fue evidente desde el primer momento, y no solo diagnosticó el problema rápidamente, sino que 
+                    también me explicó con paciencia las posibles causas y las soluciones más adecuadas.
+                    Pero su profesionalismo no se quedó ahí. Días después, decidí aprovechar su servicio de cerrajería porque necesitaba cambiar 
+                    todas las cerraduras de mi casa por razones de seguridad. Me impresionó la rapidez y precisión con la que trabajó. A diferencia 
+                    de otros profesionales que simplemente cambian la cerradura y se van, Aquiles Hiban me asesoró sobre las 
+                    opciones más seguras y modernas, y me dejó claro que su prioridad era que yo estuviera 100% satisfecho y seguro. 
+                    Recomiendo sus servicios a cualquiera que necesite un profesional honesto y altamente capacitado. ¡Excelente trabajo!
+                    </div>
+                </div>
+                <div className={Styles.solicitudescontainer}>
+                    <div className={Styles.solicitud}>
+                        <div className={Styles.imagenperfil}>
+                            <img src="https://www.shutterstock.com/image-photo/serious-handsome-young-african-man-600nw-2432719429.jpg"/>
+                        </div>
+                        <div className={Styles.nombres}>
+                            <div className={Styles.nombre}>
+                                Tomas Torre
+                            </div>
+                            <div className={Styles.fecha}>
+                                Hace 5 días
+                            </div>
+                        </div>
+                    </div>
+                    <div className={Styles.imagensolicitud}>
+                        <img src="https://d219336yigegi3.cloudfront.net/sites/noticias-m2/files/field/image/instalacion%20electrica%20%281%29.jpg"/>
+                    </div>
+                    <div className={Styles.puntuacion}>
+                        4.7
+                    </div>
+                    <div className={Styles.descripcion}>
+                    Mi experiencia con Aquiles Hiban fue fantástica. Llamé porque necesitaba actualizar el sistema de 
+                    iluminación de mi negocio, y desde el primer contacto, mostró gran interés en entender mis necesidades y en sugerirme opciones 
+                    que fueran funcionales y estéticamente agradables. Él se encargó de revisar toda la instalación y de hacer ajustes en el 
+                    sistema eléctrico para soportar las nuevas luminarias. Lo mejor fue que terminó el trabajo en el plazo acordado y mantuvo 
+                    una comunicación clara sobre cada paso que iba dando. Me impresionó su nivel de organización y el orden con el que trabaja, 
+                    algo que considero esencial en un profesional.
+                    Posteriormente, tuve problemas con la cerradura de seguridad de una puerta que daba acceso a una zona importante del negocio. 
+                    Sin dudarlo, le pedí ayuda y su respuesta fue inmediata. No solo resolvió el problema rápidamente, sino que también me enseñó 
+                    algunos trucos básicos de mantenimiento para evitar futuros inconvenientes. Su honestidad, responsabilidad y conocimientos 
+                    técnicos me han ganado como cliente fiel, y no dudaré en recomendarlo a cualquier persona que necesite un electricista o 
+                    cerrajero confiable.
+                    </div>
+                </div>
+                <div className={Styles.solicitudescontainer}>
+                    <div className={Styles.solicitud}>
+                        <div className={Styles.imagenperfil}>
+                            <img src="https://t1.uc.ltmcdn.com/es/posts/7/0/0/como_saber_si_un_hombre_es_maduro_34007_600.jpg"/>
+                        </div>
+                        <div className={Styles.nombres}>
+                            <div className={Styles.nombre}>
+                                Ramirez Zen
+                            </div>
+                            <div className={Styles.fecha}>
+                                Hace 1 semana
+                            </div>
+                        </div>
+                    </div>
+                    <div className={Styles.imagensolicitud}>
+                        <img src="https://cerrajerosmataro.co/wp-content/uploads/2018/04/apertura-de-puertas.jpg"/>
+                    </div>
+                    <div className={Styles.puntuacion}>
+                        4.7
+                    </div>
+                    
+                    <div className={Styles.descripcion}>
+                    Mi experiencia con Aquiles Hiban fue fantástica. Llamé porque necesitaba actualizar el sistema de 
+                    iluminación de mi negocio, y desde el primer contacto, mostró gran interés en entender mis necesidades y en sugerirme opciones 
+                    que fueran funcionales y estéticamente agradables. Él se encargó de revisar toda la instalación y de hacer ajustes en el sistema 
+                    eléctrico para soportar las nuevas luminarias. Lo mejor fue que terminó el trabajo en el plazo acordado y mantuvo una comunicación 
+                    clara sobre cada paso que iba dando. Me impresionó su nivel de organización y el orden con el que trabaja, algo que considero 
+                    esencial en un profesional.
+                    Posteriormente, tuve problemas con la cerradura de seguridad de una puerta que daba acceso a una zona importante del negocio. Sin 
+                    dudarlo, le pedí ayuda y su respuesta fue inmediata. No solo resolvió el problema rápidamente, sino que también me enseñó algunos 
+                    trucos básicos de mantenimiento para evitar futuros inconvenientes. Su honestidad, responsabilidad y conocimientos técnicos me han 
+                    ganado como cliente fiel, y no dudaré en recomendarlo a cualquier persona que necesite un electricista o cerrajero confiable.
+                    </div>
+                    
+                </div>
+                
+                <div className={Styles.solicitudescontainer}>
+                    <div className={Styles.solicitud}>
+                        <div className={Styles.imagenperfil}>
+                            <img src="https://www.esan.edu.pe/images/blog/2018/03/07/1500x844-dia-mujer.jpg"/>
+                        </div>
+                        <div className={Styles.nombres}>
+                            <div className={Styles.nombre}>
+                                Luz Godinez
+                            </div>
+                            <div className={Styles.fecha}>
+                                Hace 2 semanas
+                            </div>
+                        </div>
+                    </div>
+                    <div className={Styles.imagensolicitud}>
+                        <img src="https://homesolution.net/blog/wp-content/uploads/2019/01/Fotolia_83248213_Subscription_Monthly_M.jpg"/>
+                    </div>
+                    <div className={Styles.puntuacion}>
+                        4.8
+                    </div>
+                    
+                    <div className={Styles.descripcion}>
+                    Aquiles Hiban fue un gran hallazgo, y no puedo estar más agradecido por su profesionalismo. 
+                    Lo contraté para ayudarme con una serie de reparaciones eléctricas en mi casa, que iban desde revisar enchufes hasta instalar 
+                    luces y regular el sistema de voltaje para proteger mis dispositivos. Desde que llegó, demostró ser alguien muy atento a los 
+                    detalles, revisando minuciosamente cada aspecto antes de proceder. Además, respetó todos los protocolos de seguridad, algo que 
+                    no siempre se ve en otros profesionales, y trabajó con precisión y cuidado en cada tarea.
+                    Su experiencia en cerrajería también fue de gran ayuda. Una de las puertas de mi casa necesitaba una cerradura nueva, y no solo 
+                    trajo una de buena calidad, sino que la instaló de forma que funcionara perfectamente y no ofreciera ningún problema. Su enfoque 
+                    integral y el interés genuino que mostró en que todo quedara funcionando al 100% me dejaron tranquilo. La combinación de 
+                    servicios que ofrece es muy conveniente y representa una gran ventaja cuando se busca a alguien confiable. Sin duda, volveré a 
+                    llamarlo para cualquier otra necesidad que tenga en el futuro. ¡Un profesional excelente!
+                    </div>
+                    
                 </div>
             </div>
         </div>
