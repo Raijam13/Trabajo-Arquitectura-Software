@@ -8,8 +8,7 @@
     border: 0px;
     font-family: sans-serif;
     flex-direction: column;
-    font-family: "Poppins";
-  
+    font-family: sans-serif;
 }
 .barra{
     display: flex;
@@ -94,8 +93,56 @@
 
 .agendar{
     display: flex;
-    height: 12%;
-    background-color: red;
+    flex-direction: row;
+    height: 15%;
+   
+}
+.botones{
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    padding: 10px 30px 0 0;
+    justify-content: space-between;
+}
+
+.compra{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    padding: 10px 30px 0 0;
+    justify-content: center;
+    align-items: center;
+}
+.compra button{
+    height: 90%;
+    width: 300px;
+    border-radius: 10px;
+    background-color: #37383e;
+    color: white;
+    font-family: sans-serif;
+    font-weight: normal;
+    border: none;
+}
+.compra button:active{
+    background-color: #74747b;
+    transform: scale(0.95);
+}
+
+.btn{
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    padding: 10px;
+    border: 2px solid black;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10%;
+    background-color: white;
+
+}
+.btn:active{
+    transform: scale(0.98);
+    background-color: #cccccc ;
 }
 
 .preciob{
@@ -105,10 +152,11 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    border-radius: 10%;
+    border-radius: 10px;
     color: #1976d2;
     
 }
+
 
 .precio h3{
     font-family: sans-serif;
@@ -121,13 +169,11 @@
     
 }
 
-
-
-.descrip{
+.desc{
     display: flex;
-    height: 100%;
-    width: 30%;
-    background-color: brown;
+    flex-direction: column;
+    height: 300px;
+    width: 100%;
 }
 
 .lower-banner {

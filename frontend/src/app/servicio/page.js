@@ -6,10 +6,10 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import Header from '../frontpage/components/Header';
-import { Carousel } from 'react-responsive-carousel';
-
 import React, { useState } from 'react';
-
+import clock from '../../icons/clock.png'
+import calendar from '../../icons/calendar.png'
+import location from '../../icons/location.png'
 
 const Servicio = () => {
     const router = useRouter(); // Hook para manejar redirecciones
@@ -31,7 +31,7 @@ const Servicio = () => {
                     <div className={Styles.s2}>
                         <div className={Styles.titulo}  >
                             <h1>Titulo Servicio</h1>
-                            <a href=''> usuario 1</a>
+                            <a href=''> usuario 1</a> 
                         </div>
 
                         <div className={Styles.precio}>
@@ -40,19 +40,53 @@ const Servicio = () => {
                                 
                                 <h3>S./30.00</h3>
                             </div>
-                            <div className={Styles.desc}>
-
-                            </div>
                         </div>
 
                         <hr className={Styles['divisor']}></hr>
 
                         <div className={Styles.agendar}>
-                            
+                                <div className={Styles.botones}>
+
+                                  <button className={Styles.btn}>
+                                  <Image
+                                      src={clock}
+                                      width={32}
+                                      height={32}
+                                      alt="Picture of the author"
+                                    />
+                                    <p>Hora</p>
+                                  </button>
+                                    
+                                  <button className={Styles.btn}>
+                                  <Image
+                                      src={calendar}
+                                      width={32}
+                                      height={32}
+                                      alt="Picture of the author"
+                                    />
+                                    <p>Día</p>
+                                  </button>
+                                  <button className={Styles.btn}>
+                                  <Image
+                                      src={location}
+                                      width={32}
+                                      height={32}
+                                      alt="Picture of the author"
+                                    />
+                                    <p>Ubicación</p>
+                                  </button>
+                                  
+                                </div>
+                                <div className={Styles.compra}>
+                                    <button className={Styles.comprar}> <h5>Añadir al Carro</h5></button>
+                                </div>
                         </div>
 
-                        <div className={Styles}>
+                        <hr className={Styles['divisor']}></hr>
 
+                        <div className={Styles.desc}>
+                              <h5>Descripción</h5>
+                              <p>lorem lorem ipsis   dsadsadsaasasda   </p>
                         </div>
                     </div>
 

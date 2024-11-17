@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .opcion {
+    position: relative;
+  }
+  
+  .boton {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 120px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+  
+  .opcionMenu {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+  }
+  
+  .opcionMenu:last-child {
+    border-bottom: none;
+  }
+  
+  .opcionMenu:hover {
+    background-color: #f2f2f2;
+  }
+  
+  .carrito {
+    padding: 10px 15px;
+    background: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
