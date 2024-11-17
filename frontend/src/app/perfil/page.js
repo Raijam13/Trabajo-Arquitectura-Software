@@ -1,8 +1,16 @@
 'use client'
 import Styles from './page.module.css'
-
+import { useEffect, useState } from 'react';
+import { getresumen, eliminarPropuesta } from '../../api/perfil'; 
 
 const perfil = () =>{
+    const [resumen_texto, setresumen_texto] = useState('');
+
+    useEffect(() => {
+        console.log('Cambios: ')
+        setresumen_texto(getresumen('671ac23dfdd3b7d8c1d73b9a'));
+      }, []);
+    
     return (
         <div className={Styles.render}>
             
@@ -107,7 +115,12 @@ A tu puerta
                     </div>
                 </div>
             </div>
-            
+            <div className={Styles.titulo}>
+                Resumen
+                </div>
+                <div>
+                    {resumen_texto}
+                </div>
             <div className={Styles.solicitudes}>
                 <div className={Styles.titulo}>
                 Comentarios de otros clientes

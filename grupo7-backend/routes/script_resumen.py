@@ -66,7 +66,7 @@ if [] != variable:
         
         # Ordenar índices por puntuaciones y escoger los primeros 5
         sort_idx = np.argsort(-scores)#Invertir el orden
-        texto_completo = ". ".join(lista[i] for i in sort_idx[:4])
+        texto_completo = ". ".join(lista[i] for i in sort_idx[:5])
         return texto_completo
 
     resumen_texto = funcion_TextRank(lista_preprocesadas)

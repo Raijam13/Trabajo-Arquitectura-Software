@@ -62,7 +62,7 @@ function runPythonScript() {
   });
 }
 // Ejecutar script
-//runPythonScript();
+runPythonScript();
 //===============================
 
 // Iniciar el servidor
