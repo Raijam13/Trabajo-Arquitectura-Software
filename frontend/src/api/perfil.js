@@ -19,4 +19,5 @@ const getresumen = async function(id) {
         return [];
     }
 };
+
 export {getresumen};

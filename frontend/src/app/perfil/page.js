@@ -118,7 +118,7 @@ A tu puerta
             <div className={Styles.titulo}>
                 Resumen
                 </div>
-                <div>
+                <div >
                     {resumen_texto}
                 </div>
             <div className={Styles.solicitudes}>
