@@ -149,16 +149,16 @@ A tu puerta
                     <iframe
                 key={video_link}
                 src={video_link}
-                width="750"
-                height="400"
+                width="920"
+                height="500"
                 allow="autoplay"
                 ></iframe>
                 ) : (
                     <iframe
                 key={video_link_sin_hd}
                 src={video_link_sin_hd}
-                width="750"
-                height="400"
+                width="920"
+                height="500"
                 allow="autoplay"
                 ></iframe>
                 )
@@ -169,7 +169,7 @@ A tu puerta
             <div className={Styles.titulo}>
                 Resumen
             </div>
-            <div >
+            <div className={Styles.resumen}>
                 {resumen_texto}
             </div>
             <div className={Styles.solicitudes}>
