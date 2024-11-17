@@ -2,19 +2,23 @@
 import { useRouter } from 'next/navigation'; // Importar el router para redirección
 import Styles from './page.module.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import Image from 'next/image';
 import Header from '../frontpage/components/Header';
-import React, { useState } from 'react';
 import clock from '../../icons/clock.png'
 import calendar from '../../icons/calendar.png'
 import location from '../../icons/location.png'
+import { useState, useEffect } from 'react';
 
 const Servicio = () => {
+
     const router = useRouter(); // Hook para manejar redirecciones
 
- 
+    const [Servicio,SetServicio] = useState({
+      Titulo: "",
+      servicio_Descripcion: "",
+      CostoPromedio: 0,
+    });
+
 
     return (
         <div className={Styles.render}>
