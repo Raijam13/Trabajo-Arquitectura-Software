@@ -6,11 +6,19 @@ import { getresumen, getvideoHD, getvideoSinHD } from '../../api/perfil';
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
     const [video_link, setvideo_link] = useState("");
+    const [video_link_sin_hd, setvideo_link_sin_hd] = useState("");
+    const [booleano, setbooleano] = useState(0);
+    const cambia_booleano = () => {
+        setbooleano(booleano === 0 ? 1 : 0);
+      };
+
     useEffect(() => {
         setresumen_texto(getresumen('671ac23dfdd3b7d8c1d73b9a'));
         const fetchVideo = async () => {
             const link = await getvideoHD("671ac23dfdd3b7d8c1d73b9a");
-            setvideo_link(link); 
+            const link2 = await getvideoSinHD("671ac23dfdd3b7d8c1d73b9a");
+            setvideo_link(link);
+            setvideo_link_sin_hd(link2);
         }
         fetchVideo();
 
@@ -121,17 +129,39 @@ A tu puerta
                 </div>
             </div>
             <div className={Styles.titulo}>
-                Video
+                Video promocional
             </div>
             <div>
+                {
+                    booleano === 0 ? (
+                    <button onClick={cambia_booleano}>Bajar la resolución</button>
+                    ):
+                    (
+                    <button onClick={cambia_booleano}>Subir la resolución</button>
+                    )
+                }
+                
+            </div>
+            <br></br>
+            <div>
                 {typeof video_link === "string" && video_link !== "" ? (
-                <iframe
+                booleano === 0 ? (
+                    <iframe
                 key={video_link}
                 src={video_link}
                 width="750"
                 height="400"
                 allow="autoplay"
                 ></iframe>
+                ) : (
+                    <iframe
+                key={video_link_sin_hd}
+                src={video_link_sin_hd}
+                width="750"
+                height="400"
+                allow="autoplay"
+                ></iframe>
+                )
                 ) : (
                     <p>Cargando video...</p>
                 )}
