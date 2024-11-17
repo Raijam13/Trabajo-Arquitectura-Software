@@ -54,7 +54,7 @@ const Cart = () => {
       <nav className={Styles.navbar}>
         <span className={Styles.nombreCliente}>{nombreCliente}</span>
         <a href="/perfil" className={Styles.link}>Mi perfil</a>
-        <a href="/inicio" className={Styles.link}>Inicio</a>
+        <a href="/frontpage" className={Styles.link}>Inicio</a>
         <a href="/solicitudes" className={Styles.link}>Mis solicitudes</a>
         <a href="/carrito" className={Styles.link}>Mi Carrito</a>
       </nav>

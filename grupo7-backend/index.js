@@ -45,6 +45,10 @@ app.use('/compras', compraRoutes);
 const resumenRoutes = require('./routes/resumen');
 app.use('/resumen', resumenRoutes);
 
+// Importar y usar rutas de trabajos
+const trabajosRoutes = require('./routes/trabajos');
+app.use('/trabajos', trabajosRoutes);
+
 // ===============================
 // Función para ejecutar el script de Python
 function runPythonScript() {

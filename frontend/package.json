@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
     "@fontsource/poppins": "^5.1.0",
+    "@mui/material": "^6.1.7",
     "@nextui-org/input": "^2.2.5",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
