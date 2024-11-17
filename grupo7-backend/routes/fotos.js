@@ -4,13 +4,13 @@ const Foto = require('../models/Foto');
 
 
 // Crear una nueva foto (POST /fotos)
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
 
-router.post('/', upload.single('foto'), async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const newFoto = new Foto({
-      foto: req.file.path,  // Almacena el path donde se guardó la imagen
+      usuario: req.body.usuario,
+      vendedor: req.body.vendedor,
+      foto: req.body.foto,
       descripción: req.body.descripción
     });
     await newFoto.save();
