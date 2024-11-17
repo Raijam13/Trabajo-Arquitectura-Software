@@ -71,7 +71,22 @@ if [] != variable:
 
     resumen_texto = funcion_TextRank(lista_preprocesadas)
 
-    print("resumen_texto: ", resumen_texto)
+    #print("resumen_texto: ", resumen_texto)
+    url_delete = f"http://localhost:3009/resumen/{variable_vendor}"
+
+    def delete_todo_resumen():
+        try:
+            response = requests.delete(url_delete)
+            if response.status_code in [200, 201]:
+                # Procesar la respuesta
+                print("Los resumenes se elimino correctamente")
+            else:
+                print("Error en la petición post:", response.status_code)
+                
+        except requests.RequestException as e:
+            print("Error en la petición post:", e)
+    
+    delete_todo_resumen()
 
     url2 = f"http://localhost:3009/resumen"
 
@@ -90,8 +105,7 @@ if [] != variable:
                 
         except requests.RequestException as e:
             print("Error en la petición post:", e)
-            
-
+    
     post_todo_resumen()
 else:
     print("No hay comentarios")
