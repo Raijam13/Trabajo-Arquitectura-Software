@@ -1,18 +1,19 @@
 'use client'
 import Styles from './page.module.css'
 import { useEffect, useState } from 'react';
-import { getresumen, eliminarPropuesta } from '../../api/perfil'; 
+import { getresumen, getvideoHD, getvideoSinHD } from '../../api/perfil'; 
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
-    //https://drive.google.com/file/d/1G1gYgc_txEx2_Bqad5ZhZHJH7EgwLLER/view?usp=sharing
-    //https://drive.google.com/file/d/1G1gYgc_txEx2_Bqad5ZhZHJH7EgwLLER/preview
-
+    const [video_link, setvideo_link] = useState("");
     useEffect(() => {
         setresumen_texto(getresumen('671ac23dfdd3b7d8c1d73b9a'));
-        if (resumen_texto == ''){
-            setresumen_texto("No hay resumen")
+        const fetchVideo = async () => {
+            const link = await getvideoHD("671ac23dfdd3b7d8c1d73b9a");
+            setvideo_link(link); 
         }
+        fetchVideo();
+
       }, []);
     
     return (
@@ -78,7 +79,7 @@ A tu puerta
                     Aquiles Hiban
                     </div>
                     <div>
-                        Electricista - Cerrajero
+                        Electricista - Cerrajero - Jardinero
                     </div>
                     <div className={Styles.puntuacion}>
                         4.8
@@ -123,12 +124,17 @@ A tu puerta
                 Video
             </div>
             <div>
+                {typeof video_link === "string" && video_link !== "" ? (
                 <iframe
-                src="https://drive.google.com/file/d/1G1gYgc_txEx2_Bqad5ZhZHJH7EgwLLER/preview"
+                key={video_link}
+                src={video_link}
                 width="750"
                 height="400"
                 allow="autoplay"
                 ></iframe>
+                ) : (
+                    <p>Cargando video...</p>
+                )}
             </div>
             <div className={Styles.titulo}>
                 Resumen
