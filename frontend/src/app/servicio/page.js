@@ -29,7 +29,31 @@ const Servicio = () => {
 
                     </div>
                     <div className={Styles.s2}>
+                        <div className={Styles.titulo}  >
+                            <h1>Titulo Servicio</h1>
+                            <a href=''> usuario 1</a>
+                        </div>
 
+                        <div className={Styles.precio}>
+                             <h2> Costo  x hora promedio</h2>
+                            <div className={Styles.preciob}>
+                                
+                                <h3>S./30.00</h3>
+                            </div>
+                            <div className={Styles.desc}>
+
+                            </div>
+                        </div>
+
+                        <hr className={Styles['divisor']}></hr>
+
+                        <div className={Styles.agendar}>
+                            
+                        </div>
+
+                        <div className={Styles}>
+
+                        </div>
                     </div>
 
                 </div>  
