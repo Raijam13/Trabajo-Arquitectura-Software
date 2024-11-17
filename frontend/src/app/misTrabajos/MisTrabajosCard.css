@@ -1,0 +1,105 @@
+/* Tarjeta principal */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 280px; /* Ancho de la tarjeta */
+    margin: 20px; /* Espaciado entre tarjetas */
+  }
+  
+  /* Imagen dentro de la tarjeta */
+  .card img {
+    width: 100%;
+    height: 200px; /* Altura fija */
+    object-fit: cover; /* Ajuste de la imagen */
+    border-radius: 10px;
+  }
+  
+  /* Contenedor de las acciones */
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 15px;
+  }
+  
+  /* Botón de edición */
+  .editButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  /* Botón de eliminación */
+  .deleteButton {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  /* Botón de contacto */
+  .contactButton {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  /* Botón de finalización */
+  .finalizeButton {
+    background-color: #ffc107;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  /* Botón de calificación */
+  .rateButton {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  /* Texto de presupuesto */
+  .budget {
+    font-weight: bold;
+  }
+  
+  /* Contenedor de la imagen del freelancer */
+  .freelancerImageWrapper {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  /* Imagen del freelancer */
+  .freelancerImage {
+    max-width: 100%;
+    height: auto;
+    max-height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
