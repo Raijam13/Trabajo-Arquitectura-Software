@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
       usuario: req.body.usuario,
       vendedor: req.body.vendedor,
       foto: req.body.foto,
-      descripción: req.body.descripción
+      foto2: req.body.foto2
     });
     await newFoto.save();
     res.status(201).json(newFoto);

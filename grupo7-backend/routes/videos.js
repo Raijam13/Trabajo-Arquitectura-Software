@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
     const newVideo = new Video({
       vendedor: req.body.vendedor,
       video: req.body.video,
-      descripción: req.body.descripción
+      video2: req.body.video2
     });
     await newVideo.save();
     res.status(201).json(newVideo);

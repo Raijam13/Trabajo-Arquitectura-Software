@@ -155,7 +155,39 @@
     text-align: justify;
 }
 
+.resumen{
+    font-size: 16px;/*unico original*/
+    max-width: 920px;
+    text-align: justify;
+}
+
 .fecha{
     font-size: 12px;
     color: #5800A7;
 }
+
+.category-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 50px;
+    background-color: #5800A7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    padding: 0;
+  }
+  
+  .category-button svg {
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  
+  .category-button:hover {
+    background-color: #7B01D6;
+  }

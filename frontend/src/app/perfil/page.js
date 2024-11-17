@@ -1,14 +1,27 @@
 'use client'
 import Styles from './page.module.css'
 import { useEffect, useState } from 'react';
-import { getresumen, eliminarPropuesta } from '../../api/perfil'; 
+import { getresumen, getvideoHD, getvideoSinHD } from '../../api/perfil'; 
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
+    const [video_link, setvideo_link] = useState("");
+    const [video_link_sin_hd, setvideo_link_sin_hd] = useState("");
+    const [booleano, setbooleano] = useState(0);
+    const cambia_booleano = () => {
+        setbooleano(booleano === 0 ? 1 : 0);
+      };
 
     useEffect(() => {
-        console.log('Cambios: ')
         setresumen_texto(getresumen('671ac23dfdd3b7d8c1d73b9a'));
+        const fetchVideo = async () => {
+            const link = await getvideoHD("671ac23dfdd3b7d8c1d73b9a");
+            const link2 = await getvideoSinHD("671ac23dfdd3b7d8c1d73b9a");
+            setvideo_link(link);
+            setvideo_link_sin_hd(link2);
+        }
+        fetchVideo();
+
       }, []);
     
     return (
@@ -34,7 +47,7 @@ A tu puerta
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
   <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/>
 </svg>
-                    Perfil
+                Perfil
                     
                 </div>
                 <div className={Styles.botonesbr}>
@@ -58,7 +71,6 @@ A tu puerta
   <path d="M3 8a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H3.5a.5.5 0 0 1-.5-.5zm0 3a.5.5 0 0 1 .5-.5h1.5a.5.5 0 0 1 0 1H3.5a.5.5 0 0 1-.5-.5z"/>
 </svg>
                     Historial
-                    
                 </div>
 
             </div>
@@ -74,7 +86,7 @@ A tu puerta
                     Aquiles Hiban
                     </div>
                     <div>
-                        Electricista - Cerrajero
+                        Electricista - Cerrajero - Jardinero
                     </div>
                     <div className={Styles.puntuacion}>
                         4.8
@@ -116,11 +128,50 @@ A tu puerta
                 </div>
             </div>
             <div className={Styles.titulo}>
+                Video promocional
+            </div>
+            <br></br>
+            <div>
+                {
+                    booleano === 0 ? (
+                    <button className={Styles['category-button']} onClick={cambia_booleano}>Bajar la resolución</button>
+                    ):
+                    (
+                    <button className={Styles['category-button']} onClick={cambia_booleano}>Subir la resolución</button>
+                    )
+                }
+                
+            </div>
+            <br></br>
+            <div>
+                {typeof video_link === "string" && video_link !== "" ? (
+                booleano === 0 ? (
+                    <iframe
+                key={video_link}
+                src={video_link}
+                width="920"
+                height="500"
+                allow="autoplay"
+                ></iframe>
+                ) : (
+                    <iframe
+                key={video_link_sin_hd}
+                src={video_link_sin_hd}
+                width="920"
+                height="500"
+                allow="autoplay"
+                ></iframe>
+                )
+                ) : (
+                    <p>Cargando video...</p>
+                )}
+            </div>
+            <div className={Styles.titulo}>
                 Resumen
-                </div>
-                <div >
-                    {resumen_texto}
-                </div>
+            </div>
+            <div className={Styles.resumen}>
+                {resumen_texto}
+            </div>
             <div className={Styles.solicitudes}>
                 <div className={Styles.titulo}>
                 Comentarios de otros clientes
