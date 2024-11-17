@@ -31,7 +31,7 @@
     height: 800px;
     width: 100%;
     flex-direction: row;
-    background-color:aquamarine ;
+    
     
     
 }
@@ -57,16 +57,71 @@
     display: flex;
     width: 50%;
     height: 100%;
-    background-color:orange;
+    flex-direction: column;
+    padding: 3% 5% 5% 3%;  
+    
+    
 }
-
-
-.resultados{
+.titulo{
+    text-align: left;
+    font-weight: bolder;
     display: flex;
-    height: 100%;
-    width: 55%;
-    background-color: beige;
+    height: 10%;
+    width: auto;
+    flex-direction: column;
+    margin-bottom: 20px;    
 }
+.titulo a{
+    width: 20%;
+    margin: 0;
+}
+
+.precio{
+    height: 15%;
+    display: flex;
+    margin: 20px 0 20px 0;
+    flex-direction: column;
+
+}
+.precio h2{
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: larger;
+}
+.divisor{
+    border-top: 5px solid #000000;
+}
+
+.agendar{
+    display: flex;
+    height: 12%;
+    background-color: red;
+}
+
+.preciob{
+    height: 80px;
+    width:  20%;
+    background-color: #e3e8ff;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    border-radius: 10%;
+    color: #1976d2;
+    
+}
+
+.precio h3{
+    font-family: sans-serif;
+    font-weight: bold;
+}
+
+.titulo h1{
+    font-family: sans-serif;
+    font-weight: bold;
+    
+}
+
+
 
 .descrip{
     display: flex;
