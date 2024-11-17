@@ -21,9 +21,9 @@ router.post('/', async (req, res) => {
 });
 
 // Obtener todas las fotos (GET /fotos)
-router.get('/', async (req, res) => {
+router.get('/:vendedorId', async (req, res) => {
   try {
-    const fotos = await Foto.find();
+    const fotos = await Foto.find({ vendedor: req.params.vendedorId });
     res.json(fotos);
   } catch (err) {
     res.status(400).send('Error al obtener fotos: ' + err.message);
