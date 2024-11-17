@@ -5,10 +5,14 @@ import { getresumen, eliminarPropuesta } from '../../api/perfil';
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
+    //https://drive.google.com/file/d/1G1gYgc_txEx2_Bqad5ZhZHJH7EgwLLER/view?usp=sharing
+    //https://drive.google.com/file/d/1G1gYgc_txEx2_Bqad5ZhZHJH7EgwLLER/preview
 
     useEffect(() => {
-        console.log('Cambios: ')
         setresumen_texto(getresumen('671ac23dfdd3b7d8c1d73b9a'));
+        if (resumen_texto == ''){
+            setresumen_texto("No hay resumen")
+        }
       }, []);
     
     return (
@@ -116,11 +120,22 @@ A tu puerta
                 </div>
             </div>
             <div className={Styles.titulo}>
+                Video
+            </div>
+            <div>
+                <iframe
+                src="https://drive.google.com/file/d/1G1gYgc_txEx2_Bqad5ZhZHJH7EgwLLER/preview"
+                width="750"
+                height="400"
+                allow="autoplay"
+                ></iframe>
+            </div>
+            <div className={Styles.titulo}>
                 Resumen
-                </div>
-                <div >
-                    {resumen_texto}
-                </div>
+            </div>
+            <div >
+                {resumen_texto}
+            </div>
             <div className={Styles.solicitudes}>
                 <div className={Styles.titulo}>
                 Comentarios de otros clientes
