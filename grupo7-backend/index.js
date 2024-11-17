@@ -39,6 +39,9 @@ app.use('/comentarios', comentarioRoutes);
 const fotoRoutes = require('./routes/fotos');
 app.use('/fotos', fotoRoutes);
 
+const videoRoutes = require('./routes/videos');
+app.use('/videos', videoRoutes);
+
 const compraRoutes = require('./routes/compras');
 app.use('/compras', compraRoutes);
 
