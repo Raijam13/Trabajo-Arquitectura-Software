@@ -25,5 +25,18 @@ router.get('/:vendedorId', async (req, res) => {
     res.status(400).send('Error al obtener Resumenes: ' + err.message);
   }
 });
+router.delete('/:vendedorId', async (req, res) => {
+  try {
+      //const { vendedorId } = req.params.vendedorId;
+      const result = await Resumen.deleteMany({ vendedor: req.params.vendedorId });
+      res.json(result);
+      
+  } catch (error) {
+      console.error(error);
+      res.status(500).json({ 
+          error: 'Hubo un error al intentar eliminar el resumen del vendedor' 
+      });
+  }
+});
 
 module.exports = router;
