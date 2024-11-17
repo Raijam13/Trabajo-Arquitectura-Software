@@ -45,29 +45,25 @@ app.use('/compras', compraRoutes);
 const resumenRoutes = require('./routes/resumen');
 app.use('/resumen', resumenRoutes);
 
-// ===============================
-// Función para ejecutar el script de Python
+//===============================
 function runPythonScript() {
-  const pythonProcess = spawn('C:/Users/USER/AppData/Local/Microsoft/WindowsApps/python.exe', ['routes/script_resumen.py']);
+  const pythonProcess = spawn('C:/Users/USER/AppData/Local/Microsoft/WindowsApps/python.exe', ['routes/script_resumen.py']); // Cambia 'script.py' por la ruta correcta
 
   pythonProcess.stdout.on('data', (data) => {
-    console.log(`Output: ${data}`);
+      console.log(`Output: ${data}`); // Mostrar la salida del script en la consola
   });
 
   pythonProcess.stderr.on('data', (data) => {
-    console.error(`Error: ${data}`);
+      console.error(`Error: ${data}`); // Mostrar cualquier error que ocurra
   });
 
   pythonProcess.on('close', (code) => {
-    console.log(`Proceso de Python finalizado con el código: ${code}`);
+      console.log(`Proceso de Python finalizado con el código: ${code}`); // Mostrar el código de cierre del proceso
   });
 }
-
-// Ejecutar el script de Python si es necesario
-// Puedes comentar o descomentar esta línea según tu caso
-// runPythonScript();
-
-// ===============================
+// Ejecutar script
+//runPythonScript();
+//===============================
 
 // Iniciar el servidor
 app.listen(PORT, '0.0.0.0', () => {

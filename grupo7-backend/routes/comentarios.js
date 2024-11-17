@@ -29,4 +29,5 @@ router.get('/:vendedorId', async (req, res) => {
   }
 });
 
+
 module.exports = router;
