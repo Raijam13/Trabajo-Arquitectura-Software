@@ -1,206 +1,317 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
-.render{
-    display: flex;
-    width: 100%;
-    height: auto;
-    margin: 0px;
-    padding: 0px;
-    border: 0px;
-    font-family: sans-serif;
-    flex-direction: column;
-    font-family: sans-serif;
+
+/* ===== Contenedor Principal ===== */
+.render0 {
+    font-family: "Poppins", sans-serif;
 }
-.barra{
+/* ===== Contenedor Principal ===== */
+.render1 {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que ocupe toda la altura de la ventana */
+    font-family: "Poppins", sans-serif;
+}
+
+.barra {
     display: flex;
     height: 76px;
     width: 100%;
     background-color: black;
 }
 
-.page{
+/* ===== Página y Contenedores ===== */
+.page {
     display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.container1 {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Sección izquierda: Imagen */
+.imagenContainer {
+    flex: 1;
+    display: flex;
+    align-items: flex-start; /* Alinea la imagen en la parte superior */
+    justify-content: center; /* Centra la imagen horizontalmente */
+    padding: 20px;
+}
+
+.imagen {
+    max-width: 100%;
+    max-height: 500px; /* Limitar la altura si es necesario */
+    width: auto;
     height: auto;
-    width: 100%;
-    flex-direction: column;
-    
+    border-radius: 10px;
+    object-fit: cover;
 }
 
-.container1{
+/* Sección derecha: Contenido */
+.contenido {
+    flex: 1;
+    padding: 20px;
     display: flex;
-    height: 800px;
-    width: 100%;
-    flex-direction: row;
-    
-    
-    
-}
-.container2{
-    display: flex;
-    height: 500px;
-    width: 100%;
-    flex-direction: row;
-    background-color:brown ;
     flex-direction: column;
-    align-items: center;
-    padding-top:30px ;
+    gap: 5px; /* Reducir el espacio entre los elementos */
 }
 
-.s1{
-    display: flex;
-    width: 50%;
-    height: 100%;
-    background-color:green;
-}
 
-.s2{
-    display: flex;
-    width: 50%;
-    height: 100%;
-    flex-direction: column;
-    padding: 3% 5% 5% 3%;  
-    
-    
-}
-.titulo{
+/* ===== Título y Descripción ===== */
+.titulo {
     text-align: left;
     font-weight: bolder;
     display: flex;
     height: 10%;
-    width: auto;
     flex-direction: column;
-    margin-bottom: 20px;    
+    margin-bottom: 20px;
 }
-.titulo a{
+
+.titulo a {
     width: 20%;
     margin: 0;
 }
 
-.precio{
-    height: 15%;
-    display: flex;
-    margin: 20px 0 20px 0;
-    flex-direction: column;
-
-}
-.precio h2{
+.titulo h1 {
     font-family: sans-serif;
+    font-weight: bold;
+}
+
+.desc {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+/* ===== Divisor ===== */
+.divisor {
+    border-top: 3px solid #000000;
+}
+
+/* ===== Precio ===== */
+.precio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.precioContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.preciob {
+    display: flex;
+    align-items: baseline;
+    background-color: #e3e8ff;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: #1976d2;
+    font-weight: bold;
+    gap: 3px;
+}
+
+.simbolo {
+    font-size: 16px;
+    line-height: 1.2;
+}
+
+.cantidad {
+    font-size: 28px;
+    line-height: 1.2;
+}
+
+.costoDescripcion {
+    font-size: 14px;
+    color: #555;
+    align-self: center;
+}
+
+.precio h3 {
+    
+    font-weight: bold;
+}
+
+.precio h2 {
+    
     font-weight: bold;
     font-size: larger;
 }
-.divisor{
-    border-top: 5px solid #000000;
-}
 
-.agendar{
+/* ===== Botones de Agendar y Comprar ===== */
+.agendar {
     display: flex;
-    flex-direction: row;
-    height: 15%;
-   
-}
-.botones{
-    display: flex;
-    flex-direction: row;
-    width: 40%;
-    padding: 10px 30px 0 0;
-    justify-content: space-between;
-}
-
-.compra{
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-    padding: 10px 30px 0 0;
-    justify-content: center;
     align-items: center;
+    justify-content: space-around;
+    gap: 10px; /* Reducir el espacio entre los botones */
+    padding: 10px 0;
 }
-.compra button{
-    height: 90%;
-    width: 300px;
-    border-radius: 10px;
+
+.botones {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 60px; /* Ajustar el ancho para compactar */
+    height: 60px; /* Ajustar la altura para compactar */
+    border: 2px solid black;
+    border-radius: 8px;
+    background-color: white;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn p {
+    font-size: 12px;
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.btn:active {
+    transform: scale(0.95);
+    background-color: #e0e0e0;
+}
+
+.compra {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.comprar {
+    height: 60px; /* Ajustar la altura para que coincida con los botones */
+    width: 150px; /* Ajustar el ancho para compactar */
+    border-radius: 8px;
     background-color: #37383e;
     color: white;
     font-family: sans-serif;
-    font-weight: normal;
-    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
-.compra button:active{
+
+.comprar:active {
     background-color: #74747b;
     transform: scale(0.95);
 }
 
-.btn{
+/* ===== Comentarios ===== */
+.comentario {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.comentarioHeader {
     display: flex;
-    flex-direction: column;
-    width: 80px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.estrellas {
+    font-size: 16px;
+}
+
+.nuevoComentario {
+    margin-top: 30px;
+}
+
+.comentarioInput {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.textarea {
+    flex: 1;
+    height: 50px;
     padding: 10px;
-    border: 2px solid black;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10%;
-    background-color: white;
-
-}
-.btn:active{
-    transform: scale(0.98);
-    background-color: #cccccc ;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    resize: none;
 }
 
-.preciob{
-    height: 80px;
-    width:  20%;
-    background-color: #e3e8ff;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    border-radius: 10px;
-    color: #1976d2;
-    
+.enviarBtn {
+    background-color: #37383e;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-
-.precio h3{
-    font-family: sans-serif;
-    font-weight: bold;
+.enviarBtn:hover {
+    background-color: #555;
 }
 
-.titulo h1{
-    font-family: sans-serif;
-    font-weight: bold;
-    
-}
-
-.desc{
-    display: flex;
-    flex-direction: column;
-    height: 300px;
-    width: 100%;
-}
-
+/* ===== Footer ===== */
 .lower-banner {
     background-color: #1976d2;
     padding: 20px;
     text-align: center;
     font-size: 12px;
     color: white;
-    align-items: end;
-  }
+    width: 100%;
+    margin-top: auto; /* Asegura que el footer se mantenga en la parte inferior */
+}
 
-  .font{
-    font-family: "Poppins", sans-serif;
-  }
-
-  .lower-banner .links {
+.lower-banner .links {
     margin-bottom: 10px;
-  }
-  
-  .lower-banner .links a {
+}
+
+.lower-banner .links a {
     margin: 0 10px;
     text-decoration: none;
     color: white;
     font-weight: bold;
-  }
-  
-  .lower-banner .links a:hover {
-    text-decoration: underline;
-  }
+}
 
+.lower-banner .links a:hover {
+    text-decoration: underline;
+}
+
+
+.links {
+    margin-bottom: 10px;
+}
+
+.links a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
