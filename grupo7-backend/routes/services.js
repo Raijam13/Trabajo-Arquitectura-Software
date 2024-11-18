@@ -31,20 +31,21 @@ router.post('/', [
 });
 
 // Obtener un servicio por ID (GET /services/:id)
-router.get('/:_id', async (req, res) => {
+
+
+router.get('/:id', async (req, res) => {
   try {
-    const service = await Service.findById(req.params.id);
-    if (!service) {
-      return res.status(404).send('Servicio no encontrado');
-    }
-    res.json(service);
+    const fotos = await Service.find({ _id: req.params.id });
+    res.json(fotos);
   } catch (err) {
-    res.status(400).send('Error al obtener el servicio: ' + err.message);
+    res.status(400).send('Error al obtener fotos: ' + err.message);
   }
 });
 
+
+
 // Listar todos los servicios (GET /services)
-router.get('/:id', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const services = await Service.find(req.query);
     res.json(services);
