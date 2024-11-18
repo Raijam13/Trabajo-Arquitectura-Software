@@ -30,6 +30,20 @@ router.post('/', [
   }
 });
 
+// Obtener un servicio por ID (GET /services/:id)
+
+
+router.get('/:id', async (req, res) => {
+  try {
+    const fotos = await Service.find({ _id: req.params.id });
+    res.json(fotos);
+  } catch (err) {
+    res.status(400).send('Error al obtener fotos: ' + err.message);
+  }
+});
+
+
+
 // Listar todos los servicios (GET /services)
 router.get('/', async (req, res) => {
   try {
