@@ -113,4 +113,57 @@ router.get('/me', authenticateToken, async (req, res) => {
   }
 });
 
+
+// PATRON CONSULTAR DNI
+
+// Consultar DNI
+router.post('/vdni', async (req, res) => {
+  try {
+    console.log(req.body); // Para ver los datos que llegan al servidor
+
+    res.status(202).send('Recibido')
+
+
+
+
+    // Validar el DNI llamando a la API de Sunat
+    const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
+    const apidni = `https://api.apis.net.pe/v2/reniec/dni?numero=${req.body.dni}`;
+    const response = await axios.get(apidni, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
+    // Imprimir la respuesta completa para ver qué se devuelve
+    console.log('Respuesta de la API de RENIEC:', response.data);
+    if (response.data.message && response.data.message === "dni no valido") {
+        return res.status(400).json({ error: 'El DNI no es válido' });
+    } else{
+ 
+      
+      
+    }
+    
+   
+  
+  } catch (err) {
+    res.status(400).send('Error al validar DNI: ' + err.message);
+  }
+
+});
+
+
+router.post('/dnistatus', async (req, res) => {
+
+     status = false;
+    res.status(200).send('Solicitud Pendiente')
+
+})
+
+
+
+
+
+
+
 module.exports = router;
