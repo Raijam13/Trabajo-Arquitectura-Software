@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Service = require('../models/service');
 
+
 // Crear un nuevo servicio
 router.post('/', async (req, res) => {
   const { tipo, titulo, servicio_description, estado, cliente, trabajador, costo_promedio, costo_descripción } = req.body;

@@ -28,7 +28,7 @@ const vendedorSchema = new mongoose.Schema({
   edad: { type: Number, required: true },
   telefono: { type: Number, required: true },
   imagen_perfil: { type: String, required: false },
-  activdadEconomica: {type: String, required: true},
+  actividadEconomica: {type: String, required: true},
   id_servicio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: false }],
 });
 
