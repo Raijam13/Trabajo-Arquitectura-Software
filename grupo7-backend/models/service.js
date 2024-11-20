@@ -1,22 +1,34 @@
 const mongoose = require('mongoose');
 
-// Definir el esquema del servicio
 const serviceSchema = new mongoose.Schema({
-  tipo: {
-    type: String,
-    enum: ['Electricista', 'Cocinero', 'Aseo', 'Gasfitero', 'Jardinero', 'Cerrajero'],
-    required: true
-  },
-  titulo: { type: String, required: true },
-  servicio_description: { type: String, required: true },
-  costo_promedio: { type: Number, required: true },
-  costo_descripción: { type: String, required: true },
-  id_foto: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Foto', required: false }], // Relación con varias fotos
-  id_comentario: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comentario', required: false }]
+    tipo: {
+        type: String,
+        enum: ['Electricista', 'Cocinero', 'Aseo', 'Gasfitero', 'Jardinero', 'Cerrajero'],
+        required: true,
+    },
+    titulo: { type: String, required: true },
+    servicio_description: { type: String, required: true },
+    estado: {
+        type: String,
+        enum: ['EN_PROCESO', 'FINALIZADO', 'CALIFICADO'],
+        default: 'EN_PROCESO',
+    },
+    cliente: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    trabajador: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendedor', required: true }, // Campo obligatorio
+    costo_promedio: { type: Number, required: true },
+    costo_descripción: { type: String, required: true },
+    id_foto: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Foto', required: false }],
+    id_comentario: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comentario', required: false }],
+    fechaCreacion: { type: Date, default: Date.now },
+    ultimaActualizacion: { type: Date, default: Date.now },
 });
 
-// Crear el modelo del servicio a partir del esquema
+// Middleware para actualizar la fecha de última modificación
+serviceSchema.pre('save', function (next) {
+    this.ultimaActualizacion = Date.now();
+    next();
+});
+
 const Service = mongoose.model('Service', serviceSchema);
 
 module.exports = Service;
-

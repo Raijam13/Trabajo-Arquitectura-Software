@@ -1,84 +1,138 @@
 const express = require('express');
 const router = express.Router();
 const Service = require('../models/service');
-const { check, validationResult } = require('express-validator');
 
-// Crear un nuevo servicio (POST /services)
-router.post('/', [
-  check('titulo').not().isEmpty().withMessage('El título es obligatorio'),
-  check('costo_promedio').isNumeric().withMessage('El costo promedio debe ser un número'),
-], async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+// Crear un nuevo servicio
+router.post('/', async (req, res) => {
+  const { tipo, titulo, servicio_description, estado, cliente, trabajador, costo_promedio, costo_descripción } = req.body;
+
+  // Validar campos obligatorios
+  if (!cliente || !trabajador) {
+      return res.status(400).json({ error: 'Los campos cliente y trabajador son obligatorios.' });
+  }
+
+  const estadosPermitidos = ['EN_PROCESO', 'FINALIZADO', 'CALIFICADO'];
+  if (estado && !estadosPermitidos.includes(estado)) {
+      return res.status(400).json({ error: `Estado "${estado}" no permitido` });
   }
 
   try {
-    const newService = new Service({
-      tipo: req.body.tipo,
-      titulo: req.body.titulo,
-      servicio_description: req.body.servicio_description,
-      costo_promedio: req.body.costo_promedio,
-      costo_descripción: req.body.costo_descripción,
-      id_foto: [],
-      id_comentario: []
-    });
-    await newService.save();
-    res.status(201).json(newService);
+      const nuevoServicio = new Service({
+          tipo,
+          titulo,
+          servicio_description,
+          estado: estado || 'EN_PROCESO', // Estado por defecto
+          cliente,
+          trabajador,
+          costo_promedio,
+          costo_descripción,
+      });
+
+      await nuevoServicio.save();
+      res.status(201).json({ mensaje: 'Servicio creado con éxito', servicio: nuevoServicio });
   } catch (err) {
-    res.status(400).send('Error al crear servicio: ' + err.message);
+      res.status(500).json({ error: 'Error al crear servicio', detalles: err.message });
   }
 });
 
-// Obtener un servicio por ID (GET /services/:id)
-
-
-router.get('/:id', async (req, res) => {
-  try {
-    const fotos = await Service.find({ _id: req.params.id });
-    res.json(fotos);
-  } catch (err) {
-    res.status(400).send('Error al obtener fotos: ' + err.message);
-  }
-});
-
-
-
-// Listar todos los servicios (GET /services)
+// Obtener todos los servicios
 router.get('/', async (req, res) => {
-  try {
-    const services = await Service.find(req.query);
-    res.json(services);
-  } catch (err) {
-    res.status(400).send('Error al listar servicios: ' + err.message);
-  }
+    try {
+        const servicios = await Service.find();
+        res.status(200).json(servicios);
+    } catch (err) {
+        res.status(500).json({ error: 'Error al obtener servicios', detalles: err.message });
+    }
 });
 
-// Eliminar un servicio (DELETE /services/:id)
-router.delete('/:id', async (req, res) => {
-  try {
-    const deletedService = await Service.findByIdAndDelete(req.params.id);
+// Obtener servicios por cliente
+router.get('/cliente/:clienteId', async (req, res) => {
+    try {
+        const servicios = await Service.find({ cliente: req.params.clienteId })
+            .populate('cliente', 'nombre_completo')
+            .populate('trabajador', 'nombre_completo');
+        res.status(200).json(servicios);
+    } catch (err) {
+        res.status(500).json({ error: 'Error al obtener servicios del cliente', detalles: err.message });
+    }
+});
 
-    if (!deletedService) {
-      return res.status(404).send('Servicio no encontrado');
+// Obtener servicios por trabajador
+router.get('/trabajador/:trabajadorId', async (req, res) => {
+    try {
+        const servicios = await Service.find({ trabajador: req.params.trabajadorId })
+            .populate('cliente', 'nombre_completo')
+            .populate('trabajador', 'nombre_completo');
+        res.status(200).json(servicios);
+    } catch (err) {
+        res.status(500).json({ error: 'Error al obtener servicios del trabajador', detalles: err.message });
+    }
+});
+
+// Actualizar un servicio completo
+router.put('/:serviceId', async (req, res) => {
+    const { tipo, titulo, servicio_description, estado, cliente, trabajador, costo_promedio, costo_descripción } = req.body;
+
+    try {
+        const servicio = await Service.findById(req.params.serviceId);
+        if (!servicio) {
+            return res.status(404).json({ error: 'Servicio no encontrado' });
+        }
+
+        servicio.tipo = tipo || servicio.tipo;
+        servicio.titulo = titulo || servicio.titulo;
+        servicio.servicio_description = servicio_description || servicio.servicio_description;
+        servicio.estado = estado || servicio.estado;
+        servicio.cliente = cliente || servicio.cliente;
+        servicio.trabajador = trabajador || servicio.trabajador;
+        servicio.costo_promedio = costo_promedio || servicio.costo_promedio;
+        servicio.costo_descripción = costo_descripción || servicio.costo_descripción;
+
+        await servicio.save();
+
+        res.status(200).json({ mensaje: 'Servicio actualizado con éxito', servicio });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al actualizar servicio', detalles: err.message });
+    }
+});
+
+// Cambiar estado de un servicio
+router.put('/:serviceId/estado', async (req, res) => {
+    const { nuevoEstado } = req.body;
+
+    const estadosPermitidos = ['EN_PROCESO', 'FINALIZADO', 'CALIFICADO'];
+    if (!estadosPermitidos.includes(nuevoEstado)) {
+        return res.status(400).json({ error: `Estado "${nuevoEstado}" no permitido` });
     }
 
-    res.send('Servicio eliminado correctamente');
-  } catch (err) {
-    res.status(400).send('Error al eliminar servicio: ' + err.message);
-  }
+    try {
+        const servicio = await Service.findById(req.params.serviceId);
+        if (!servicio) {
+            return res.status(404).json({ error: 'Servicio no encontrado' });
+        }
+
+        servicio.estado = nuevoEstado;
+        await servicio.save();
+
+        res.status(200).json({ mensaje: 'Estado actualizado con éxito', servicio });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al actualizar estado del servicio', detalles: err.message });
+    }
 });
 
-// Rutas adicionales para listar servicios
-router.get('/', async (req, res) => {
-  console.log('Solicitud GET recibida');
-  try {
-    const services = await Service.find(req.query);
-    res.json(services);
-  } catch (err) {
-    console.error('Error al listar servicios:', err.message);
-    res.status(400).send('Error al listar servicios: ' + err.message);
-  }
+// Eliminar un servicio
+router.delete('/:serviceId', async (req, res) => {
+    try {
+        const servicio = await Service.findByIdAndDelete(req.params.serviceId);
+
+        if (!servicio) {
+            return res.status(404).json({ error: 'Servicio no encontrado' });
+        }
+
+        res.status(200).json({ mensaje: 'Servicio eliminado con éxito' });
+    } catch (err) {
+        res.status(500).json({ error: 'Error al eliminar servicio', detalles: err.message });
+    }
 });
 
 module.exports = router;

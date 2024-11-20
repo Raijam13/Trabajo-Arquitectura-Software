@@ -37,7 +37,7 @@ router.post('/signup_vendedor', async (req, res) => {
       edad: req.body.edad,
       telefono: req.body.telefono,
       imagen_perfil: req.body.imagen_perfil,
-      activdadEconomica: response.data.actividadEconomica,
+      actividadEconomica: response.data.actividadEconomica || 'Sin especificar',
       id_servicio: []
     });
 
@@ -136,8 +136,8 @@ router.post('/vdni', async (req, res) => {
     });
     // Imprimir la respuesta completa para ver qué se devuelve
     console.log('Respuesta de la API de RENIEC:', response.data);
-    if (response.data.message && response.data.message === "dni no valido") {
-        return res.status(400).json({ error: 'El DNI no es válido' });
+    if (!response.data.success) {
+      return res.status(400).json({ error: 'El RUC no es válido' });
     } else{
  
       
