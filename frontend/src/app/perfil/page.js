@@ -2,7 +2,7 @@
 import Styles from './page.module.css'
 import RedimensionarImagen from './resolucion'
 import { useEffect, useState } from 'react';
-import { getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos } from '../../api/perfil'; 
+import { getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos, getcomentarios } from '../../api/perfil'; 
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
@@ -11,9 +11,14 @@ const perfil = () =>{
     const [fotosperfil, setfotosperfil] = useState([]);
     const [imagenes, setimagenes] = useState([]);
     const [booleano, setbooleano] = useState(0);
+    const [diccomentario, setdiccomentario] = useState([]);
+    const [loading, setLoading] = useState(true);//Verifica que los datos se esten cargando
+    
     const cambia_booleano = () => {
         setbooleano(booleano === 0 ? 1 : 0);
       };
+    
+    
 
     useEffect(() => {
         setresumen_texto(getresumen('671ac23dfdd3b7d8c1d73b9a'));
@@ -31,6 +36,11 @@ const perfil = () =>{
 
             const listaimagenes = await getfotos("671ac23dfdd3b7d8c1d73b9a");
             setimagenes(listaimagenes);
+            
+            const {comentarios, calificaciones, fechas} = await getcomentarios("671ac23dfdd3b7d8c1d73b9a");
+            
+            setdiccomentario({ comentarios, calificaciones, fechas });
+            setLoading(false);
         }
         fetchVideo();
 
@@ -213,7 +223,14 @@ A tu puerta
                             Elza Vilchez
                             </div>
                             <div className={Styles.fecha}>
-                                Hace 3 días
+                                {loading ? (
+                                    <p></p>
+                                ) : Array.isArray(diccomentario.fechas) && diccomentario.fechas.length > 0 ? (
+                                    
+                                    <p>{diccomentario.fechas[0].trim().slice(0, 10)}</p>
+                                ) : (
+                                    <p>No hay fechas</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -228,19 +245,22 @@ A tu puerta
                         }
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.8
+                        {loading ? (
+                            <p></p>
+                        ) : Array.isArray(diccomentario.calificaciones) && diccomentario.calificaciones.length > 0 ? (
+                            <p>{diccomentario.calificaciones[0]}</p>
+                        ) : (
+                            <p>No hay calificaciones</p>
+                        )}
                     </div>
                     <div className={Styles.descripcion}>
-                    Recientemente tuve la oportunidad de contratar a Aquiles Hiban para un problema urgente en mi hogar, 
-                    y la experiencia fue más que satisfactoria. Primero, mi sistema eléctrico comenzó a fallar sin previo aviso, con luces 
-                    parpadeantes y enchufes que no funcionaban. Lo contacté, y aunque ya era tarde, se mostró disponible para atender mi emergencia 
-                    en el mismo día. Su conocimiento fue evidente desde el primer momento, y no solo diagnosticó el problema rápidamente, sino que 
-                    también me explicó con paciencia las posibles causas y las soluciones más adecuadas.
-                    Pero su profesionalismo no se quedó ahí. Días después, decidí aprovechar su servicio de cerrajería porque necesitaba cambiar 
-                    todas las cerraduras de mi casa por razones de seguridad. Me impresionó la rapidez y precisión con la que trabajó. A diferencia 
-                    de otros profesionales que simplemente cambian la cerradura y se van, Aquiles Hiban me asesoró sobre las 
-                    opciones más seguras y modernas, y me dejó claro que su prioridad era que yo estuviera 100% satisfecho y seguro. 
-                    Recomiendo sus servicios a cualquiera que necesite un profesional honesto y altamente capacitado. ¡Excelente trabajo!
+                        {loading ? (
+                            <p>Cargando comentarios...</p>
+                        ) : Array.isArray(diccomentario.comentarios) && diccomentario.comentarios.length > 0 ? (
+                            <p>{diccomentario.comentarios[0]}</p>
+                        ) : (
+                            <p>No hay comentarios</p>
+                        )}
                     </div>
                 </div>
                 <div className={Styles.solicitudescontainer}>
@@ -260,7 +280,14 @@ A tu puerta
                                 Tomas Torre
                             </div>
                             <div className={Styles.fecha}>
-                                Hace 5 días
+                                {loading ? (
+                                    <p></p>
+                                ) : Array.isArray(diccomentario.fechas) && diccomentario.fechas.length > 0 ? (
+                                    
+                                    <p>{diccomentario.fechas[1].trim().slice(0, 10)}</p>
+                                ) : (
+                                    <p>No hay fechas</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -308,7 +335,14 @@ A tu puerta
                                 Ramirez Zen
                             </div>
                             <div className={Styles.fecha}>
-                                Hace 1 semana
+                                {loading ? (
+                                    <p></p>
+                                ) : Array.isArray(diccomentario.fechas) && diccomentario.fechas.length > 0 ? (
+                                    
+                                    <p>{diccomentario.fechas[2].trim().slice(0, 10)}</p>
+                                ) : (
+                                    <p>No hay fechas</p>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -358,7 +392,14 @@ A tu puerta
                                 Luz Godinez
                             </div>
                             <div className={Styles.fecha}>
-                                Hace 2 semanas
+                                {loading ? (
+                                    <p></p>
+                                ) : Array.isArray(diccomentario.fechas) && diccomentario.fechas.length > 0 ? (
+                                    
+                                    <p>{diccomentario.fechas[3].trim().slice(0, 10)}</p>
+                                ) : (
+                                    <p>No hay fechas</p>
+                                )}
                             </div>
                         </div>
                     </div>

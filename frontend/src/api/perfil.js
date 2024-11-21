@@ -95,5 +95,29 @@ const getfotos = async function(id) {
     }
 };
 
+const getcomentarios = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/comentarios/${id}?`, {
+            method: 'GET'
+        });
 
-export {getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos};
+        if (!response.ok) throw new Error('Error al obtener la lista de comentarios');
+
+        const data = await response.json();
+        const comentarios = data.map((item) => item.comentario);
+        const calificaciones = data.map((item)=> item.calificación);
+        const fechas = data.map((item)=> item.fecha);
+        
+        return {
+            comentarios: comentarios,
+            calificaciones: calificaciones,
+            fechas: fechas,
+        };
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
+
+export {getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos, getcomentarios};
