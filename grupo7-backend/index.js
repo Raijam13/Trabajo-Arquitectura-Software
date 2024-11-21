@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
 });
 
 // Importar y usar rutas
-const userRoutes = require('./routes/users');
-app.use('/users', userRoutes);
+//const userRoutes = require('./routes/users');
+//app.use('/users', userRoutes);
 
 const serviceRoutes = require('./routes/services');
 app.use('/services', serviceRoutes);
@@ -48,6 +48,8 @@ app.use('/compras', compraRoutes);
 const resumenRoutes = require('./routes/resumen');
 app.use('/resumen', resumenRoutes);
 
+const fotoperfilRoutes = require('./routes/FotoPerfil');
+app.use('/FotoPerfil', fotoperfilRoutes);
 
 //===============================
 function runPythonScript() {
@@ -66,7 +68,7 @@ function runPythonScript() {
   });
 }
 // Ejecutar script
-//runPythonScript();
+runPythonScript();
 //===============================
 
 // Iniciar el servidor

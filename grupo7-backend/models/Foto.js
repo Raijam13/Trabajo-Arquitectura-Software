@@ -3,8 +3,7 @@ const mongoose = require('mongoose');
 const fotoSchema = new mongoose.Schema({
   usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   vendedor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendedor', required: true },
-  foto: { type: String, required: true },  // Almacena la URL o el path de la foto
-  foto2: { type: String, required: false }
+  foto: { type: String, required: true },
 });
 
 // Crear el modelo de Foto 

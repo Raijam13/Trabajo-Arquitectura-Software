@@ -1,3 +1,4 @@
+/*
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
@@ -173,3 +174,4 @@ router.post('/dnistatus', async (req, res) => {
 
 
 module.exports = router;
+*/

@@ -1,5 +1,6 @@
 'use client'
 import Styles from './page.module.css'
+import RedimensionarImagen from './resolucion'
 import { useEffect, useState } from 'react';
 import { getresumen, getvideoHD, getvideoSinHD } from '../../api/perfil'; 
 
@@ -78,9 +79,9 @@ A tu puerta
         </div>
         <div className={Styles.perfil}>
             <div className={Styles.perfilcontainer}>
-                <div className={Styles.imagenperfil}>
-                <img src="https://st3.depositphotos.com/12985790/15794/i/450/depositphotos_157947226-stock-photo-man-looking-at-camera.jpg"/>
-                </div>
+            <div className={Styles.imagenperfil}>
+            <RedimensionarImagen imagenUrl={"https://st3.depositphotos.com/12985790/15794/i/450/depositphotos_157947226-stock-photo-man-looking-at-camera.jpg"} ancho={100} alto={100} />                
+            </div>
                 <div className={Styles.nombres}>
                     <div className={Styles.nombre}>
                     Aquiles Hiban

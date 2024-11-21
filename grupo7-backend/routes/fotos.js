@@ -10,8 +10,7 @@ router.post('/', async (req, res) => {
     const newFoto = new Foto({
       usuario: req.body.usuario,
       vendedor: req.body.vendedor,
-      foto: req.body.foto,
-      foto2: req.body.foto2
+      foto: req.body.foto
     });
     await newFoto.save();
     res.status(201).json(newFoto);
