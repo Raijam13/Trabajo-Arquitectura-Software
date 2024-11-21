@@ -27,8 +27,8 @@ app.get('/', (req, res) => {
 });
 
 // Importar y usar rutas
-//const userRoutes = require('./routes/users');
-//app.use('/users', userRoutes);
+const userRoutes = require('./routes/users');
+app.use('/users', userRoutes);
 
 const serviceRoutes = require('./routes/services');
 app.use('/services', serviceRoutes);

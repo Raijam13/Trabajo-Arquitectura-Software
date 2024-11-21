@@ -1,4 +1,4 @@
-/*
+
 const express = require('express');
 const router = express.Router();
 const axios = require('axios');
@@ -8,7 +8,7 @@ const { User, Vendedor } = require('../models/user');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
-const apidni = `https://api.apis.net.pe/v2/reniec/dni?numero=${req.body.dni}`;
+
 let estado = false;
 
 // Middleware para manejar JSON (no es necesario en un archivo de rutas)
@@ -117,9 +117,8 @@ router.get('/me', authenticateToken, async (req, res) => {
 });
 
 
-// PATRON CONSULTAR DNI
+// PATRON VALIDAR DNI CON RENIEC
 
-// Consultar DNI
 router.post('/vdni', async (req, res) => {
   try {
     console.log(req.body); // Para ver los datos que llegan al servidor
@@ -131,9 +130,9 @@ router.post('/vdni', async (req, res) => {
             Authorization: `Bearer ${accessToken}`
         }
     });
+
+    await new Promise(resolve => setTimeout(resolve, 10000));
     
-    // Imprimir la respuesta completa para ver qué se devuelve
-    console.log('Respuesta de la API de RENIEC:', response.data);
     // Validar el estado del DNI
     let responseDNI= await axios.post('https://localhost:3000/users/dnistatus', {any});
     // Si el estado es 'Pendiente', esperar a que cambie
@@ -143,13 +142,32 @@ router.post('/vdni', async (req, res) => {
     } else{
       while (!responseDNI.data.estado){
         console.log('Esperando a que el estado cambie...');
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        
         responseDNI = await axios.post('https://localhost:3000/users/dnistatus', {response});
       }
       return res.status(200).json({ mensaje: 'El DNI es válido' });
     }
     
    
+  
+  } catch (err) {
+    res.status(400).send('Error al validar DNI: ' + err.message);
+  }
+
+});
+
+
+router.get('/prueba/:id', async (req, res) => {
+  try {
+
+    res.status(202).send('Recibido')
+    // Validar el DNI llamando a la API de Sunat
+    const apidni = `https://api.apis.net.pe/v2/reniec/dni?numero=${req.body.id}`;
+    const response = await axios.get(apidni, {
+        headers: {
+            Authorization: `Bearer ${accessToken}`
+        }
+    });
   
   } catch (err) {
     res.status(400).send('Error al validar DNI: ' + err.message);
@@ -174,4 +192,3 @@ router.post('/dnistatus', async (req, res) => {
 
 
 module.exports = router;
-*/
