@@ -302,20 +302,22 @@ A tu puerta
                         }
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.7
+                        {loading ? (
+                            <p></p>
+                        ) : Array.isArray(diccomentario.calificaciones) && diccomentario.calificaciones.length > 0 ? (
+                            <p>{diccomentario.calificaciones[1]}</p>
+                        ) : (
+                            <p>No hay calificaciones</p>
+                        )}
                     </div>
                     <div className={Styles.descripcion}>
-                    Mi experiencia con Aquiles Hiban fue fantástica. Llamé porque necesitaba actualizar el sistema de 
-                    iluminación de mi negocio, y desde el primer contacto, mostró gran interés en entender mis necesidades y en sugerirme opciones 
-                    que fueran funcionales y estéticamente agradables. Él se encargó de revisar toda la instalación y de hacer ajustes en el 
-                    sistema eléctrico para soportar las nuevas luminarias. Lo mejor fue que terminó el trabajo en el plazo acordado y mantuvo 
-                    una comunicación clara sobre cada paso que iba dando. Me impresionó su nivel de organización y el orden con el que trabaja, 
-                    algo que considero esencial en un profesional.
-                    Posteriormente, tuve problemas con la cerradura de seguridad de una puerta que daba acceso a una zona importante del negocio. 
-                    Sin dudarlo, le pedí ayuda y su respuesta fue inmediata. No solo resolvió el problema rápidamente, sino que también me enseñó 
-                    algunos trucos básicos de mantenimiento para evitar futuros inconvenientes. Su honestidad, responsabilidad y conocimientos 
-                    técnicos me han ganado como cliente fiel, y no dudaré en recomendarlo a cualquier persona que necesite un electricista o 
-                    cerrajero confiable.
+                        {loading ? (
+                            <p>Cargando comentarios...</p>
+                        ) : Array.isArray(diccomentario.comentarios) && diccomentario.comentarios.length > 0 ? (
+                            <p>{diccomentario.comentarios[1]}</p>
+                        ) : (
+                            <p>No hay comentarios</p>
+                        )}
                     </div>
                 </div>
                 <div className={Styles.solicitudescontainer}>
@@ -357,20 +359,23 @@ A tu puerta
                         }
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.7
+                        {loading ? (
+                            <p></p>
+                        ) : Array.isArray(diccomentario.calificaciones) && diccomentario.calificaciones.length > 0 ? (
+                            <p>{diccomentario.calificaciones[2]}</p>
+                        ) : (
+                            <p>No hay calificaciones</p>
+                        )}
                     </div>
                     
                     <div className={Styles.descripcion}>
-                    Mi experiencia con Aquiles Hiban fue fantástica. Llamé porque necesitaba actualizar el sistema de 
-                    iluminación de mi negocio, y desde el primer contacto, mostró gran interés en entender mis necesidades y en sugerirme opciones 
-                    que fueran funcionales y estéticamente agradables. Él se encargó de revisar toda la instalación y de hacer ajustes en el sistema 
-                    eléctrico para soportar las nuevas luminarias. Lo mejor fue que terminó el trabajo en el plazo acordado y mantuvo una comunicación 
-                    clara sobre cada paso que iba dando. Me impresionó su nivel de organización y el orden con el que trabaja, algo que considero 
-                    esencial en un profesional.
-                    Posteriormente, tuve problemas con la cerradura de seguridad de una puerta que daba acceso a una zona importante del negocio. Sin 
-                    dudarlo, le pedí ayuda y su respuesta fue inmediata. No solo resolvió el problema rápidamente, sino que también me enseñó algunos 
-                    trucos básicos de mantenimiento para evitar futuros inconvenientes. Su honestidad, responsabilidad y conocimientos técnicos me han 
-                    ganado como cliente fiel, y no dudaré en recomendarlo a cualquier persona que necesite un electricista o cerrajero confiable.
+                        {loading ? (
+                            <p>Cargando comentarios...</p>
+                        ) : Array.isArray(diccomentario.comentarios) && diccomentario.comentarios.length > 0 ? (
+                            <p>{diccomentario.comentarios[2]}</p>
+                        ) : (
+                            <p>No hay comentarios</p>
+                        )}
                     </div>
                     
                 </div>
@@ -414,20 +419,23 @@ A tu puerta
                         }
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.8
+                        {loading ? (
+                            <p></p>
+                        ) : Array.isArray(diccomentario.calificaciones) && diccomentario.calificaciones.length > 0 ? (
+                            <p>{diccomentario.calificaciones[3]}</p>
+                        ) : (
+                            <p>No hay calificaciones</p>
+                        )}
                     </div>
                     
                     <div className={Styles.descripcion}>
-                    Aquiles Hiban fue un gran hallazgo, y no puedo estar más agradecido por su profesionalismo. 
-                    Lo contraté para ayudarme con una serie de reparaciones eléctricas en mi casa, que iban desde revisar enchufes hasta instalar 
-                    luces y regular el sistema de voltaje para proteger mis dispositivos. Desde que llegó, demostró ser alguien muy atento a los 
-                    detalles, revisando minuciosamente cada aspecto antes de proceder. Además, respetó todos los protocolos de seguridad, algo que 
-                    no siempre se ve en otros profesionales, y trabajó con precisión y cuidado en cada tarea.
-                    Su experiencia en cerrajería también fue de gran ayuda. Una de las puertas de mi casa necesitaba una cerradura nueva, y no solo 
-                    trajo una de buena calidad, sino que la instaló de forma que funcionara perfectamente y no ofreciera ningún problema. Su enfoque 
-                    integral y el interés genuino que mostró en que todo quedara funcionando al 100% me dejaron tranquilo. La combinación de 
-                    servicios que ofrece es muy conveniente y representa una gran ventaja cuando se busca a alguien confiable. Sin duda, volveré a 
-                    llamarlo para cualquier otra necesidad que tenga en el futuro. ¡Un profesional excelente!
+                        {loading ? (
+                            <p>Cargando comentarios...</p>
+                        ) : Array.isArray(diccomentario.comentarios) && diccomentario.comentarios.length > 0 ? (
+                            <p>{diccomentario.comentarios[2]}</p>
+                        ) : (
+                            <p>No hay comentarios</p>
+                        )}
                     </div>
                     
                 </div>
