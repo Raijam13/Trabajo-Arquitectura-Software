@@ -2,12 +2,14 @@
 import Styles from './page.module.css'
 import RedimensionarImagen from './resolucion'
 import { useEffect, useState } from 'react';
-import { getresumen, getvideoHD, getvideoSinHD } from '../../api/perfil'; 
+import { getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos } from '../../api/perfil'; 
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
     const [video_link, setvideo_link] = useState("");
     const [video_link_sin_hd, setvideo_link_sin_hd] = useState("");
+    const [fotosperfil, setfotosperfil] = useState([]);
+    const [imagenes, setimagenes] = useState([]);
     const [booleano, setbooleano] = useState(0);
     const cambia_booleano = () => {
         setbooleano(booleano === 0 ? 1 : 0);
@@ -20,6 +22,15 @@ const perfil = () =>{
             const link2 = await getvideoSinHD("671ac23dfdd3b7d8c1d73b9a");
             setvideo_link(link);
             setvideo_link_sin_hd(link2);
+            const perfil1 = await getperfil("671ac23dfdd3b7d8c1d73b9a", "Vendedor");
+            const perfil2 = await getperfil("670ef669ff56ecac7bdd1a81", "User");
+            const perfil3 = await getperfil("673d7f66805969194fbd27ba", "User");
+            const perfil4 = await getperfil("673d8272805969194fbd27c9", "User");
+            const perfil5 = await getperfil("671abadd070756b7a7e46bb5", "Vendedor");
+            setfotosperfil([perfil1, perfil2, perfil3, perfil4, perfil5]);
+
+            const listaimagenes = await getfotos("671ac23dfdd3b7d8c1d73b9a");
+            setimagenes(listaimagenes);
         }
         fetchVideo();
 
@@ -80,7 +91,15 @@ A tu puerta
         <div className={Styles.perfil}>
             <div className={Styles.perfilcontainer}>
             <div className={Styles.imagenperfil}>
-            <RedimensionarImagen imagenUrl={"https://st3.depositphotos.com/12985790/15794/i/450/depositphotos_157947226-stock-photo-man-looking-at-camera.jpg"} ancho={100} alto={100} />                
+            {
+                booleano === 0 ? (
+                    <img src={fotosperfil[0]}/>
+                ):
+                (
+                    <RedimensionarImagen imagenUrl={fotosperfil[0]} ancho={100} alto={100} />  
+                )
+            }
+                          
             </div>
                 <div className={Styles.nombres}>
                     <div className={Styles.nombre}>
@@ -180,7 +199,14 @@ A tu puerta
                 <div className={Styles.solicitudescontainer}>
                     <div className={Styles.solicitud}>
                         <div className={Styles.imagenperfil}>
-                        <img src="https://vivolabs.es/wp-content/uploads/2022/03/perfil-mujer-vivo.png"/>
+                        {
+                            booleano === 0 ? (
+                                <img src={fotosperfil[1]}/>
+                            ):
+                            (
+                                <RedimensionarImagen imagenUrl={fotosperfil[1]} ancho={100} alto={100} />  
+                            )
+                        }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
@@ -192,7 +218,14 @@ A tu puerta
                         </div>
                     </div>
                     <div className={Styles.imagensolicitud}>
-                        <img src="https://plazavea.vteximg.com.br/arquivos/ids/2759266-512-512/null.jpg"/>
+                        {
+                            booleano === 0 ? (
+                                <img src={imagenes[0]}/>
+                            ):
+                            (
+                                <RedimensionarImagen imagenUrl={imagenes[0]} ancho={100} alto={100} />  
+                            )
+                        }
                     </div>
                     <div className={Styles.puntuacion}>
                         4.8
@@ -213,7 +246,14 @@ A tu puerta
                 <div className={Styles.solicitudescontainer}>
                     <div className={Styles.solicitud}>
                         <div className={Styles.imagenperfil}>
-                            <img src="https://www.shutterstock.com/image-photo/serious-handsome-young-african-man-600nw-2432719429.jpg"/>
+                            {
+                                booleano === 0 ? (
+                                    <img src={fotosperfil[2]}/>
+                                ):
+                                (
+                                    <RedimensionarImagen imagenUrl={fotosperfil[2]} ancho={100} alto={100} />  
+                                )
+                            }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
@@ -225,7 +265,14 @@ A tu puerta
                         </div>
                     </div>
                     <div className={Styles.imagensolicitud}>
-                        <img src="https://d219336yigegi3.cloudfront.net/sites/noticias-m2/files/field/image/instalacion%20electrica%20%281%29.jpg"/>
+                        {
+                            booleano === 0 ? (
+                                <img src={imagenes[1]}/>
+                            ):
+                            (
+                                <RedimensionarImagen imagenUrl={imagenes[1]} ancho={100} alto={100} />  
+                            )
+                        }
                     </div>
                     <div className={Styles.puntuacion}>
                         4.7
@@ -247,7 +294,14 @@ A tu puerta
                 <div className={Styles.solicitudescontainer}>
                     <div className={Styles.solicitud}>
                         <div className={Styles.imagenperfil}>
-                            <img src="https://t1.uc.ltmcdn.com/es/posts/7/0/0/como_saber_si_un_hombre_es_maduro_34007_600.jpg"/>
+                            {
+                                booleano === 0 ? (
+                                    <img src={fotosperfil[3]}/>
+                                ):
+                                (
+                                    <RedimensionarImagen imagenUrl={fotosperfil[3]} ancho={100} alto={100} />  
+                                )
+                            }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
@@ -259,7 +313,14 @@ A tu puerta
                         </div>
                     </div>
                     <div className={Styles.imagensolicitud}>
-                        <img src="https://cerrajerosmataro.co/wp-content/uploads/2018/04/apertura-de-puertas.jpg"/>
+                        {
+                            booleano === 0 ? (
+                                <img src={imagenes[2]}/>
+                            ):
+                            (
+                                <RedimensionarImagen imagenUrl={imagenes[2]} ancho={100} alto={100} />  
+                            )
+                        }
                     </div>
                     <div className={Styles.puntuacion}>
                         4.7
@@ -283,7 +344,14 @@ A tu puerta
                 <div className={Styles.solicitudescontainer}>
                     <div className={Styles.solicitud}>
                         <div className={Styles.imagenperfil}>
-                            <img src="https://www.esan.edu.pe/images/blog/2018/03/07/1500x844-dia-mujer.jpg"/>
+                            {
+                                booleano === 0 ? (
+                                    <img src={fotosperfil[4]}/>
+                                ):
+                                (
+                                    <RedimensionarImagen imagenUrl={fotosperfil[4]} ancho={100} alto={100} />  
+                                )
+                            }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
@@ -295,7 +363,14 @@ A tu puerta
                         </div>
                     </div>
                     <div className={Styles.imagensolicitud}>
-                        <img src="https://homesolution.net/blog/wp-content/uploads/2019/01/Fotolia_83248213_Subscription_Monthly_M.jpg"/>
+                        {
+                            booleano === 0 ? (
+                                <img src={imagenes[3]}/>
+                            ):
+                            (
+                                <RedimensionarImagen imagenUrl={imagenes[3]} ancho={100} alto={100} />  
+                            )
+                        }
                     </div>
                     <div className={Styles.puntuacion}>
                         4.8

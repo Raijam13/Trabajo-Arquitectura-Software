@@ -61,4 +61,39 @@ const getvideoSinHD = async function(id) {
     }
 };
 
-export {getresumen, getvideoHD, getvideoSinHD};
+const getperfil = async function(id, sujeto) {
+    try {
+        const response = await fetch(`http://localhost:3009/FotoPerfil/${id}?tipoSujeto=${sujeto}`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) throw new Error('Error al obtener la foto de perfil');
+
+        const data = await response.json();
+        console.log('Foto de perfil:', data.foto);
+        return data.foto;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const getfotos = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/fotos/${id}?`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) throw new Error('Error al obtener la lista de fotos');
+
+        const data = await response.json();
+        const linksFotos = data.map((foto) => foto.foto);
+        console.log('lista de fotos:', data.foto);
+        return linksFotos;
+    } catch (error) {
+        console.error(error);
+        return [];
+    }
+};
+
+
+export {getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos};
