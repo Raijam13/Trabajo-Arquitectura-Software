@@ -2,7 +2,7 @@
 import Styles from './page.module.css'
 import RedimensionarImagen from './resolucion'
 import { useEffect, useState } from 'react';
-import { getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil } from '../../api/perfil'; 
+import { getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil, getcompletoperfil, getcompletoruc } from '../../api/perfil'; 
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
@@ -14,7 +14,7 @@ const perfil = () =>{
     const [diccperfil, setdiccperfil] = useState([]);
     const [ diccperfilimg, setdiccperfilimg] = useState([]);
     const [loading, setLoading] = useState(true);//Verifica que los datos se esten cargando
-    
+    const [infocompleto, setinfocompleto] = useState({})
     const cambia_booleano = () => {
         setbooleano(booleano === 0 ? 1 : 0);
       };
@@ -50,6 +50,10 @@ const perfil = () =>{
             const img4 = await getimgperfil("673fb6c3d58e2f33e6fa866b");
             
             setdiccperfilimg([img0, img1, img2, img3, img4]);
+            
+            const actividad = await getcompletoperfil("673fb6c3d58e2f33e6fa866b");
+            const ruc = await getcompletoruc("673fb6c3d58e2f33e6fa866b");
+            setinfocompleto([ruc,actividad]);
 
             setLoading(false);
         }
@@ -127,10 +131,10 @@ A tu puerta
                     {diccperfil[0]}
                     </div>
                     <div>
-                        Electricista - Cerrajero - Jardinero
+                        {infocompleto[1]}
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.8
+                        Ruc: {infocompleto[0]}
                     </div>
                 </div>
             </div>

@@ -135,5 +135,37 @@ const getimgperfil = async function(id) {
     }
 };
 
+const getcompletoperfil = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/users/completoinfo/${id}`, {
+            method: 'GET'
+        });
 
-export {getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil};
+        if (!response.ok) throw new Error('Error al obtener la info de perfil');
+
+        const data = await response.json();
+        
+        return data.actividadEconomica;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const getcompletoruc = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/users/completoinfo/${id}`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) throw new Error('Error al obtener la info de perfil');
+
+        const data = await response.json();
+        
+        return data.ruc;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
+export {getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil, getcompletoperfil, getcompletoruc};
