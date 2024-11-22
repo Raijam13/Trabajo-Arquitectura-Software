@@ -177,7 +177,7 @@ router.get('/dnistatus/:dniv/', async (req, res) => {
       
   
     }else if( v1 == dni && estado == true ){
-      res.status(302).send('Recurso encontrado');
+      res.status(302).send('Recurso encontrado, URL: https://LINK_DEL_RECURSO');
     }
   }
   else{
