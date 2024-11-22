@@ -61,22 +61,6 @@ const getvideoSinHD = async function(id) {
     }
 };
 
-const getperfil = async function(id, sujeto) {
-    try {
-        const response = await fetch(`http://localhost:3009/FotoPerfil/${id}?tipoSujeto=${sujeto}`, {
-            method: 'GET'
-        });
-
-        if (!response.ok) throw new Error('Error al obtener la foto de perfil');
-
-        const data = await response.json();
-        console.log('Foto de perfil:', data.foto);
-        return data.foto;
-    } catch (error) {
-        console.error(error);
-    }
-};
-
 const getfotos = async function(id) {
     try {
         const response = await fetch(`http://localhost:3009/fotos/${id}?`, {
@@ -119,5 +103,69 @@ const getcomentarios = async function(id) {
     }
 };
 
+const getinfoperfil = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/users/info/${id}`, {
+            method: 'GET'
+        });
 
-export {getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos, getcomentarios};
+        if (!response.ok) throw new Error('Error al obtener la foto de perfil');
+
+        const data = await response.json();
+        
+        return data.usuario;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const getimgperfil = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/users/info/${id}`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) throw new Error('Error al obtener la foto de perfil');
+
+        const data = await response.json();
+        
+        return data.imagen_perfil;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const getcompletoperfil = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/users/completoinfo/${id}`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) throw new Error('Error al obtener la info de perfil');
+
+        const data = await response.json();
+        
+        return data.actividadEconomica;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const getcompletoruc = async function(id) {
+    try {
+        const response = await fetch(`http://localhost:3009/users/completoinfo/${id}`, {
+            method: 'GET'
+        });
+
+        if (!response.ok) throw new Error('Error al obtener la info de perfil');
+
+        const data = await response.json();
+        
+        return data.ruc;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
+export {getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil, getcompletoperfil, getcompletoruc};

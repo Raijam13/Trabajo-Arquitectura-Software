@@ -2,18 +2,19 @@
 import Styles from './page.module.css'
 import RedimensionarImagen from './resolucion'
 import { useEffect, useState } from 'react';
-import { getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos, getcomentarios } from '../../api/perfil'; 
+import { getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil, getcompletoperfil, getcompletoruc } from '../../api/perfil'; 
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
     const [video_link, setvideo_link] = useState("");
     const [video_link_sin_hd, setvideo_link_sin_hd] = useState("");
-    const [fotosperfil, setfotosperfil] = useState([]);
     const [imagenes, setimagenes] = useState([]);
     const [booleano, setbooleano] = useState(0);
     const [diccomentario, setdiccomentario] = useState([]);
+    const [diccperfil, setdiccperfil] = useState([]);
+    const [ diccperfilimg, setdiccperfilimg] = useState([]);
     const [loading, setLoading] = useState(true);//Verifica que los datos se esten cargando
-    
+    const [infocompleto, setinfocompleto] = useState({})
     const cambia_booleano = () => {
         setbooleano(booleano === 0 ? 1 : 0);
       };
@@ -27,12 +28,6 @@ const perfil = () =>{
             const link2 = await getvideoSinHD("671ac23dfdd3b7d8c1d73b9a");
             setvideo_link(link);
             setvideo_link_sin_hd(link2);
-            const perfil1 = await getperfil("671ac23dfdd3b7d8c1d73b9a", "Vendedor");
-            const perfil2 = await getperfil("670ef669ff56ecac7bdd1a81", "User");
-            const perfil3 = await getperfil("673d7f66805969194fbd27ba", "User");
-            const perfil4 = await getperfil("673d8272805969194fbd27c9", "User");
-            const perfil5 = await getperfil("671abadd070756b7a7e46bb5", "Vendedor");
-            setfotosperfil([perfil1, perfil2, perfil3, perfil4, perfil5]);
 
             const listaimagenes = await getfotos("671ac23dfdd3b7d8c1d73b9a");
             setimagenes(listaimagenes);
@@ -40,6 +35,26 @@ const perfil = () =>{
             const {comentarios, calificaciones, fechas} = await getcomentarios("671ac23dfdd3b7d8c1d73b9a");
             
             setdiccomentario({ comentarios, calificaciones, fechas });
+            
+            const usuario0  = await getinfoperfil("673fb738d58e2f33e6fa866d");
+            const usuario1  = await getinfoperfil("673faa82bef49fb874f44c29");
+            const usuario2 = await getinfoperfil("673fb49ad58e2f33e6fa8667");
+            const usuario3 = await getinfoperfil("673fb4d3d58e2f33e6fa8669");
+            const usuario4 = await getinfoperfil("673fb6c3d58e2f33e6fa866b");
+            setdiccperfil([usuario0, usuario1, usuario2, usuario3, usuario4]);
+            
+            const img0 = await getimgperfil("673fb738d58e2f33e6fa866d");
+            const img1 = await getimgperfil("673faa82bef49fb874f44c29");
+            const img2 = await getimgperfil("673fb49ad58e2f33e6fa8667");
+            const img3 = await getimgperfil("673fb4d3d58e2f33e6fa8669");
+            const img4 = await getimgperfil("673fb6c3d58e2f33e6fa866b");
+            
+            setdiccperfilimg([img0, img1, img2, img3, img4]);
+            
+            const actividad = await getcompletoperfil("673fb6c3d58e2f33e6fa866b");
+            const ruc = await getcompletoruc("673fb6c3d58e2f33e6fa866b");
+            setinfocompleto([ruc,actividad]);
+
             setLoading(false);
         }
         fetchVideo();
@@ -103,23 +118,17 @@ A tu puerta
             <div className={Styles.imagenperfil}>
             {
                 booleano === 0 ? (
-                    <img src={fotosperfil[0]}/>
+                    <img src={diccperfilimg[0]}/>
                 ):
                 (
-                    <RedimensionarImagen imagenUrl={fotosperfil[0]} ancho={100} alto={100} />  
+                    <RedimensionarImagen imagenUrl={diccperfilimg[0]} ancho={100} alto={100} />  
                 )
             }
                           
             </div>
                 <div className={Styles.nombres}>
                     <div className={Styles.nombre}>
-                    Aquiles Hiban
-                    </div>
-                    <div>
-                        Electricista - Cerrajero - Jardinero
-                    </div>
-                    <div className={Styles.puntuacion}>
-                        4.8
+                    {diccperfil[0]}
                     </div>
                 </div>
             </div>
@@ -130,20 +139,12 @@ A tu puerta
                 </div>
                 <div className={Styles.infopersonalcontainer}>
                     <div className={Styles.icono}>
-                    <svg xmlns="https://cdn-icons-png.flaticon.com/512/74/74472.png" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"></svg>
-                    </div>
-                    <div className={Styles.info}>
-                    Masculino
-                    </div>
-                </div>
-                <div className={Styles.infopersonalcontainer}>
-                    <div className={Styles.icono}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cake-fill" viewBox="0 0 16 16">
   <path d="M7 4.029h2.283C9.353 2.11 8.8 1.5 8 1.5c-1.4 0-2.717.418-3.642 1.279h2.014A.5.5 0 0 0 7 4.029zM5 1.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v2.15c-.07.04-.146.08-.22.121v.38a.5.5 0 0 0 .5.5h1.387c.297-.152.614-.501.883-.917l1.085-2.272A1.25 1.25 0 0 0 9.921 1.545h-3.642zm1.5 0V3.85c.217-.119.433-.208.65-.269v-.848a.5.5 0 0 0-.5-.5h-1.27c-.314.074-.61.246-.864.511V1.545zm1.82.5c-.179.09-.375.217-.58.372v3.888c.083.074.173.14.27.195v.38a.5.5 0 0 0 .5.5h1.645c.314-.074.61-.246.864-.511V2.045zm-2.18 10.224a1.25 1.25 0 0 0 1.25 1.25h3.642c.66 0 1.23-.568 1.23-1.25v-3.643c0-.66-.568-1.23-1.23-1.23h-3.642a1.25 1.25 0 0 0-1.25 1.25v3.643z"/>
 </svg>
                     </div>
                     <div className={Styles.info}>
-                    Edad 34
+                    {infocompleto[0]}
                     </div>
                 </div>
                 <div className={Styles.infopersonalcontainer}>
@@ -153,7 +154,7 @@ A tu puerta
 </svg>
                     </div>
                     <div className={Styles.info}>
-                        Lima, Perú
+                    {infocompleto[1]}
                     </div>
                 </div>
             </div>
@@ -211,16 +212,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                         {
                             booleano === 0 ? (
-                                <img src={fotosperfil[1]}/>
+                                <img src={diccperfilimg[1]}/>
                             ):
                             (
-                                <RedimensionarImagen imagenUrl={fotosperfil[1]} ancho={100} alto={100} />  
+                                <RedimensionarImagen imagenUrl={diccperfilimg[1]} ancho={100} alto={100} />  
                             )
                         }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                            Elza Vilchez
+                            {diccperfil[1]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
@@ -268,16 +269,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                             {
                                 booleano === 0 ? (
-                                    <img src={fotosperfil[2]}/>
+                                    <img src={diccperfilimg[2]}/>
                                 ):
                                 (
-                                    <RedimensionarImagen imagenUrl={fotosperfil[2]} ancho={100} alto={100} />  
+                                    <RedimensionarImagen imagenUrl={diccperfilimg[2]} ancho={100} alto={100} />  
                                 )
                             }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                                Tomas Torre
+                                {diccperfil[2]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
@@ -302,20 +303,22 @@ A tu puerta
                         }
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.7
+                        {loading ? (
+                            <p></p>
+                        ) : Array.isArray(diccomentario.calificaciones) && diccomentario.calificaciones.length > 0 ? (
+                            <p>{diccomentario.calificaciones[1]}</p>
+                        ) : (
+                            <p>No hay calificaciones</p>
+                        )}
                     </div>
                     <div className={Styles.descripcion}>
-                    Mi experiencia con Aquiles Hiban fue fantástica. Llamé porque necesitaba actualizar el sistema de 
-                    iluminación de mi negocio, y desde el primer contacto, mostró gran interés en entender mis necesidades y en sugerirme opciones 
-                    que fueran funcionales y estéticamente agradables. Él se encargó de revisar toda la instalación y de hacer ajustes en el 
-                    sistema eléctrico para soportar las nuevas luminarias. Lo mejor fue que terminó el trabajo en el plazo acordado y mantuvo 
-                    una comunicación clara sobre cada paso que iba dando. Me impresionó su nivel de organización y el orden con el que trabaja, 
-                    algo que considero esencial en un profesional.
-                    Posteriormente, tuve problemas con la cerradura de seguridad de una puerta que daba acceso a una zona importante del negocio. 
-                    Sin dudarlo, le pedí ayuda y su respuesta fue inmediata. No solo resolvió el problema rápidamente, sino que también me enseñó 
-                    algunos trucos básicos de mantenimiento para evitar futuros inconvenientes. Su honestidad, responsabilidad y conocimientos 
-                    técnicos me han ganado como cliente fiel, y no dudaré en recomendarlo a cualquier persona que necesite un electricista o 
-                    cerrajero confiable.
+                        {loading ? (
+                            <p>Cargando comentarios...</p>
+                        ) : Array.isArray(diccomentario.comentarios) && diccomentario.comentarios.length > 0 ? (
+                            <p>{diccomentario.comentarios[1]}</p>
+                        ) : (
+                            <p>No hay comentarios</p>
+                        )}
                     </div>
                 </div>
                 <div className={Styles.solicitudescontainer}>
@@ -323,16 +326,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                             {
                                 booleano === 0 ? (
-                                    <img src={fotosperfil[3]}/>
+                                    <img src={diccperfilimg[3]}/>
                                 ):
                                 (
-                                    <RedimensionarImagen imagenUrl={fotosperfil[3]} ancho={100} alto={100} />  
+                                    <RedimensionarImagen imagenUrl={diccperfilimg[3]} ancho={100} alto={100} />  
                                 )
                             }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                                Ramirez Zen
+                                {diccperfil[3]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
@@ -357,20 +360,23 @@ A tu puerta
                         }
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.7
+                        {loading ? (
+                            <p></p>
+                        ) : Array.isArray(diccomentario.calificaciones) && diccomentario.calificaciones.length > 0 ? (
+                            <p>{diccomentario.calificaciones[2]}</p>
+                        ) : (
+                            <p>No hay calificaciones</p>
+                        )}
                     </div>
                     
                     <div className={Styles.descripcion}>
-                    Mi experiencia con Aquiles Hiban fue fantástica. Llamé porque necesitaba actualizar el sistema de 
-                    iluminación de mi negocio, y desde el primer contacto, mostró gran interés en entender mis necesidades y en sugerirme opciones 
-                    que fueran funcionales y estéticamente agradables. Él se encargó de revisar toda la instalación y de hacer ajustes en el sistema 
-                    eléctrico para soportar las nuevas luminarias. Lo mejor fue que terminó el trabajo en el plazo acordado y mantuvo una comunicación 
-                    clara sobre cada paso que iba dando. Me impresionó su nivel de organización y el orden con el que trabaja, algo que considero 
-                    esencial en un profesional.
-                    Posteriormente, tuve problemas con la cerradura de seguridad de una puerta que daba acceso a una zona importante del negocio. Sin 
-                    dudarlo, le pedí ayuda y su respuesta fue inmediata. No solo resolvió el problema rápidamente, sino que también me enseñó algunos 
-                    trucos básicos de mantenimiento para evitar futuros inconvenientes. Su honestidad, responsabilidad y conocimientos técnicos me han 
-                    ganado como cliente fiel, y no dudaré en recomendarlo a cualquier persona que necesite un electricista o cerrajero confiable.
+                        {loading ? (
+                            <p>Cargando comentarios...</p>
+                        ) : Array.isArray(diccomentario.comentarios) && diccomentario.comentarios.length > 0 ? (
+                            <p>{diccomentario.comentarios[2]}</p>
+                        ) : (
+                            <p>No hay comentarios</p>
+                        )}
                     </div>
                     
                 </div>
@@ -380,16 +386,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                             {
                                 booleano === 0 ? (
-                                    <img src={fotosperfil[4]}/>
+                                    <img src={diccperfilimg[4]}/>
                                 ):
                                 (
-                                    <RedimensionarImagen imagenUrl={fotosperfil[4]} ancho={100} alto={100} />  
+                                    <RedimensionarImagen imagenUrl={diccperfilimg[4]} ancho={100} alto={100} />  
                                 )
                             }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                                Luz Godinez
+                                {diccperfil[4]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
@@ -414,20 +420,23 @@ A tu puerta
                         }
                     </div>
                     <div className={Styles.puntuacion}>
-                        4.8
+                        {loading ? (
+                            <p></p>
+                        ) : Array.isArray(diccomentario.calificaciones) && diccomentario.calificaciones.length > 0 ? (
+                            <p>{diccomentario.calificaciones[3]}</p>
+                        ) : (
+                            <p>No hay calificaciones</p>
+                        )}
                     </div>
                     
                     <div className={Styles.descripcion}>
-                    Aquiles Hiban fue un gran hallazgo, y no puedo estar más agradecido por su profesionalismo. 
-                    Lo contraté para ayudarme con una serie de reparaciones eléctricas en mi casa, que iban desde revisar enchufes hasta instalar 
-                    luces y regular el sistema de voltaje para proteger mis dispositivos. Desde que llegó, demostró ser alguien muy atento a los 
-                    detalles, revisando minuciosamente cada aspecto antes de proceder. Además, respetó todos los protocolos de seguridad, algo que 
-                    no siempre se ve en otros profesionales, y trabajó con precisión y cuidado en cada tarea.
-                    Su experiencia en cerrajería también fue de gran ayuda. Una de las puertas de mi casa necesitaba una cerradura nueva, y no solo 
-                    trajo una de buena calidad, sino que la instaló de forma que funcionara perfectamente y no ofreciera ningún problema. Su enfoque 
-                    integral y el interés genuino que mostró en que todo quedara funcionando al 100% me dejaron tranquilo. La combinación de 
-                    servicios que ofrece es muy conveniente y representa una gran ventaja cuando se busca a alguien confiable. Sin duda, volveré a 
-                    llamarlo para cualquier otra necesidad que tenga en el futuro. ¡Un profesional excelente!
+                        {loading ? (
+                            <p>Cargando comentarios...</p>
+                        ) : Array.isArray(diccomentario.comentarios) && diccomentario.comentarios.length > 0 ? (
+                            <p>{diccomentario.comentarios[2]}</p>
+                        ) : (
+                            <p>No hay comentarios</p>
+                        )}
                     </div>
                     
                 </div>

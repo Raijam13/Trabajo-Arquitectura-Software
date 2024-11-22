@@ -234,6 +234,75 @@ router.get('/dnistatus/:dni/:estado', async (req, res) => {
 })
 
 
+// Obtener el nombre e imagen del usuario o vendedor según ID (GET /users/info/:id)
+router.get('/info/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Buscar primero en la colección de usuarios
+    const user = await User.findById(userId, 'usuario imagen_perfil');
+    if (user) {
+      return res.json({
+        tipo: 'usuario',
+        usuario: user.usuario,
+        imagen_perfil: user.imagen_perfil
+      });
+    }
+
+    // Si no está en usuarios, buscar en la colección de vendedores
+    const vendedor = await Vendedor.findById(userId, 'usuario imagen_perfil');
+    if (vendedor) {
+      return res.json({
+        tipo: 'vendedor',
+        usuario: vendedor.usuario,
+        imagen_perfil: vendedor.imagen_perfil
+      });
+    }
+
+    // Si no se encuentra en ninguna colección
+    res.status(404).send('ID no encontrado en usuarios ni vendedores');
+  } catch (err) {
+    res.status(400).send('Error al buscar la información: ' + err.message);
+  }
+});
+
+
+// Obtener completoinfo del vendedor
+router.get('/completoinfo/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Buscar en la colección de usuarios
+    const user = await User.findById(userId, 'ruc actividadEconomica');
+    if (user) {
+      return res.json({
+        tipo: 'usuario',
+        ruc: user.ruc || 'No aplica',
+        actividadEconomica: user.actividadEconomica || 'No aplica',
+        edad: vendedor.edad || 'No aplica',
+        telefono: vendedor.telefono || 'No aplica'
+      });
+    }
+
+    // Buscar en la colección de vendedores
+    const vendedor = await Vendedor.findById(userId, 'ruc actividadEconomica');
+    if (vendedor) {
+      return res.json({
+        tipo: 'vendedor',
+        ruc: vendedor.ruc,
+        actividadEconomica: vendedor.actividadEconomica,
+        edad: vendedor.edad,
+        telefono: vendedor.telefono
+      });
+    }
+
+    // Si no se encuentra en ninguna colección
+    res.status(404).send('ID no encontrado en usuarios ni vendedores');
+  } catch (err) {
+    res.status(400).send('Error al buscar la información: ' + err.message);
+  }
+});
+
 
 
 
