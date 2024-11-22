@@ -118,65 +118,16 @@ router.get('/me', authenticateToken, async (req, res) => {
 });
 
 
-// PATRON VALIDAR DNI CON RENIEC
-
-router.post('/vdni', async (req, res) => {
-  try {
-  
-    res.status(202).send('Recibido')
-
-     // Inicializar el Status Endpoint 
-     let responseDNI= await axios.post('https://localhost:3000/users/dnistatus', {any});
-
-    // Validar el DNI llamando a la API de Sunat
-    const apidni = `https://api.apis.net.pe/v2/reniec/dni?numero=${req.body.id}`;
-    const consulta = await axios.get(apidni, {
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    });
-
-    // Await para simular tiempo de demora en la consulta a Reniec 
-    await new Promise(resolve => setTimeout(resolve, 10000));
-    
-    
-  
-    // Si el estado es 'Pendiente', esperar a que cambie
-    //
-    if (!consulta.data.success) {
-      return res.status(400).json({ error: 'El RUC no es válido' });
-    } else{
-      while (!responseDNI.data.estado){
-        console.log('Esperando a que el estado cambie...');
-        
-        responseDNI = await axios.post('https://localhost:3000/users/dnistatus', {response});
-      }
-      return res.status(200).json({ mensaje: 'El DNI es válido' });
-    }
-    
-   
-  
-  } catch (err) {
-    res.status(400).send('Error al validar DNI: ' + err.message);
-  }
-
-});
-
-
+// Patrón ASYNC REQUEST REPLY validar DNI RENIEC
 router.post('/prueba', async (req, res) => {
   try {
 
     res.status(202).send('Recibido')
 
-    const apistatus = `http://localhost:3009/users/dnistatus`
-    const consulStatus = await axios.get(apistatus, {
-      headers: {
-        'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-        estado :false
-    }),
-    })
+    // Inicializar Status Endpoint
+    console.log(req.body.id);
+    const apistatus = `http://localhost:3009/users/dnistatus/${req.body.id}/false`
+    const consulStatus = await axios.get(apistatus, )
 
       // Await para simular tiempo de demora en la consulta a Reniec 
       await new Promise(resolve => setTimeout(resolve, 10000));
@@ -193,43 +144,38 @@ router.post('/prueba', async (req, res) => {
     const nombres = consulta.data.nombres.toLowerCase();
     const nombreR = req.body.nombres.toLowerCase();
 
-    if(nombres == nombreR){
-      res.status(202).send(`Recibido, el nombre es: ${nombres}` )
-      
-    }else{
-      res.status(400).send('EL DNI INGRESADO NO COINCIDE CON EL DE LA PERSONA A REGISTRAR')
-    }
   
 
     
   
   } catch (err) {
     res.status(400).send('Error al validar DNI: ' + err.message);
+    //console.log(err)
   }
 
 });
 
 
   let dni = 0;
-  let estado = null ;
+  let estado = false ;
 router.get('/dnistatus/:dni/:estado', async (req, res) => {
-
-
-   dni = req.params.dni;      // Obtener el DNI desde la parte dinámica de la URL
-   estado = true;  // Obtener el estado desde la parte dinámica de la URL
-    
-   if (!dni ) {
-      return res.status(400).send('DNI no proporcionado');
-   }
    
+  
+  // Obtener el DNI desde la parte dinámica de la URL
+  if( +req.params.dni != dni){
+    dni = +req.params.dni;
+  }
 
-    if (estado == false) {
-      res.status(200).send('Recurso no encontrado');
-   } else {
-      res.status(302).send('Recurso Encontrado');
+   if(this.estado == 'true' ){
+     estado = true;
+     res.status(302).send('Recurso Encontrado')
+
+   }if(req.params.estado == 'false'){
+     estado = false
+     res.status(200).send('Recurso no encontrado');
    }
-
    dni = 0;
+   estado =null;
 
 })
 
