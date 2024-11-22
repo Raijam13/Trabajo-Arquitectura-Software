@@ -130,12 +130,6 @@ A tu puerta
                     <div className={Styles.nombre}>
                     {diccperfil[0]}
                     </div>
-                    <div>
-                        {infocompleto[1]}
-                    </div>
-                    <div className={Styles.puntuacion}>
-                        Ruc: {infocompleto[0]}
-                    </div>
                 </div>
             </div>
 
@@ -145,20 +139,12 @@ A tu puerta
                 </div>
                 <div className={Styles.infopersonalcontainer}>
                     <div className={Styles.icono}>
-                    <svg xmlns="https://cdn-icons-png.flaticon.com/512/74/74472.png" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16"></svg>
-                    </div>
-                    <div className={Styles.info}>
-                    Masculino
-                    </div>
-                </div>
-                <div className={Styles.infopersonalcontainer}>
-                    <div className={Styles.icono}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cake-fill" viewBox="0 0 16 16">
   <path d="M7 4.029h2.283C9.353 2.11 8.8 1.5 8 1.5c-1.4 0-2.717.418-3.642 1.279h2.014A.5.5 0 0 0 7 4.029zM5 1.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v2.15c-.07.04-.146.08-.22.121v.38a.5.5 0 0 0 .5.5h1.387c.297-.152.614-.501.883-.917l1.085-2.272A1.25 1.25 0 0 0 9.921 1.545h-3.642zm1.5 0V3.85c.217-.119.433-.208.65-.269v-.848a.5.5 0 0 0-.5-.5h-1.27c-.314.074-.61.246-.864.511V1.545zm1.82.5c-.179.09-.375.217-.58.372v3.888c.083.074.173.14.27.195v.38a.5.5 0 0 0 .5.5h1.645c.314-.074.61-.246.864-.511V2.045zm-2.18 10.224a1.25 1.25 0 0 0 1.25 1.25h3.642c.66 0 1.23-.568 1.23-1.25v-3.643c0-.66-.568-1.23-1.23-1.23h-3.642a1.25 1.25 0 0 0-1.25 1.25v3.643z"/>
 </svg>
                     </div>
                     <div className={Styles.info}>
-                    Edad 34
+                    {infocompleto[0]}
                     </div>
                 </div>
                 <div className={Styles.infopersonalcontainer}>
@@ -168,7 +154,7 @@ A tu puerta
 </svg>
                     </div>
                     <div className={Styles.info}>
-                        Lima, Perú
+                    {infocompleto[1]}
                     </div>
                 </div>
             </div>

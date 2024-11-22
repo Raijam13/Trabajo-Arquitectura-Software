@@ -230,7 +230,9 @@ router.get('/completoinfo/:id', async (req, res) => {
       return res.json({
         tipo: 'usuario',
         ruc: user.ruc || 'No aplica',
-        actividadEconomica: user.actividadEconomica || 'No aplica'
+        actividadEconomica: user.actividadEconomica || 'No aplica',
+        edad: vendedor.edad || 'No aplica',
+        telefono: vendedor.telefono || 'No aplica'
       });
     }
 
@@ -240,7 +242,9 @@ router.get('/completoinfo/:id', async (req, res) => {
       return res.json({
         tipo: 'vendedor',
         ruc: vendedor.ruc,
-        actividadEconomica: vendedor.actividadEconomica
+        actividadEconomica: vendedor.actividadEconomica,
+        edad: vendedor.edad,
+        telefono: vendedor.telefono
       });
     }
 
