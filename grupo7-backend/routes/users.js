@@ -124,7 +124,7 @@ router.get('/me', authenticateToken, async (req, res) => {
 
 // variables para el patrón
   let dni = 0;
-  let estado = false ;
+  let estado = null ;
   let mensajeE = '';
 
 // Código
@@ -132,7 +132,8 @@ router.post('/prueba', async (req, res) => {
   try {
 
     res.status(202).send('Recibido')
-    dni= +re.body.id
+
+    dni= Number(req.body.id)
     estado = false
 
     // Await para simular tiempo de demora en la consulta a Reniec 
@@ -162,12 +163,12 @@ router.post('/prueba', async (req, res) => {
 });
 
 
-  
+// Status Endpoint
 router.get('/dnistatus/:dniv/', async (req, res) => {
    try{
      // Obtener el DNI desde la parte dinámica de la URL
 
-     let v1 = +req.params.dniv;
+     let v1 = Number(req.params.dniv);
 
     
   if(mensajeE==''){
@@ -175,13 +176,15 @@ router.get('/dnistatus/:dniv/', async (req, res) => {
       res.status(200).send('El recurso todavia no está listo');
       
   
-    }if( v1 == dni && estado == true ){
+    }else if( v1 == dni && estado == true ){
       res.status(302).send('Recurso encontrado');
     }
   }
   else{
     res.status(200).send(`El DNI ingresado no coincide con el de la persona}`)
   }
+
+  await new Promise(resolve => setTimeout(resolve, 20000));
   
    dni = 0;
    estado =null;
