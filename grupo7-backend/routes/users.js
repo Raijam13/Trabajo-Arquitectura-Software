@@ -125,7 +125,7 @@ router.get('/me', authenticateToken, async (req, res) => {
 // variables para el patrón
   let dni = 0;
   let estado = null ;
-  let mensajeE = '';
+  let mensajeE = 0;
 
 // Código
 router.post('/prueba', async (req, res) => {
@@ -151,7 +151,7 @@ router.post('/prueba', async (req, res) => {
     if( req.body.nombres.toLowerCase() == consulta.data.nombres.toLowerCase() && req.body.id == +consulta.data.numeroDocumento){
         estado = true
     }else{
-      mensajeE = 'El DNI brindado no coincide con la persona'
+      mensajeE = 1
     }
 
   
@@ -171,7 +171,7 @@ router.get('/dnistatus/:dniv/', async (req, res) => {
      let v1 = Number(req.params.dniv);
 
     
-  if(mensajeE==''){
+  if(mensajeE== 0){
     if( v1 == dni && estado == false){
       res.status(200).send('El recurso todavia no está listo');
       
@@ -181,7 +181,7 @@ router.get('/dnistatus/:dniv/', async (req, res) => {
     }
   }
   else{
-    res.status(200).send(`El DNI ingresado no coincide con el de la persona}`)
+    res.status(200).send(`El DNI ingresado no coincide con el de la persona`)
   }
 
   await new Promise(resolve => setTimeout(resolve, 20000));
