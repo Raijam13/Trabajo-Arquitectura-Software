@@ -118,19 +118,25 @@ router.get('/me', authenticateToken, async (req, res) => {
 });
 
 
+
+
 // Patrón ASYNC REQUEST REPLY validar DNI RENIEC
+
+// variables para el patrón
+  let dni = 0;
+  let estado = false ;
+  let mensajeE = '';
+
+// Código
 router.post('/prueba', async (req, res) => {
   try {
 
     res.status(202).send('Recibido')
+    dni= +re.body.id
+    estado = false
 
-    // Inicializar Status Endpoint
-    console.log(req.body.id);
-    const apistatus = `http://localhost:3009/users/dnistatus/${req.body.id}/false`
-    const consulStatus = await axios.get(apistatus, )
-
-      // Await para simular tiempo de demora en la consulta a Reniec 
-      await new Promise(resolve => setTimeout(resolve, 10000));
+    // Await para simular tiempo de demora en la consulta a Reniec 
+    await new Promise(resolve => setTimeout(resolve, 10000));
 
 
     // Validar el DNI llamando a la API de RENIEC
@@ -140,13 +146,13 @@ router.post('/prueba', async (req, res) => {
             Authorization: `Bearer ${accessToken}`
         }
     });
-    
-    const nombres = consulta.data.nombres.toLowerCase();
-    const nombreR = req.body.nombres.toLowerCase();
 
-  
+    if( req.body.nombres.toLowerCase() == consulta.data.nombres.toLowerCase() && req.body.id == +consulta.data.numeroDocumento){
+        estado = true
+    }else{
+      mensajeE = 'El DNI brindado no coincide con la persona'
+    }
 
-    
   
   } catch (err) {
     res.status(400).send('Error al validar DNI: ' + err.message);
@@ -156,28 +162,35 @@ router.post('/prueba', async (req, res) => {
 });
 
 
-  let dni = 0;
-  let estado = false ;
-router.get('/dnistatus/:dni/:estado', async (req, res) => {
-   
   
-  // Obtener el DNI desde la parte dinámica de la URL
-  if( +req.params.dni != dni){
-    dni = +req.params.dni;
+router.get('/dnistatus/:dniv/', async (req, res) => {
+   try{
+     // Obtener el DNI desde la parte dinámica de la URL
+
+     let v1 = +req.params.dniv;
+
+    
+  if(mensajeE==''){
+    if( v1 == dni && estado == false){
+      res.status(200).send('El recurso todavia no está listo');
+      
+  
+    }if( v1 == dni && estado == true ){
+      res.status(302).send('Recurso encontrado');
+    }
   }
-
-   if(this.estado == 'true' ){
-     estado = true;
-     res.status(302).send('Recurso Encontrado')
-
-   }if(req.params.estado == 'false'){
-     estado = false
-     res.status(200).send('Recurso no encontrado');
-   }
+  else{
+    res.status(200).send(`El DNI ingresado no coincide con el de la persona}`)
+  }
+  
    dni = 0;
    estado =null;
 
-})
+   } catch (err) {
+    
+  }
+
+});
 
 
 // Obtener el nombre e imagen del usuario o vendedor según ID (GET /users/info/:id)
