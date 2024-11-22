@@ -9,7 +9,6 @@ const { User, Vendedor } = require('../models/user');
 const JWT_SECRET = process.env.JWT_SECRET;
 const accessToken = "apis-token-11100.fMZ7XW7D39jYNrzE92p9YH2OjsNCXhD4";
 
-let estado = false;
 
 
 
@@ -212,19 +211,25 @@ router.post('/prueba', async (req, res) => {
 
 
   let dni = 0;
+  let estado = null ;
+router.get('/dnistatus/:dni/:estado', async (req, res) => {
 
-router.get('/dnistatus/', async (req, res) => {
 
+   dni = req.params.dni;      // Obtener el DNI desde la parte dinámica de la URL
+   estado = true;  // Obtener el estado desde la parte dinámica de la URL
     
+   if (!dni ) {
+      return res.status(400).send('DNI no proporcionado');
+   }
    
-   const  a = req.body.estado
 
-    if( a == false ){
-      res.status(200).send('Recurso no encontrado')
-    }else{
-      res.status(302).send('Recurso Encontrado')
-    }
+    if (estado == false) {
+      res.status(200).send('Recurso no encontrado');
+   } else {
+      res.status(302).send('Recurso Encontrado');
+   }
 
+   dni = 0;
 
 })
 
