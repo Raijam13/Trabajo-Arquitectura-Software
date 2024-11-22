@@ -8,7 +8,6 @@ const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
     const [video_link, setvideo_link] = useState("");
     const [video_link_sin_hd, setvideo_link_sin_hd] = useState("");
-    const [fotosperfil, setfotosperfil] = useState([]);
     const [imagenes, setimagenes] = useState([]);
     const [booleano, setbooleano] = useState(0);
     const [diccomentario, setdiccomentario] = useState([]);
