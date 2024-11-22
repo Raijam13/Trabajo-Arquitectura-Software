@@ -2,7 +2,7 @@
 import Styles from './page.module.css'
 import RedimensionarImagen from './resolucion'
 import { useEffect, useState } from 'react';
-import { getresumen, getvideoHD, getvideoSinHD, getperfil, getfotos, getcomentarios } from '../../api/perfil'; 
+import { getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil } from '../../api/perfil'; 
 
 const perfil = () =>{
     const [resumen_texto, setresumen_texto] = useState('');
@@ -12,6 +12,8 @@ const perfil = () =>{
     const [imagenes, setimagenes] = useState([]);
     const [booleano, setbooleano] = useState(0);
     const [diccomentario, setdiccomentario] = useState([]);
+    const [diccperfil, setdiccperfil] = useState([]);
+    const [ diccperfilimg, setdiccperfilimg] = useState([]);
     const [loading, setLoading] = useState(true);//Verifica que los datos se esten cargando
     
     const cambia_booleano = () => {
@@ -27,12 +29,6 @@ const perfil = () =>{
             const link2 = await getvideoSinHD("671ac23dfdd3b7d8c1d73b9a");
             setvideo_link(link);
             setvideo_link_sin_hd(link2);
-            const perfil1 = await getperfil("671ac23dfdd3b7d8c1d73b9a", "Vendedor");
-            const perfil2 = await getperfil("670ef669ff56ecac7bdd1a81", "User");
-            const perfil3 = await getperfil("673d7f66805969194fbd27ba", "User");
-            const perfil4 = await getperfil("673d8272805969194fbd27c9", "User");
-            const perfil5 = await getperfil("671abadd070756b7a7e46bb5", "Vendedor");
-            setfotosperfil([perfil1, perfil2, perfil3, perfil4, perfil5]);
 
             const listaimagenes = await getfotos("671ac23dfdd3b7d8c1d73b9a");
             setimagenes(listaimagenes);
@@ -40,6 +36,22 @@ const perfil = () =>{
             const {comentarios, calificaciones, fechas} = await getcomentarios("671ac23dfdd3b7d8c1d73b9a");
             
             setdiccomentario({ comentarios, calificaciones, fechas });
+            
+            const usuario0  = await getinfoperfil("673fb738d58e2f33e6fa866d");
+            const usuario1  = await getinfoperfil("673faa82bef49fb874f44c29");
+            const usuario2 = await getinfoperfil("673fb49ad58e2f33e6fa8667");
+            const usuario3 = await getinfoperfil("673fb4d3d58e2f33e6fa8669");
+            const usuario4 = await getinfoperfil("673fb6c3d58e2f33e6fa866b");
+            setdiccperfil([usuario0, usuario1, usuario2, usuario3, usuario4]);
+            
+            const img0 = await getimgperfil("673fb738d58e2f33e6fa866d");
+            const img1 = await getimgperfil("673faa82bef49fb874f44c29");
+            const img2 = await getimgperfil("673fb49ad58e2f33e6fa8667");
+            const img3 = await getimgperfil("673fb4d3d58e2f33e6fa8669");
+            const img4 = await getimgperfil("673fb6c3d58e2f33e6fa866b");
+            
+            setdiccperfilimg([img0, img1, img2, img3, img4]);
+
             setLoading(false);
         }
         fetchVideo();
@@ -103,17 +115,17 @@ A tu puerta
             <div className={Styles.imagenperfil}>
             {
                 booleano === 0 ? (
-                    <img src={fotosperfil[0]}/>
+                    <img src={diccperfilimg[0]}/>
                 ):
                 (
-                    <RedimensionarImagen imagenUrl={fotosperfil[0]} ancho={100} alto={100} />  
+                    <RedimensionarImagen imagenUrl={diccperfilimg[0]} ancho={100} alto={100} />  
                 )
             }
                           
             </div>
                 <div className={Styles.nombres}>
                     <div className={Styles.nombre}>
-                    Aquiles Hiban
+                    {diccperfil[0]}
                     </div>
                     <div>
                         Electricista - Cerrajero - Jardinero
@@ -211,16 +223,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                         {
                             booleano === 0 ? (
-                                <img src={fotosperfil[1]}/>
+                                <img src={diccperfilimg[1]}/>
                             ):
                             (
-                                <RedimensionarImagen imagenUrl={fotosperfil[1]} ancho={100} alto={100} />  
+                                <RedimensionarImagen imagenUrl={diccperfilimg[1]} ancho={100} alto={100} />  
                             )
                         }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                            Elza Vilchez
+                            {diccperfil[1]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
@@ -268,16 +280,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                             {
                                 booleano === 0 ? (
-                                    <img src={fotosperfil[2]}/>
+                                    <img src={diccperfilimg[2]}/>
                                 ):
                                 (
-                                    <RedimensionarImagen imagenUrl={fotosperfil[2]} ancho={100} alto={100} />  
+                                    <RedimensionarImagen imagenUrl={diccperfilimg[2]} ancho={100} alto={100} />  
                                 )
                             }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                                Tomas Torre
+                                {diccperfil[2]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
@@ -325,16 +337,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                             {
                                 booleano === 0 ? (
-                                    <img src={fotosperfil[3]}/>
+                                    <img src={diccperfilimg[3]}/>
                                 ):
                                 (
-                                    <RedimensionarImagen imagenUrl={fotosperfil[3]} ancho={100} alto={100} />  
+                                    <RedimensionarImagen imagenUrl={diccperfilimg[3]} ancho={100} alto={100} />  
                                 )
                             }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                                Ramirez Zen
+                                {diccperfil[3]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
@@ -385,16 +397,16 @@ A tu puerta
                         <div className={Styles.imagenperfil}>
                             {
                                 booleano === 0 ? (
-                                    <img src={fotosperfil[4]}/>
+                                    <img src={diccperfilimg[4]}/>
                                 ):
                                 (
-                                    <RedimensionarImagen imagenUrl={fotosperfil[4]} ancho={100} alto={100} />  
+                                    <RedimensionarImagen imagenUrl={diccperfilimg[4]} ancho={100} alto={100} />  
                                 )
                             }
                         </div>
                         <div className={Styles.nombres}>
                             <div className={Styles.nombre}>
-                                Luz Godinez
+                                {diccperfil[4]}
                             </div>
                             <div className={Styles.fecha}>
                                 {loading ? (
