@@ -27,6 +27,10 @@ app.get('/', (req, res) => {
 });
 
 // Importar y usar rutas
+
+const maulRoutes = require('./routes/sendmail');
+app.use('/sendmail', maulRoutes);
+
 const userRoutes = require('./routes/users');
 app.use('/users', userRoutes);
 
