@@ -284,7 +284,65 @@ router.get('/completoinfo/:id', async (req, res) => {
   }
 });
 
+router.put('/update', authenticateToken, async (req, res) => {
+  try {
+    // Obtener el id del usuario desde el token (req.user.id) y los nuevos datos del cuerpo de la solicitud
+    const userId = req.user.id;
+    const { nombre_completo, edad, password, gmail, telefono, actividadEconomica } = req.body;
 
+    // Buscar al usuario por su ID
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).send('Usuario no encontrado');
+    }
+
+    // Actualizar los campos del usuario
+    user.nombre_completo = nombre_completo || user.nombre_completo;
+    user.edad = edad || user.edad;
+    user.password = password ? await bcrypt.hash(password, 10) : user.password;  // Encriptar la nueva contraseña si es que se proporciona
+    user.gmail = gmail || user.gmail;
+    user.telefono = telefono || user.telefono;
+    user.actividadEconomica = actividadEconomica || user.actividadEconomica;
+
+    // Guardar los cambios en la base de datos
+    await user.save();
+
+    res.status(200).send('Perfil actualizado exitosamente');
+  } catch (err) {
+    res.status(400).send('Error al actualizar el perfil: ' + err.message);
+  }
+});
+// Obtener edad y teléfono por ID
+router.get('/contacto/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    // Buscar en la colección de usuarios
+    const user = await User.findById(userId, 'edad telefono');
+    if (user) {
+      return res.json({
+        tipo: 'usuario',
+        edad: user.edad || 'No aplica',
+        telefono: user.telefono || 'No aplica'
+      });
+    }
+
+    // Buscar en la colección de vendedores
+    const vendedor = await Vendedor.findById(userId, 'edad telefono');
+    if (vendedor) {
+      return res.json({
+        tipo: 'vendedor',
+        edad: vendedor.edad,
+        telefono: vendedor.telefono
+      });
+    }
+
+    // Si no se encuentra en ninguna colección
+    res.status(404).send('ID no encontrado en usuarios ni vendedores');
+  } catch (err) {
+    res.status(400).send('Error al buscar la información: ' + err.message);
+  }
+});
 
 
 

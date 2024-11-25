@@ -134,6 +134,28 @@ const getimgperfil = async function(id) {
         console.error(error);
     }
 };
+const getContacto = async (id) => {
+    try {
+        const response = await fetch(`http://localhost:3009/users/contacto/${id}`, {
+            method: 'GET',
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            return {
+                edad: data.edad,
+                telefono: data.telefono,
+            };
+        } else {
+            console.error('Error al obtener contacto:', await response.text());
+            return { edad: 'No aplica', telefono: 'No aplica' };
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        return { edad: 'No aplica', telefono: 'No aplica' };
+    }
+};
+
 
 const getcompletoperfil = async function(id) {
     try {
@@ -168,4 +190,4 @@ const getcompletoruc = async function(id) {
 };
 
 
-export {getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil, getcompletoperfil, getcompletoruc};
+export {getresumen, getvideoHD, getvideoSinHD, getfotos, getcomentarios, getinfoperfil, getimgperfil, getcompletoperfil, getcompletoruc, getContacto};

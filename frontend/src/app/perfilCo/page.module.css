@@ -173,3 +173,58 @@
 }
 /* Estilo para la opción activa */
 
+/* Estilo para la puntuación */
+.puntuacion {
+    font-size: 18px;
+    color: gold;
+    margin-left: 10px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.starIcon {
+    margin-right: 5px;
+}
+
+/* Contenedor de comentarios */
+.comentarios {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.comentarioCard {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comentarioAvatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.comentarioNombre {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.comentarioTexto {
+    margin: 5px 0 0;
+    color: #555;
+}
+
+.noComentarios {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+}
