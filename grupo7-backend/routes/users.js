@@ -71,6 +71,8 @@ router.post('/signup', async (req, res) => {
 
     await newUser.save();
     res.status(201).send('Usuario registrado exitosamente');
+    
+
   } catch (err) {
     res.status(400).send('Error al registrar usuario: ' + err.message);
   }
