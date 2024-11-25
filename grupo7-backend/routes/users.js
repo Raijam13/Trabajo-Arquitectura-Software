@@ -203,7 +203,7 @@ router.get('/dnistatus/:dniv/', async (req, res) => {
     res.status(200).send(`El DNI ingresado no coincide con el de la persona`)
   }
 
-  await new Promise(resolve => setTimeout(resolve, 20000));
+  await new Promise(resolve => setTimeout(resolve, 2000));
   
    dni = 0;
    estado =null;
