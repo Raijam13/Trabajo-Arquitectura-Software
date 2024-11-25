@@ -10,11 +10,11 @@ const serviceSchema = new mongoose.Schema({
     servicio_description: { type: String, required: true },
     estado: {
         type: String,
-        enum: ['EN_PROCESO', 'FINALIZADO', 'CALIFICADO'],
-        default: 'EN_PROCESO',
+        enum: ['EN_CARRITO','EN_PROCESO', 'FINALIZADO', 'CALIFICADO'],
+        default: 'EN_CARRITO',
     },
-    cliente: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-    trabajador: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendedor', required: true }, // Campo obligatorio
+    usuario: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+    vendedor: { type: mongoose.Schema.Types.ObjectId, ref: 'Vendedor', required: true },
     costo_promedio: { type: Number, required: true },
     costo_descripción: { type: String, required: true },
     id_foto: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Foto', required: false }],
@@ -30,5 +30,5 @@ serviceSchema.pre('save', function (next) {
 });
 
 const Service = mongoose.model('Service', serviceSchema);
-
 module.exports = Service;
+

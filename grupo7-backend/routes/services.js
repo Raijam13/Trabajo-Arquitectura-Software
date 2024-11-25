@@ -5,11 +5,11 @@ const Service = require('../models/service');
 
 // Crear un nuevo servicio
 router.post('/', async (req, res) => {
-  const { tipo, titulo, servicio_description, estado, cliente, trabajador, costo_promedio, costo_descripción } = req.body;
+  const { tipo, titulo, servicio_description, estado, usuario, vendedor, costo_promedio, costo_descripción } = req.body;
 
   // Validar campos obligatorios
-  if (!cliente || !trabajador) {
-      return res.status(400).json({ error: 'Los campos cliente y trabajador son obligatorios.' });
+  if (!usuario || !vendedor) {
+      return res.status(400).json({ error: 'Los campos usuario y vendedor son obligatorios.' });
   }
 
   const estadosPermitidos = ['EN_PROCESO', 'FINALIZADO', 'CALIFICADO'];
@@ -23,8 +23,8 @@ router.post('/', async (req, res) => {
           titulo,
           servicio_description,
           estado: estado || 'EN_PROCESO', // Estado por defecto
-          cliente,
-          trabajador,
+          usuario,
+          vendedor,
           costo_promedio,
           costo_descripción,
       });
@@ -46,33 +46,33 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Obtener servicios por cliente
-router.get('/cliente/:clienteId', async (req, res) => {
+// Obtener servicios por usuario
+router.get('/usuario/:usuarioId', async (req, res) => {
     try {
-        const servicios = await Service.find({ cliente: req.params.clienteId })
-            .populate('cliente', 'nombre_completo')
-            .populate('trabajador', 'nombre_completo');
+        const servicios = await Service.find({ usuario: req.params.usuarioId })
+            .populate('usuario', 'nombre_completo')
+            .populate('vendedor', 'nombre_completo');
         res.status(200).json(servicios);
     } catch (err) {
-        res.status(500).json({ error: 'Error al obtener servicios del cliente', detalles: err.message });
+        res.status(500).json({ error: 'Error al obtener servicios del usuario', detalles: err.message });
     }
 });
 
-// Obtener servicios por trabajador
-router.get('/trabajador/:trabajadorId', async (req, res) => {
+// Obtener servicios por vendedor
+router.get('/vendedor/:vendedorId', async (req, res) => {
     try {
-        const servicios = await Service.find({ trabajador: req.params.trabajadorId })
-            .populate('cliente', 'nombre_completo')
-            .populate('trabajador', 'nombre_completo');
+        const servicios = await Service.find({ vendedor: req.params.vendedorId })
+            .populate('usuario', 'nombre_completo')
+            .populate('vendedor', 'nombre_completo');
         res.status(200).json(servicios);
     } catch (err) {
-        res.status(500).json({ error: 'Error al obtener servicios del trabajador', detalles: err.message });
+        res.status(500).json({ error: 'Error al obtener servicios del vendedor', detalles: err.message });
     }
 });
 
 // Actualizar un servicio completo
 router.put('/:serviceId', async (req, res) => {
-    const { tipo, titulo, servicio_description, estado, cliente, trabajador, costo_promedio, costo_descripción } = req.body;
+    const { tipo, titulo, servicio_description, estado, usuario, vendedor, costo_promedio, costo_descripción } = req.body;
 
     try {
         const servicio = await Service.findById(req.params.serviceId);
@@ -84,8 +84,8 @@ router.put('/:serviceId', async (req, res) => {
         servicio.titulo = titulo || servicio.titulo;
         servicio.servicio_description = servicio_description || servicio.servicio_description;
         servicio.estado = estado || servicio.estado;
-        servicio.cliente = cliente || servicio.cliente;
-        servicio.trabajador = trabajador || servicio.trabajador;
+        servicio.usuario = usuario || servicio.usuario;
+        servicio.vendedor = vendedor || servicio.vendedor;
         servicio.costo_promedio = costo_promedio || servicio.costo_promedio;
         servicio.costo_descripción = costo_descripción || servicio.costo_descripción;
 
@@ -135,5 +135,6 @@ router.delete('/:serviceId', async (req, res) => {
         res.status(500).json({ error: 'Error al eliminar servicio', detalles: err.message });
     }
 });
+
 
 module.exports = router;

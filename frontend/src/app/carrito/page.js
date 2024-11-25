@@ -4,11 +4,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { useEffect, useState } from 'react';
-import { getPropuestas, eliminarPropuesta } from '../../api/carrito'; 
+import { getPropuestas, eliminarPropuesta, enviarPropuestas } from '../../api/carrito'; 
 
 const Cart = () => {
   const [propuestas, setPropuestas] = useState([]);
-  const [nombreCliente, setNombreCliente] = useState(''); // Inicializamos el nombre como vacío
+  const [nombreUsuario, setNombreUsuario] = useState(''); // Inicializamos el nombre como vacío
   const [subtotal, setSubtotal] = useState(0);
 
   const calcularSubtotal = (items) => {
@@ -28,8 +28,8 @@ const Cart = () => {
           'Authorization': `Bearer ${localStorage.getItem('token')}`, 
         },
       });
-      const cliente = await response.json();
-      setNombreCliente(cliente.nombre_completo);
+      const usuario = await response.json();
+      setNombreUsuario(usuario.nombre_completo);
     };
 
     cargarDatos();
@@ -45,14 +45,27 @@ const Cart = () => {
     }
   };
 
-  const handleConfirmarPedido = () => {
-    alert('¡Pago confirmado!');
-  };
+  const handleConfirmarPedido = async () => {
+    try {
+        const success = await enviarPropuestas(propuestas);
+
+        if (success) {
+            alert('¡Pago confirmado! Los trabajos ahora están en proceso.');
+            setPropuestas([]);
+        } else {
+            alert('Error al confirmar el pago.');
+        }
+    } catch (error) {
+        console.error('Error al confirmar el pago:', error);
+        alert('Ocurrió un error al confirmar el pago.');
+    }
+};
+
 
   return (
     <div className={Styles.container}>
       <nav className={Styles.navbar}>
-        <span className={Styles.nombreCliente}>{nombreCliente}</span>
+        <span className={Styles.nombreUsuario}>{nombreUsuario}</span>
         <a href="/perfil" className={Styles.link}>Mi perfil</a>
         <a href="/frontpage" className={Styles.link}>Inicio</a>
         <a href="/solicitudes" className={Styles.link}>Mis solicitudes</a>

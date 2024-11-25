@@ -1,6 +1,6 @@
-const obtenerTrabajosCliente = async (clienteId) => {
+const obtenerTrabajosUsuario = async (usuarioId) => {
     try {
-        const response = await fetch(`http://localhost:3009/services/cliente/${clienteId}`, {
+        const response = await fetch(`http://localhost:3009/services/usuario/${usuarioId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -14,7 +14,7 @@ const obtenerTrabajosCliente = async (clienteId) => {
             return trabajos;
         } else {
             const errorMessage = await response.text();
-            console.error('Error al obtener trabajos del cliente:', errorMessage);
+            console.error('Error al obtener trabajos del usuario:', errorMessage);
             return [];
         }
     } catch (error) {
@@ -23,9 +23,9 @@ const obtenerTrabajosCliente = async (clienteId) => {
     }
 };
 
-const obtenerTrabajosTrabajador = async (trabajadorId) => {
+const obtenerTrabajosvendedor = async (vendedorId) => {
     try {
-        const response = await fetch(`http://localhost:3009/services/trabajador/${trabajadorId}`, {
+        const response = await fetch(`http://localhost:3009/services/vendedor/${vendedorId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const obtenerTrabajosTrabajador = async (trabajadorId) => {
             return trabajos;
         } else {
             const errorMessage = await response.text();
-            console.error('Error al obtener trabajos del trabajador:', errorMessage);
+            console.error('Error al obtener trabajos del vendedor:', errorMessage);
             return [];
         }
     } catch (error) {
@@ -48,21 +48,20 @@ const obtenerTrabajosTrabajador = async (trabajadorId) => {
     }
 };
 
-const actualizarEstadoTrabajo = async (trabajoId, nuevoEstado) => {
+const actualizarEstadoTrabajo = async (id, nuevoEstado) => {
     try {
-        const response = await fetch(`http://localhost:3009/services/${trabajoId}/estado`, {
+        const response = await fetch(`http://localhost:3009/services/${id}/actualizar-estado`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
-            body: JSON.stringify({ nuevoEstado }),
+            body: JSON.stringify({ estado: nuevoEstado }), // Cambiamos solo el estado
         });
 
         if (response.ok) {
             const trabajoActualizado = await response.json();
             console.log('Estado del trabajo actualizado con éxito:', trabajoActualizado);
-            return trabajoActualizado;
+            return trabajoActualizado; // Retornamos el trabajo actualizado
         } else {
             const errorMessage = await response.text();
             console.error('Error al actualizar estado del trabajo:', errorMessage);
@@ -70,6 +69,7 @@ const actualizarEstadoTrabajo = async (trabajoId, nuevoEstado) => {
         }
     } catch (error) {
         console.error('Error:', error);
+        throw error;
     }
 };
 
@@ -97,5 +97,21 @@ const eliminarTrabajo = async (trabajoId) => {
     }
 };
 
+const getServiciosEnProceso = async (userId) => {
+    try {
+        const response = await fetch(`http://localhost:3009/services/en-proceso/${userId}`);
+        if (response.ok) {
+            const servicios = await response.json();
+            return servicios;
+        } else {
+            console.error('Error al obtener servicios en proceso:', await response.text());
+            return [];
+        }
+    } catch (err) {
+        console.error('Error:', err);
+        return [];
+    }
+};
 
-export { obtenerTrabajosCliente, obtenerTrabajosTrabajador, actualizarEstadoTrabajo, eliminarTrabajo };
+
+export { obtenerTrabajosUsuario, obtenerTrabajosvendedor, actualizarEstadoTrabajo, eliminarTrabajo, getServiciosEnProceso};

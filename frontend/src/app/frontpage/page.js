@@ -41,8 +41,8 @@ function App() {
   const indicePrimerServicio = indiceUltimoServicio - serviciosPorPagina;
   const serviciosActuales = servicios.slice(indicePrimerServicio, indiceUltimoServicio);
 
-  // Estado para almacenar los trabajadores
-  const [trabajadores, setTrabajadores] = useState([
+  // Estado para almacenar los vendedores
+  const [vendedores, setvendedores] = useState([
     { id: 1, nombre: "Juan Pérez", calificacion: 5, rol: "Electricista" },
     { id: 2, nombre: "María García", calificacion: 4, rol: "Cocinera" },
     { id: 3, nombre: "Carlos Rodríguez", calificacion: 5, rol: "Jardinero" },
@@ -55,7 +55,7 @@ function App() {
     { id: 10, nombre: "Roberto Díaz", calificacion: 3, rol: "Pintor" },
     { id: 11, nombre: "Marta González", calificacion: 4, rol: "Costurera" }
   ]);
-  const trabajadoresOrdenados = [...trabajadores].sort((a, b) => b.calificacion - a.calificacion).slice(0, 10);
+  const vendedoresOrdenados = [...vendedores].sort((a, b) => b.calificacion - a.calificacion).slice(0, 10);
 
   useEffect(() => {
     // Detectar la geolocalización del usuario
@@ -101,9 +101,9 @@ function App() {
 
         {/* Resto del contenido */}
         <div className={Styles.sections}>
-          {/* Top Trabajadores */}
+          {/* Top vendedores */}
           <div className={`${Styles.sector} ${Styles.sector1}`}>
-            <h2 className={Styles.heading}>Top Trabajadores</h2>
+            <h2 className={Styles.heading}>Top vendedores</h2>
             <table className={Styles.table}>
               <thead>
                 <tr>
@@ -111,9 +111,9 @@ function App() {
                 </tr>
               </thead>
               <tbody>
-                {trabajadoresOrdenados.map((trabajador, index) => (
+                {vendedoresOrdenados.map((vendedor, index) => (
                   <tr key={index}>
-                    <td>{index + 1}. {trabajador.nombre} ({trabajador.calificacion}/5)</td>
+                    <td>{index + 1}. {vendedor.nombre} ({vendedor.calificacion}/5)</td>
                   </tr>
                 ))}
               </tbody>

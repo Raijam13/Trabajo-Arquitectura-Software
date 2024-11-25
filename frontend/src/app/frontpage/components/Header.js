@@ -24,7 +24,8 @@ function Banner() {
 
         {/* Contenedor de la derecha: hipervínculos y botón de Sign up */}
         <nav className="right-content">
-          <a href="/carrito">Inicio</a>
+          <a href="/frontpage">Inicio</a>
+          <a href="/misTrabajos">Mis Trabajos</a>
           <a href="/carrito">Mi Carrito</a>
           <a href="/login">Login</a>
           <button className="signup-button">Sign up</button>

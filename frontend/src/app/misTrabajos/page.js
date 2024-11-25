@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Tabs, Tab, Alert, Grid, Pagination, Button } from '@mui/material';
 import MisTrabajosCard from './MisTrabajosCard';
-import { obtenerTrabajosCliente, actualizarEstadoTrabajo, eliminarTrabajo } from '../../api/trabajo';
+import { obtenerTrabajosUsuario, actualizarEstadoTrabajo, eliminarTrabajo } from '../../api/trabajo';
 import Banner from '../frontpage/components/Header.js';
 import Styles from './MisTrabajos.css';
 
@@ -23,31 +23,32 @@ const MisTrabajos = () => {
                     setError('No se encontró un token. Inicia sesión.');
                     return;
                 }
-
-                // Obtener información del cliente (ID)
+    
+                // Obtener información del usuario
                 const userResponse = await fetch('http://localhost:3009/users/me', {
                     method: 'GET',
                     headers: { Authorization: `Bearer ${token}` },
                 });
-
+    
                 if (userResponse.status === 401) {
                     setError('No autorizado. Inicia sesión nuevamente.');
                     return;
                 }
-
+    
                 const userData = await userResponse.json();
                 setNombreUsuario(userData.nombre_completo);
-
-                // Cargar trabajos según el cliente
-                const trabajosCargados = await obtenerTrabajosCliente(userData._id);
+    
+                // Cargar trabajos con el estado actual
+                const trabajosCargados = await obtenerTrabajosUsuario(userData._id);
                 setTrabajos(trabajosCargados.filter(trabajo => trabajo.estado === estadoFiltro));
             } catch (err) {
                 setError('Error al cargar los datos: ' + err.message);
             }
         };
-
+    
         cargarDatos();
-    }, [estadoFiltro]);
+    }, [estadoFiltro]); // Dependencia para cambios de estado
+    
 
     const handleEstadoChange = (event, newValue) => {
         setEstadoFiltro(newValue);
@@ -65,7 +66,7 @@ const MisTrabajos = () => {
     const handleActualizarEstado = async (id, nuevoEstado) => {
         try {
             const trabajoActualizado = await actualizarEstadoTrabajo(id, nuevoEstado);
-            setTrabajos(trabajos.map(trabajo =>
+            setTrabajos(trabajos => trabajos.map(trabajo =>
                 trabajo._id === id ? { ...trabajo, estado: trabajoActualizado.estado } : trabajo
             ));
         } catch (err) {

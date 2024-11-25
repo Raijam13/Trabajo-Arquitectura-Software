@@ -5,6 +5,10 @@ const Comentario = require('../models/comentario');
 // Crear un nuevo comentario (POST /comentarios)
 router.post('/', async (req, res) => {
   try {
+    // Validación de la calificación para asegurarse de que sea un número entre 1 y 5
+    if (calificación < 1 || calificación > 5) {
+      return res.status(400).send('La calificación debe estar entre 1 y 5.');
+    }
     const newComentario = new Comentario({
       usuario: req.body.usuario,
       vendedor: req.body.vendedor,

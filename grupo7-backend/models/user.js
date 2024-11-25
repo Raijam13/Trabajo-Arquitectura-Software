@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   edad: { type: Number, required: false },
   telefono: { type: Number, required: false },
   imagen_perfil: { type: String, required: false },
-  id_compra: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Compra', required: false }],
+  id_servicio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: false }],
   id_comentario: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comentario', required: false }],
 });
 
@@ -29,7 +29,7 @@ const vendedorSchema = new mongoose.Schema({
   telefono: { type: Number, required: true },
   imagen_perfil: { type: String, required: false },
   actividadEconomica: {type: String, required: true},
-  id_servicio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Service', required: false }],
+  id_servicio: [{ type: mongoose.Schema.Types.ObjectId, ref: 'service', required: false }],
 });
 
 // Crear el modelo del usuario a partir del esquema

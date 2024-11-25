@@ -1,10 +1,24 @@
 import React from 'react';
 import { Card, CardContent, Typography, Button, Grid } from '@mui/material';
 import Styles from './MisTrabajosCard.css';
+import CalificacionModal from './CalificacionModal';  // Importar el modal
 
-const MisTrabajosCard = ({ trabajo, onActualizarEstado, onEliminar }) => {
+const MisTrabajosCard = ({ trabajo, onActualizarEstado, onEliminar, onCalificar }) => {
+    const [openModal, setOpenModal] = useState(false);
+    
     // Función para determinar el texto del botón según el estado actual
     const siguienteEstado = (estado) => {
+        switch (estado) {
+            case 'EN_PROCESO':
+                return 'FINALIZADO';
+            case 'FINALIZADO':
+                return 'CALIFICADO';
+            default:
+                return null;
+        }
+    };
+
+    const textoBoton = (estado) => {
         switch (estado) {
             case 'EN_PROCESO':
                 return 'Finalizar';
@@ -13,6 +27,18 @@ const MisTrabajosCard = ({ trabajo, onActualizarEstado, onEliminar }) => {
             default:
                 return null;
         }
+    };
+
+    const handleCalificar = () => {
+        setOpenModal(true);  // Mostrar el modal de calificación
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);  // Cerrar el modal
+    };
+
+    const handleEnviarCalificacion = (trabajoId, calificacion) => {
+        onCalificar(trabajoId, calificacion);  // Enviar calificación al backend
     };
 
     return (
@@ -31,14 +57,14 @@ const MisTrabajosCard = ({ trabajo, onActualizarEstado, onEliminar }) => {
                     Estado: {trabajo.estado}
                 </Typography>
 
-                {/* Información del cliente */}
-                <Typography variant="body2" className={Styles.cardCliente}>
-                    Cliente: {trabajo.cliente?.nombre_completo || 'No disponible'}
+                {/* Información del usuario */}
+                <Typography variant="body2" className={Styles.cardUsuario}>
+                    Usuario: {trabajo.usuario?.nombre_completo || 'No disponible'}
                 </Typography>
 
-                {/* Información del trabajador */}
-                <Typography variant="body2" className={Styles.cardTrabajador}>
-                    Trabajador: {trabajo.trabajador?.nombre_completo || 'No disponible'}
+                {/* Información del vendedor */}
+                <Typography variant="body2" className={Styles.cardVendedor}>
+                    Vendedor: {trabajo.vendedor?.nombre_completo || 'No disponible'}
                 </Typography>
 
                 {/* Costo del trabajo */}
@@ -53,9 +79,20 @@ const MisTrabajosCard = ({ trabajo, onActualizarEstado, onEliminar }) => {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={() => onActualizarEstado(siguienteEstado(trabajo.estado))}
+                                onClick={() => onActualizarEstado(trabajo._id, siguienteEstado(trabajo.estado))}
                             >
-                                {siguienteEstado(trabajo.estado)}
+                                {textoBoton(trabajo.estado)}
+                            </Button>
+                        </Grid>
+                    )}
+                    {trabajo.estado === 'FINALIZADO' && (
+                        <Grid item>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                onClick={handleCalificar}  // Llamar a la función para abrir el modal
+                            >
+                                Calificar
                             </Button>
                         </Grid>
                     )}
@@ -66,6 +103,13 @@ const MisTrabajosCard = ({ trabajo, onActualizarEstado, onEliminar }) => {
                     </Grid>
                 </Grid>
             </CardContent>
+            {/* Modal de Calificación */}
+            <CalificacionModal
+                open={openModal}
+                onClose={handleCloseModal}
+                onSubmit={handleEnviarCalificacion}
+                trabajoId={trabajo._id}
+            />
         </Card>
     );
 };

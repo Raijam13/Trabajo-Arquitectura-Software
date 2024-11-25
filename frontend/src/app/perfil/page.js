@@ -205,7 +205,7 @@ A tu puerta
             </div>
             <div className={Styles.solicitudes}>
                 <div className={Styles.titulo}>
-                Comentarios de otros clientes
+                Comentarios de otros usuarios
                 </div>
                 <div className={Styles.solicitudescontainer}>
                     <div className={Styles.solicitud}>

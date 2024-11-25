@@ -65,7 +65,7 @@ router.post('/signup', async (req, res) => {
       dni: req.body.dni,
       telefono: req.body.telefono,
       imagen_perfil: req.body.imagen_perfil,
-      id_compra: [],
+      id_servicio: [],
       id_comentario: []
     });
 
@@ -109,13 +109,30 @@ function authenticateToken(req, res, next) {
 // Obtener la información del usuario autenticado (GET /users/me)
 router.get('/me', authenticateToken, async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).populate('id_compra').populate('id_comentario');
-    if (!user) return res.status(404).send('Usuario no encontrado');
+    // Validar que el ID del usuario esté presente en el token decodificado
+    if (!req.user || !req.user.id) {
+      return res.status(401).json({ error: 'Token inválido o no autorizado.' });
+    }
+
+    // Buscar al usuario en la base de datos
+    const user = await User.findById(req.user.id)
+      .populate('id_servicio')
+      .populate('id_comentario');
+
+    // Verificar si el usuario existe
+    if (!user) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+
+    // Devolver los datos del usuario
     res.json(user);
   } catch (err) {
-    res.status(400).send('Error al obtener la información del usuario: ' + err.message);
+    // Manejar errores de forma más descriptiva
+    console.error('Error al obtener la información del usuario:', err);
+    res.status(500).json({ error: 'Error interno del servidor. Por favor, intente nuevamente.' });
   }
 });
+
 
 
 
