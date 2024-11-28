@@ -3,6 +3,8 @@
 import React, { useState, useEffect } from 'react';
 import Styles from './page.module.css';
 import Header from './components/Header';
+import ChatSupport from "./components/ChatSupport";
+
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import { FaWrench, FaUtensils, FaBroom, FaShower, FaTree, FaLock, FaEllipsisH, FaShoppingCart } from 'react-icons/fa';
@@ -157,7 +159,9 @@ function App() {
             </div>
           </div>
         </div>
+        <ChatSupport />
       </div>
+      
       <footer className={`${Styles.render} ${Styles['lower-banner']}`}>
           <div className={Styles.links}>
             <a href="">Trabaja con nosotros</a>
