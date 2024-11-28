@@ -49,6 +49,10 @@ app.use('/videos', videoRoutes);
 const resumenRoutes = require('./routes/resumen');
 app.use('/resumen', resumenRoutes);
 
+const paymentRoutes = require('./routes/payments');
+app.use('/api/payments', paymentRoutes);
+
+
 //===============================
 function runPythonScript() {
   const pythonProcess = spawn('C:/Users/USER/AppData/Local/Microsoft/WindowsApps/python.exe', ['routes/script_resumen.py']); // Cambia 'script.py' por la ruta correcta
