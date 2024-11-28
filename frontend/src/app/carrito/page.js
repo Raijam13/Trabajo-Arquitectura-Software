@@ -1,16 +1,22 @@
 "use client";
 
 import Styles from './page.module.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import Button from 'react-bootstrap/Button';
 import ListGroup from 'react-bootstrap/ListGroup';
 import React, { useState, useEffect } from 'react';
 import { eliminarPropuesta, getServiciosEnCarrito, pagarCarrito } from '../../api/carrito'; 
 
+import { Elements } from '@stripe/react-stripe-js';
+import stripePromise from '../../api/stripe';
+import PaymentForm from '../../components/PaymentForm';
+
 const Cart = () => {
   const [propuestas, setPropuestas] = useState([]);
   const [nombreUsuario, setNombreUsuario] = useState('');
   const [subtotal, setSubtotal] = useState(0);
+  const [mostrarPago, setMostrarPago] = useState(false); // Controla si se muestra el formulario de pago
 
   const calcularSubtotal = (items) => {
     const total = items.reduce((acc, item) => acc + item.costo_promedio, 0);
@@ -41,32 +47,15 @@ const Cart = () => {
   
     if (success) {
       setPropuestas(propuestas.filter((propuesta) => propuesta._id !== id));
+      calcularSubtotal(propuestas.filter((propuesta) => propuesta._id !== id));
     } else {
       console.error('No se pudo eliminar la propuesta');
     }
   };
 
   const handleConfirmarPedido = async () => {
-    try {
-        const serviceId = propuestas.length > 0 ? propuestas[0]._id : null; // Ejemplo de cómo obtener un serviceId
-        if (!serviceId) {
-            alert('No hay servicios en el carrito.');
-            return;
-        }
-
-        const success = await pagarCarrito(serviceId);
-        if (success) {
-            alert('¡Pago confirmado! El trabajo ahora está en proceso.');
-            setPropuestas([]);
-            window.location.href = '/frontpage';
-        } else {
-            alert('Error al confirmar el pago.');
-        }
-    } catch (error) {
-        console.error('Error al confirmar el pago:', error);
-        alert('Ocurrió un error al confirmar el pago.');
-    }
-};
+    setMostrarPago(true); // Muestra el formulario de Stripe al confirmar el pedido
+  };
 
   return (
     <div className={Styles.container}>
@@ -110,16 +99,20 @@ const Cart = () => {
         )}
       </div>
 
-      {propuestas.length > 0 && (
-        <div className={Styles.detallesDeCompra}>
-          <h3>Detalles del Pedido</h3>
-          <p>Subtotal: ${subtotal.toFixed(2)}</p>
-          <h4>Total: ${subtotal.toFixed(2)}</h4>
+      <div className={Styles.detallesDeCompra}>
+        <h3>Detalles del Pedido</h3>
+        <p>Subtotal: ${subtotal.toFixed(2)}</p>
+        <h4>Total: ${subtotal.toFixed(2)}</h4>
+        {!mostrarPago ? (
           <Button className={Styles.btnConfirm} size="lg" onClick={handleConfirmarPedido}>
             Confirmar Pago
           </Button>
-        </div>
-      )}
+        ) : (
+          <Elements stripe={stripePromise}>
+            <PaymentForm subtotal={subtotal} /> {/* Pasamos el subtotal al componente */}
+          </Elements>
+        )}
+      </div>
     </div>
   );
 };

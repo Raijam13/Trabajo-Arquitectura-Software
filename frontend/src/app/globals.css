@@ -6,3 +6,15 @@ body {
   margin: 0;
 }
 
+.cardElement {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.cardElement:focus {
+  border-color: #5a67d8;
+  outline: none;
+}
