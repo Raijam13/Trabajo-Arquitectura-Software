@@ -1,28 +1,3 @@
-const obtenerTrabajosUsuario = async (usuarioId) => {
-    try {
-        const response = await fetch(`http://localhost:3009/services/usuario/${usuarioId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            },
-            cache: 'no-store',
-        });
-
-        if (response.ok) {
-            const trabajos = await response.json();
-            return trabajos;
-        } else {
-            const errorMessage = await response.text();
-            console.error('Error al obtener trabajos del usuario:', errorMessage);
-            return [];
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        return [];
-    }
-};
-
 const obtenerTrabajosvendedor = async (vendedorId) => {
     try {
         const response = await fetch(`http://localhost:3009/services/vendedor/${vendedorId}`, {
@@ -45,31 +20,6 @@ const obtenerTrabajosvendedor = async (vendedorId) => {
     } catch (error) {
         console.error('Error:', error);
         return [];
-    }
-};
-
-const actualizarEstadoTrabajo = async (id, nuevoEstado) => {
-    try {
-        const response = await fetch(`http://localhost:3009/services/${id}/actualizar-estado`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ estado: nuevoEstado }), // Cambiamos solo el estado
-        });
-
-        if (response.ok) {
-            const trabajoActualizado = await response.json();
-            console.log('Estado del trabajo actualizado con éxito:', trabajoActualizado);
-            return trabajoActualizado; // Retornamos el trabajo actualizado
-        } else {
-            const errorMessage = await response.text();
-            console.error('Error al actualizar estado del trabajo:', errorMessage);
-            throw new Error(errorMessage);
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        throw error;
     }
 };
 
@@ -97,21 +47,81 @@ const eliminarTrabajo = async (trabajoId) => {
     }
 };
 
-const getServiciosEnProceso = async (userId) => {
+const getServiciosPorEstado = async (estado) => {
     try {
-        const response = await fetch(`http://localhost:3009/services/en-proceso/${userId}`);
+        const response = await fetch(`http://localhost:3009/services/estado/${estado}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            cache: 'no-store',
+        });
+
         if (response.ok) {
             const servicios = await response.json();
             return servicios;
         } else {
-            console.error('Error al obtener servicios en proceso:', await response.text());
+            const errorMessage = await response.text();
+            console.error(`Error al obtener servicios en estado ${estado}:`, errorMessage);
             return [];
         }
-    } catch (err) {
-        console.error('Error:', err);
+    } catch (error) {
+        console.error('Error:', error);
         return [];
     }
 };
 
+const finalizarTrabajo = async (serviceId) => {
+    try {
+        const response = await fetch(`http://localhost:3009/services/trabajo/finalizar/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify({ estado: 'FINALIZADO' })
+        });
 
-export { obtenerTrabajosUsuario, obtenerTrabajosvendedor, actualizarEstadoTrabajo, eliminarTrabajo, getServiciosEnProceso};
+        if (response.ok) {
+            const trabajoActualizado = await response.json();
+            console.log('Estado del trabajo actualizado a FINALIZADO:', trabajoActualizado);
+            return true;
+        } else {
+            const errorMessage = await response.text();
+            console.error('Error al finalizar el trabajo:', errorMessage);
+            throw false;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+};
+
+const calificarTrabajo = async (serviceId, calificacion, comentario) => {
+    try {
+        const response = await fetch(`http://localhost:3009/services/trabajo/calificar/${serviceId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify({ estado: 'CALIFICADO', calificacion, comentario })
+        });
+
+        if (response.ok) {
+            const trabajoActualizado = await response.json();
+            console.log('Estado del trabajo actualizado a CALIFICADO:', trabajoActualizado);
+            return trabajoActualizado;
+        } else {
+            const errorMessage = await response.text();
+            console.error('Error al calificar el trabajo:', errorMessage);
+            throw false;
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+};
+
+
+export { obtenerTrabajosvendedor, finalizarTrabajo, eliminarTrabajo, getServiciosPorEstado, calificarTrabajo};

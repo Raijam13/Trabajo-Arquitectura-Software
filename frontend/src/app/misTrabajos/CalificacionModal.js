@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Modal, Button, Box, Rating } from '@mui/material';
+import { Modal, Button, Box, Rating, TextField } from '@mui/material';
 
 const CalificacionModal = ({ open, onClose, onSubmit, trabajoId }) => {
     const [calificacion, setCalificacion] = useState(0);
+    const [comentario, setComentario] = useState('');
 
     const handleCalificar = () => {
-        onSubmit(trabajoId, calificacion);
+        onSubmit(trabajoId, calificacion, comentario);
         onClose();
     };
 
@@ -19,6 +20,14 @@ const CalificacionModal = ({ open, onClose, onSubmit, trabajoId }) => {
                     onChange={(_, newValue) => setCalificacion(newValue)}
                     size="large"
                 />
+                <TextField
+                    label="Comentario"
+                    multiline
+                    rows={4}
+                    value={comentario}
+                    onChange={(e) => setComentario(e.target.value)}
+                    sx={{ marginTop: 2, width: '100%' }}
+                />
                 <Button variant="contained" color="primary" onClick={handleCalificar} sx={{ marginTop: 2 }}>
                     Enviar Calificación
                 </Button>
@@ -27,7 +36,6 @@ const CalificacionModal = ({ open, onClose, onSubmit, trabajoId }) => {
     );
 };
 
-// Estilos para el modal (puedes personalizarlos)
 const modalStyles = {
     position: 'absolute',
     top: '50%',
